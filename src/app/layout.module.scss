@@ -1,0 +1,32 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  font-family: 'Roboto, sans-serif';
+  
+  .sidebar {
+    width: 200px;
+    background-color: #3b3f45;
+    color: #ffffff;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    .sidebarIcon {
+      margin: 20px 0;
+      cursor: pointer;
+      font-size: 1em;
+      transition: color 0.3s;
+    }
+    
+    .sidebarIcon:hover {
+      color: #1abc9c;
+    }
+  }
+  
+  .mainContent {
+    flex-grow: 1;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+}

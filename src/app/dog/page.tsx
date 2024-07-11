@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import DogImage from '@public/dog.jpg';
 import NoImage from '@public/noimage.png';
-import styles from './page.module.css';
+import styles from './page.module.scss';
 
 const TAB_MODES = {
   PROFILE: 0,
@@ -14,15 +14,15 @@ const TAB_MODES = {
 
 const tabs = [
   { mode: TAB_MODES.PROFILE, label: '🐾 Dog Profile' },
-  { mode: TAB_MODES.CERTIFICATION, label: '🦴 Certificate' },
-  { mode: TAB_MODES.OWNER, label: '👤 Owner' },
+  { mode: TAB_MODES.CERTIFICATION, label: '💉 Certificate' },
+  { mode: TAB_MODES.OWNER, label: '🧑 Owner' },
 ];
 
 const PetDetails = () => {
   const [tabMode, setTabMode] = useState<number>(TAB_MODES.PROFILE);
   return (
-    <div className={styles.card}>
-      <div className={styles.cardHeader}>
+    <div className={styles.container}>
+      <div className={styles.header}>
         <h2 className={styles.cardTitle}>Dog Details</h2>
         <div className={styles.profileInfo}>
           <Image className={styles.avatar} src={NoImage} alt="NoImage" />
@@ -41,7 +41,7 @@ const PetDetails = () => {
         ))}
       </div>
       <div className={styles.petInfo}>
-        <Image src={DogImage} alt="Dog" width={140} height={140} />
+        <Image src={DogImage} alt="Dog" width={200} height={200} />
         <Image className={styles.petAvatar} src={NoImage} alt="NoImage" />
         <div>
           <div className={styles.infoItem}>
