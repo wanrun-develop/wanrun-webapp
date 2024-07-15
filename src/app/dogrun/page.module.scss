@@ -1,5 +1,6 @@
 .container {
   height: 100%;
+  width: 100%;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -17,7 +18,17 @@
   }
 
   .content {
-    margin: 10px 60px 60px;
+    width: auto;
+    padding: 10px 80px 60px;
     flex: 1;
+    display: flex;
+
+    .dogrun_map {
+      flex: 1;
+    }
+
+    .dogrun_detail {
+      width: 300px;
+    }
   }
 }
