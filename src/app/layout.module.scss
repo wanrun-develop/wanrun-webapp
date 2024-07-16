@@ -1,6 +1,8 @@
 .layout {
   display: flex;
+  width: 100%;
   height: 100vh;
+  max-width: 100%;
   font-family: 'Roboto, sans-serif';
   
   .sidebar {
@@ -12,19 +14,21 @@
     flex-direction: column;
     align-items: center;
   
-    .sidebarIcon {
+    .menuItem {
       margin: 20px 0;
-      cursor: pointer;
+      color: white;
+      text-decoration: none;
       font-size: 1em;
       transition: color 0.3s;
     }
     
-    .sidebarIcon:hover {
+    .menuItem:hover {
       color: #1abc9c;
     }
   }
   
   .mainContent {
+    width: 100%;
     flex-grow: 1;
     flex-direction: column;
     overflow-y: auto;

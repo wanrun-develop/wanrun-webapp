@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import styles from './layout.module.scss';
+import Providers from '@/utils/providers';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'DogRunner',
@@ -15,15 +17,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className={styles.layout}>
-          <div className={styles.sidebar}>
-            <div className={styles.sidebarIcon}>🏠 Home</div>
-            <div className={styles.sidebarIcon}>📅 Calendar</div>
-            <div className={styles.sidebarIcon}>👥 Users</div>
-            <div className={styles.sidebarIcon}>⚙️ Settings</div>
+        <Providers>
+          <div className={styles.layout}>
+            <nav className={styles.sidebar}>
+              <Link href="/" className={styles.menuItem}>
+                🏠 Home
+              </Link>
+              <Link href="/dog" className={styles.menuItem}>
+                🐕 Dog
+              </Link>
+              <Link href="/dogrun" className={styles.menuItem}>
+                🏕️ Dogrun
+              </Link>
+              <Link href="" className={styles.menuItem}>
+                ⚙️ Settings
+              </Link>
+            </nav>
+            <div className={styles.mainContent}>{children}</div>
           </div>
-          <div className={styles.mainContent}>{children}</div>
-        </div>
+        </Providers>
       </body>
     </html>
   );
