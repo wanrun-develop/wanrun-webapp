@@ -24,10 +24,10 @@ export default function RootLayout({
                 🏠 Home
               </Link>
               <Link href="/dog" className={styles.menuItem}>
-                🐾 Dog
+                🐕 Dog
               </Link>
               <Link href="/dogrun" className={styles.menuItem}>
-                🐕 Dogrun
+                🏕️ Dogrun
               </Link>
               <Link href="" className={styles.menuItem}>
                 ⚙️ Settings
