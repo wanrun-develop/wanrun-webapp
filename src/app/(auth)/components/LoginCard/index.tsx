@@ -3,15 +3,14 @@
 import Button from '@/components/common/Button';
 import RhfTextField from '@/components/rhf/RhfTextField';
 import { useForm } from 'react-hook-form';
-import styles from './SignupCard.module.scss';
+import styles from './LoginCard.module.scss';
 
 const defaultValues = {
   email: '',
   password: '',
-  name: '',
 };
 
-const SignupCard = () => {
+const LoginCard = () => {
   const { control, handleSubmit } = useForm({
     mode: 'onChange',
     defaultValues,
@@ -31,15 +30,11 @@ const SignupCard = () => {
         <label>Password</label>
         <RhfTextField name="password" control={control} />
       </div>
-      <div className={styles.field}>
-        <label>Name</label>
-        <RhfTextField name="name" control={control} />
-      </div>
       <div>
-        <Button label="Signup" onClick={() => {}} />
+        <Button label="Login" onClick={() => {}} />
       </div>
     </form>
   );
 };
 
-export default SignupCard;
+export default LoginCard;
