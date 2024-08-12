@@ -1,5 +1,6 @@
 import { post } from '@/libs/fetch';
-import { Dog, DogSchema } from '@/types/Dog';
+import { DogSchema } from '@/schemas/DogSchema';
+import { Dog } from '@/types/Dog';
 import { useState } from 'react';
 
 const useCreateDog = () => {
