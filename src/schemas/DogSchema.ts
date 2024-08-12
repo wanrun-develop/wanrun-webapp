@@ -6,6 +6,6 @@ export const DogSchema = z.object({
   dogTypeId: z.number(),
   dogOwnerId: z.number(),
   weight: z.number(),
-  sex: z.number(),
+  sex: z.string(),
   image: z.string().nullable(),
 });

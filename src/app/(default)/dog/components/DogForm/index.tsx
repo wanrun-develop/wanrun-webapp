@@ -7,6 +7,7 @@ import styles from './DogForm.module.scss';
 import { Dog } from '@/types/Dog';
 import { DogSchema } from '@/schemas/DogSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import RhfSelect from '@/components/rhf/RhfSelect';
 
 type Props = {
   moveToDetail: () => void;
@@ -19,12 +20,23 @@ const defaultValues = {
   name: '',
   weight: 500,
   image: '',
-  sex: 0,
+  sex: 'M',
 };
+
+const dogTypes = [
+  { label: 'dog1', value: 0 },
+  { label: 'dog2', value: 1 },
+  { label: 'dog3', value: 2 },
+];
+
+const sex = [
+  { label: 'male', value: 'M' },
+  { label: 'female', value: 'F' },
+];
 
 const DogForm = (props: Props) => {
   const { moveToDetail } = props;
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit } = useForm<Dog>({
     mode: 'onChange',
     defaultValues,
     resolver: zodResolver(DogSchema),
@@ -49,7 +61,7 @@ const DogForm = (props: Props) => {
           </div>
           <div>
             <label className={styles.label}>Dog Type</label>
-            <RhfNumberInput name="dogTypeId" control={control} />
+            <RhfSelect name="dogTypeId" control={control} options={dogTypes} />
           </div>
           <div>
             <label className={styles.label}>Weight</label>
@@ -57,7 +69,7 @@ const DogForm = (props: Props) => {
           </div>
           <div>
             <label className={styles.label}>Sex</label>
-            <RhfTextField name="sex" control={control} />
+            <RhfSelect name="sex" control={control} options={sex} />
           </div>
           <div>
             <Button label="Submit" onClick={() => {}} />
