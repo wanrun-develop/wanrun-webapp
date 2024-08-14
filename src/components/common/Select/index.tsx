@@ -1,6 +1,4 @@
-import React, { ChangeEvent, ChangeEventHandler } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
-import { number } from 'zod';
+import React, { ChangeEventHandler } from 'react';
 
 export type SelectProps<T> = {
   error?: string;
@@ -14,16 +12,11 @@ type Props<T> = SelectProps<T> & {
 };
 
 const Select = <T extends string | number>(props: Props<T>) => {
-  const { value, options, error, inputRef, onChange } = props;
-
-  const handle = (event: ChangeEvent<HTMLSelectElement>) => {
-    console.log(event);
-    onChange(event);
-  };
+  const { options, error, inputRef, onChange } = props;
 
   return (
     <div>
-      <select onChange={handle} ref={inputRef}>
+      <select onChange={onChange} ref={inputRef}>
         {options.map((option, i) => (
           <option key={i} value={option.value}>
             {option.label}

@@ -1,4 +1,5 @@
 import Select, { SelectProps } from '@/components/common/Select';
+import { ChangeEvent } from 'react';
 import {
   DeepMap,
   FieldError,
@@ -15,13 +16,25 @@ const RhfSelect = <T extends FieldValues, U extends string | number>(
 ) => {
   const { name, control, options } = props;
   const {
-    field: { ref, ...rest },
+    field: { ref, onChange, ...rest },
     formState: { errors },
   } = useController<T>({ name, control });
+
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    // キャスト型の特定用
+    const firstValue = options[0].value;
+    if (typeof firstValue == 'number') {
+      onChange(Number(value));
+    } else {
+      onChange(value);
+    }
+  };
 
   return (
     <Select
       inputRef={ref}
+      onChange={handleChange}
       options={options}
       {...rest}
       error={
