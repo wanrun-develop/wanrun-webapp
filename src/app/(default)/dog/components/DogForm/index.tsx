@@ -19,7 +19,7 @@ const defaultValues = {
   dogTypeId: 0,
   name: '',
   weight: 500,
-  image: '',
+  image: null,
   sex: 'M',
 };
 
@@ -72,7 +72,7 @@ const DogForm = (props: Props) => {
             <RhfSelect name="sex" control={control} options={sex} />
           </div>
           <div>
-            <Button label="Submit" onClick={() => {}} />
+            <Button label="Submit" type="submit" onClick={() => {}} />
           </div>
         </div>
       </form>

@@ -12,13 +12,18 @@ type Props<T extends FieldValues> = ImageInputProps & UseControllerProps<T>;
 const RhfImageInput = <T extends FieldValues>(props: Props<T>) => {
   const { name, control } = props;
   const {
-    field: { ref, ...rest },
+    field: { ref, onChange, ...rest },
     formState: { errors },
   } = useController<T>({ name, control });
+
+  const handleChange = (inputFile: File | null) => {
+    onChange(inputFile);
+  };
 
   return (
     <ImageInput
       inputRef={ref}
+      onChange={handleChange}
       {...rest}
       error={
         errors[name] &&

@@ -7,5 +7,5 @@ export const DogSchema = z.object({
   dogOwnerId: z.number(),
   weight: z.number(),
   sex: z.string(),
-  image: z.string().nullable(),
+  image: z.custom<File>().nullable(),
 });
