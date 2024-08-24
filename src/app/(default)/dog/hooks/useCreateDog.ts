@@ -1,18 +1,18 @@
 import { post } from '@/libs/fetch';
-import { DogSchema } from '@/schemas/DogSchema';
-import { Dog } from '@/types/Dog';
+import { DogFormSchema } from '@/schemas/DogSchema';
+import { DogFormType } from '@/types/Dog';
 import { useState } from 'react';
 
 const useCreateDog = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const createDog = async (params: Dog) => {
+  const createDog = async (params: DogFormType) => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const request = DogSchema.parse(params);
+      const request = DogFormSchema.parse(params);
       const res = await post('/dog/create', request);
       return res;
     } catch (error: any) {
