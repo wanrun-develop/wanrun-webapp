@@ -6,6 +6,7 @@ import {
   useController,
   UseControllerProps,
 } from 'react-hook-form';
+import get from 'lodash/get';
 
 type Props<T extends FieldValues> = TextFieldProps & UseControllerProps<T>;
 
@@ -16,15 +17,16 @@ const RhfTextField = <T extends FieldValues>(props: Props<T>) => {
     formState: { errors },
   } = useController<T>({ name, control });
 
+  const errorMessage = get(errors, name) as
+    | DeepMap<FieldValues, FieldError>
+    | undefined;
+
   return (
     <TextField
       inputRef={ref}
       placeholder={placeholder}
       {...rest}
-      error={
-        errors[name] &&
-        `${(errors[name] as DeepMap<FieldValues, FieldError>).message}`
-      }
+      error={errorMessage && errorMessage.message}
     />
   );
 };
