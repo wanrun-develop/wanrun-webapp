@@ -8,6 +8,7 @@ import { AuthDogOwnerFormType } from '@/types/AuthDogOwnerSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { authDogOwnerFormSchema } from '@/schemas/AuthDogOwnerSchema';
 import { useSignup } from '../../signup/hooks/useSignup';
+import { useRouter } from 'next/navigation';
 
 const defaultValues = {
   password: '',
@@ -25,12 +26,12 @@ const SignupCard = () => {
     resolver: zodResolver(authDogOwnerFormSchema),
   });
   const { signup } = useSignup();
+  const router = useRouter();
 
   const onSubmit = async (data: AuthDogOwnerFormType) => {
-    console.log(data);
-
     try {
       signup(data);
+      router.push('/dog');
     } catch (e) {
       console.error(e);
       return;
