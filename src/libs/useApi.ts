@@ -11,11 +11,12 @@ const useApi = () => {
   );
 
   const createBaseOptions = (method: Method, params?: any) => {
+    const accessToken = getAccessToken();
     return {
       method,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: getAccessToken(),
+        ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
       },
       body: params ? JSON.stringify(params) : null,
     };
