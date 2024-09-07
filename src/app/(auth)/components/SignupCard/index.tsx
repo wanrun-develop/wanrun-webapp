@@ -46,7 +46,7 @@ const SignupCard = () => {
       </div>
       <div className={styles.field}>
         <label>Password</label>
-        <RhfTextField name="password" control={control} />
+        <RhfTextField name="password" type="password" control={control} />
       </div>
       <div className={styles.field}>
         <label>Name</label>
