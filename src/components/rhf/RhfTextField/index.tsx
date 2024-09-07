@@ -11,7 +11,7 @@ import get from 'lodash/get';
 type Props<T extends FieldValues> = TextFieldProps & UseControllerProps<T>;
 
 const RhfTextField = <T extends FieldValues>(props: Props<T>) => {
-  const { name, control, placeholder } = props;
+  const { name, control, placeholder, type } = props;
   const {
     field: { ref, ...rest },
     formState: { errors },
@@ -25,6 +25,7 @@ const RhfTextField = <T extends FieldValues>(props: Props<T>) => {
     <TextField
       inputRef={ref}
       placeholder={placeholder}
+      type={type}
       {...rest}
       error={errorMessage && errorMessage.message}
     />

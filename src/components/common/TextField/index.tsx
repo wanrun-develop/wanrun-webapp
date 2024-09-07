@@ -2,6 +2,7 @@ import React, { ChangeEventHandler, FocusEventHandler } from 'react';
 
 export type TextFieldProps = {
   placeholder?: string;
+  type?: string;
   error?: string;
 };
 
@@ -13,12 +14,21 @@ type Props = TextFieldProps & {
 };
 
 const TextField = (props: Props) => {
-  const { placeholder, error, inputRef, value, onChange, onBlur } = props;
+  const {
+    placeholder,
+    type = 'text',
+    error,
+    inputRef,
+    value,
+    onChange,
+    onBlur,
+  } = props;
 
   return (
     <div>
       <input
         placeholder={placeholder}
+        type={type}
         ref={inputRef}
         value={value}
         onChange={onChange}
