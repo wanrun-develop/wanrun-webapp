@@ -4,6 +4,11 @@ import Button from '@/components/common/Button';
 import RhfTextField from '@/components/rhf/RhfTextField';
 import { useForm } from 'react-hook-form';
 import styles from './LoginCard.module.scss';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useLogin } from '../../login/hooks/useLogin';
+import { useRouter } from 'next/navigation';
+import { LoginDogOwnerFormType } from '@/types/AuthDogOwnerSchema';
+import { loginDogOwnerFormSchema } from '@/schemas/AuthDogOwnerSchema';
 
 const defaultValues = {
   email: '',
@@ -11,13 +16,24 @@ const defaultValues = {
 };
 
 const LoginCard = () => {
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit } = useForm<LoginDogOwnerFormType>({
     mode: 'onChange',
     defaultValues,
+    resolver: zodResolver(loginDogOwnerFormSchema),
   });
 
-  const onSubmit = (data: any) => {
+  const { login } = useLogin();
+  const router = useRouter();
+
+  const onSubmit = async (data: LoginDogOwnerFormType) => {
     console.log(data);
+    try {
+      await login(data);
+      router.push('/dog');
+    } catch (e) {
+      console.error(e);
+      return;
+    }
   };
 
   return (
@@ -31,7 +47,7 @@ const LoginCard = () => {
         <RhfTextField name="password" control={control} />
       </div>
       <div>
-        <Button label="Login" onClick={() => {}} />
+        <Button label="Login" type="submit" onClick={() => {}} />
       </div>
     </form>
   );
