@@ -27,7 +27,7 @@ const useApi = () => {
     init?: RequestInit,
   ): Promise<JSON> => {
     const res = await fetch(input, init);
-    return res.json();
+    return await res.json();
   };
 
   const api = async <T>(method: Method, url: string, params?: any) => {
