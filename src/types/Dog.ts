@@ -1,5 +1,10 @@
-import { DogFormSchema, DogSchema } from '@/schemas/DogSchema';
+import {
+  dogApiRequestSchema,
+  dogFormSchema,
+  dogSchema,
+} from '@/schemas/DogSchema';
 import { z } from 'zod';
 
-export type Dog = z.infer<typeof DogSchema>;
-export type DogFormType = z.infer<typeof DogFormSchema>;
+export type Dog = z.infer<typeof dogSchema>;
+export type DogFormType = z.infer<typeof dogFormSchema>;
+export type DogApiRequestType = z.infer<typeof dogApiRequestSchema>;
