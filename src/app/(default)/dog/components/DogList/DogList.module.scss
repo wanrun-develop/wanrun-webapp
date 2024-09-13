@@ -1,0 +1,14 @@
+.container {
+  .table {
+    border-collapse: collapse;
+
+    th,
+    td {
+      width: 200px;
+      padding: 4px;
+      border-top: solid 1px #ababab;
+      border-bottom: solid 1px #ababab;
+      text-align: center;
+    }
+  }
+}
