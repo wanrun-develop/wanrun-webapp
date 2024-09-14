@@ -5,7 +5,7 @@ import RhfImageInput from '@/components/rhf/RhfImageInput';
 import RhfNumberInput from '@/components/rhf/RhfNumberInput';
 import styles from './DogForm.module.scss';
 import { DogFormType } from '@/types/Dog';
-import { DogFormSchema } from '@/schemas/DogSchema';
+import { dogFormSchema } from '@/schemas/DogSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import RhfSelect from '@/components/rhf/RhfSelect';
 import { useCreateDog } from '../../hooks/useCreateDog';
@@ -15,12 +15,11 @@ type Props = {
 };
 
 const defaultValues = {
-  dogId: 0,
-  dogOwnerId: 0,
+  dogId: undefined,
   dogTypeId: 0,
   name: '',
   weight: 500,
-  image: null,
+  image: undefined,
   sex: 'M',
 };
 
@@ -40,7 +39,7 @@ const DogForm = (props: Props) => {
   const { control, handleSubmit } = useForm<DogFormType>({
     mode: 'onChange',
     defaultValues,
-    resolver: zodResolver(DogFormSchema),
+    resolver: zodResolver(dogFormSchema),
   });
   const { createDog, isLoading, error } = useCreateDog();
 
