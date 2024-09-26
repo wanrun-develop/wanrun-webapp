@@ -7,17 +7,20 @@ import NoImage from '@public/noimage.png';
 import styles from './page.module.scss';
 import DogForm from './components/DogForm';
 import Button from '@/components/common/Button';
+import DogList from './components/DogList';
 
 const TAB_MODES = {
   PROFILE: 0,
   CERTIFICATION: 1,
   OWNER: 2,
+  LIST: 3,
 };
 
 const tabs = [
   { mode: TAB_MODES.PROFILE, label: '🐾 Dog Profile' },
   { mode: TAB_MODES.CERTIFICATION, label: '💉 Certificate' },
   { mode: TAB_MODES.OWNER, label: '🧑 Owner' },
+  { mode: TAB_MODES.LIST, label: 'Dog List' },
 ];
 
 const PetDetails = () => {
@@ -44,48 +47,54 @@ const PetDetails = () => {
           </button>
         ))}
       </div>
-      {isEdit ? (
-        <DogForm moveToDetail={() => setIsEdit(false)} />
-      ) : (
-        <div className={styles.petInfo}>
-          <Image src={DogImage} alt="Dog" width={200} height={200} />
-          <div>
-            <Button label="Edit" onClick={() => setIsEdit(true)} />
-          </div>
-          <div>
-            <div className={styles.infoItem}>
-              <span className={styles.label}>Name</span>
-              <span>Buddy</span>
+      {tabMode === TAB_MODES.PROFILE ? (
+        <>
+          {isEdit ? (
+            <DogForm moveToDetail={() => setIsEdit(false)} />
+          ) : (
+            <div className={styles.petInfo}>
+              <Image src={DogImage} alt="Dog" width={200} height={200} />
+              <div>
+                <Button label="Edit" onClick={() => setIsEdit(true)} />
+              </div>
+              <div>
+                <div className={styles.infoItem}>
+                  <span className={styles.label}>Name</span>
+                  <span>Buddy</span>
+                </div>
+                <div className={styles.infoItem}>
+                  <span className={styles.label}>Breed</span>
+                  <span>Golden Retriever</span>
+                </div>
+              </div>
+              <div className={styles.infoItem}>
+                <span className={styles.label}>Age</span>
+                <span>3 years</span>
+              </div>
+              <div className={styles.infoItem}>
+                <span className={styles.label}>Color</span>
+                <span>Golden</span>
+              </div>
+              <div className={styles.infoItem}>
+                <span className={styles.label}>Weight</span>
+                <span>30 lbs</span>
+              </div>
+              <div>
+                <div className={styles.infoItem}>
+                  <span className={styles.label}>Size</span>
+                  <span>Medium</span>
+                </div>
+                <div className={styles.infoItem}>
+                  <span className={styles.label}>Behavior</span>
+                  <span>Friendly</span>
+                </div>
+              </div>
             </div>
-            <div className={styles.infoItem}>
-              <span className={styles.label}>Breed</span>
-              <span>Golden Retriever</span>
-            </div>
-          </div>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Age</span>
-            <span>3 years</span>
-          </div>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Color</span>
-            <span>Golden</span>
-          </div>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Weight</span>
-            <span>30 lbs</span>
-          </div>
-          <div>
-            <div className={styles.infoItem}>
-              <span className={styles.label}>Size</span>
-              <span>Medium</span>
-            </div>
-            <div className={styles.infoItem}>
-              <span className={styles.label}>Behavior</span>
-              <span>Friendly</span>
-            </div>
-          </div>
-        </div>
-      )}
+          )}
+        </>
+      ) : tabMode === TAB_MODES.LIST ? (
+        <DogList />
+      ) : null}
     </div>
   );
 };
