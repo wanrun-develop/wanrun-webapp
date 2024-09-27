@@ -47,26 +47,4 @@
       color: #1abc9c;
     }
   }
-
-  .petInfo {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-
-    .petAvatar {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-    }
-
-    .infoItem {
-      margin-bottom: 20px;
-      .label {
-        font-weight: bold;
-        display: block;
-        margin-bottom: 10px;
-        color: #2c3e50;
-      }
-    }
-  }
 }

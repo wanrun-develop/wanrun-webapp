@@ -2,12 +2,10 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import DogImage from '@public/dog.jpg';
 import NoImage from '@public/noimage.png';
 import styles from './page.module.scss';
-import DogForm from './components/DogForm';
-import Button from '@/components/common/Button';
 import DogList from './components/DogList';
+import DogViewEditToggle from './components/DogViewEditToggle';
 
 const TAB_MODES = {
   PROFILE: 0,
@@ -25,7 +23,6 @@ const tabs = [
 
 const PetDetails = () => {
   const [tabMode, setTabMode] = useState<number>(TAB_MODES.PROFILE);
-  const [isEdit, setIsEdit] = useState<boolean>(false);
 
   return (
     <div className={styles.container}>
@@ -48,50 +45,7 @@ const PetDetails = () => {
         ))}
       </div>
       {tabMode === TAB_MODES.PROFILE ? (
-        <>
-          {isEdit ? (
-            <DogForm moveToDetail={() => setIsEdit(false)} />
-          ) : (
-            <div className={styles.petInfo}>
-              <Image src={DogImage} alt="Dog" width={200} height={200} />
-              <div>
-                <Button label="Edit" onClick={() => setIsEdit(true)} />
-              </div>
-              <div>
-                <div className={styles.infoItem}>
-                  <span className={styles.label}>Name</span>
-                  <span>Buddy</span>
-                </div>
-                <div className={styles.infoItem}>
-                  <span className={styles.label}>Breed</span>
-                  <span>Golden Retriever</span>
-                </div>
-              </div>
-              <div className={styles.infoItem}>
-                <span className={styles.label}>Age</span>
-                <span>3 years</span>
-              </div>
-              <div className={styles.infoItem}>
-                <span className={styles.label}>Color</span>
-                <span>Golden</span>
-              </div>
-              <div className={styles.infoItem}>
-                <span className={styles.label}>Weight</span>
-                <span>30 lbs</span>
-              </div>
-              <div>
-                <div className={styles.infoItem}>
-                  <span className={styles.label}>Size</span>
-                  <span>Medium</span>
-                </div>
-                <div className={styles.infoItem}>
-                  <span className={styles.label}>Behavior</span>
-                  <span>Friendly</span>
-                </div>
-              </div>
-            </div>
-          )}
-        </>
+        <DogViewEditToggle />
       ) : tabMode === TAB_MODES.LIST ? (
         <DogList />
       ) : null}
