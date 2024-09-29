@@ -3,7 +3,12 @@
 import useSearchDog from '../../hooks/useSearchDog';
 import styles from './DogList.module.scss';
 
-const DogList = () => {
+type Props = {
+  selectDog: (dogId: number) => void;
+};
+
+const DogList = (props: Props) => {
+  const { selectDog } = props;
   const { dogs } = useSearchDog();
 
   return (
@@ -16,7 +21,7 @@ const DogList = () => {
           <th>sex</th>
         </tr>
         {dogs.map((dog, i) => (
-          <tr key={i}>
+          <tr key={i} onClick={() => selectDog(dog.id)}>
             <td>{dog.id}</td>
             <td>{dog.name}</td>
             <td>{dog.weight}kg</td>

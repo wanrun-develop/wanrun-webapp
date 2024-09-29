@@ -23,6 +23,11 @@ const tabs = [
 
 const PetDetails = () => {
   const [tabMode, setTabMode] = useState<number>(TAB_MODES.PROFILE);
+  const [currentDogId, setCurrentDogId] = useState<number>(0);
+
+  const selectDog = (dogId: number) => {
+    setCurrentDogId(dogId);
+  };
 
   return (
     <div className={styles.container}>
@@ -45,9 +50,9 @@ const PetDetails = () => {
         ))}
       </div>
       {tabMode === TAB_MODES.PROFILE ? (
-        <DogViewEditToggle />
+        <DogViewEditToggle dogId={currentDogId} />
       ) : tabMode === TAB_MODES.LIST ? (
-        <DogList />
+        <DogList selectDog={selectDog} />
       ) : null}
     </div>
   );

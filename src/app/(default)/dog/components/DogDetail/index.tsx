@@ -4,11 +4,12 @@ import styles from './DogDetail.module.scss';
 import DogImage from '@public/dog.jpg';
 
 type Props = {
+  dogId: number;
   moveToForm: () => void;
 };
 
 const DogDetail = (props: Props) => {
-  const { moveToForm } = props;
+  const { dogId, moveToForm } = props;
 
   return (
     <div className={styles.container}>

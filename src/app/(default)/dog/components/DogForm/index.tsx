@@ -11,6 +11,7 @@ import RhfSelect from '@/components/rhf/RhfSelect';
 import { useCreateDog } from '../../hooks/useCreateDog';
 
 type Props = {
+  dogId: number;
   moveToDetail: () => void;
 };
 
@@ -35,7 +36,7 @@ const sex = [
 ];
 
 const DogForm = (props: Props) => {
-  const { moveToDetail } = props;
+  const { dogId, moveToDetail } = props;
   const { control, handleSubmit } = useForm<DogFormType>({
     mode: 'onChange',
     defaultValues,
