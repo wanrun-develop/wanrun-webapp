@@ -9,7 +9,7 @@ type Props = {
 
 const DogList = (props: Props) => {
   const { selectDog } = props;
-  const { dogs } = useSearchDog();
+  const { dogs } = useSearchDog({ params: {} });
 
   return (
     <div className={styles.container}>
