@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Image from 'next/image';
 import NoImage from '@public/noimage.png';
 import styles from './page.module.scss';
@@ -29,6 +29,12 @@ const PetDetails = () => {
     setCurrentDogId(dogId);
   };
 
+  const showDetail = () => {
+    if (currentDogId) setTabMode(TAB_MODES.PROFILE);
+  };
+
+  const showList = () => setTabMode(TAB_MODES.LIST);
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -50,9 +56,9 @@ const PetDetails = () => {
         ))}
       </div>
       {tabMode === TAB_MODES.PROFILE ? (
-        <DogViewEditToggle dogId={currentDogId} />
+        <DogViewEditToggle dogId={currentDogId} showList={showList} />
       ) : tabMode === TAB_MODES.LIST ? (
-        <DogList selectDog={selectDog} />
+        <DogList selectDog={selectDog} showDetail={showDetail} />
       ) : null}
     </div>
   );

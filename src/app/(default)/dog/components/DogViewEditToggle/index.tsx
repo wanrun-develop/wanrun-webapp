@@ -5,12 +5,15 @@ import useSearchDog from '../../hooks/useSearchDog';
 
 type Props = {
   dogId: number;
+  showList: () => void;
 };
 
 const DogViewEditToggle = (props: Props) => {
-  const { dogId } = props;
+  const { dogId, showList } = props;
   const [isEdit, setIsEdit] = useState(false);
   const { dogs, loading, error } = useSearchDog({ params: { dogId } });
+
+  if (!dogId) showList();
 
   if (loading) {
     return <p>Loading...</p>;
