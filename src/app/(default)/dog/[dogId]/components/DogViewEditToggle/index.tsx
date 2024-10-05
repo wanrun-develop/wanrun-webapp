@@ -1,19 +1,16 @@
 import { useState } from 'react';
 import DogForm from '../DogForm';
 import DogDetail from '../DogDetail';
-import useSearchDog from '../../hooks/useSearchDog';
+import useSearchDog from '../../../hooks/useSearchDog';
 
 type Props = {
   dogId: number;
-  showList: () => void;
 };
 
 const DogViewEditToggle = (props: Props) => {
-  const { dogId, showList } = props;
+  const { dogId } = props;
   const [isEdit, setIsEdit] = useState(false);
   const { dogs, loading, error } = useSearchDog({ params: { dogId } });
-
-  if (!dogId) showList();
 
   if (loading) {
     return <p>Loading...</p>;
