@@ -1,6 +1,6 @@
 import styles from './page.module.scss';
 import CustomMap from './components/CustomMap';
-import DogrunDetail from './components/DogrunDetail';
+import DogrunList from './components/DogrunList';
 
 const Dogrun = () => {
   return (
@@ -12,8 +12,8 @@ const Dogrun = () => {
         <div className={styles.dogrun_map}>
           <CustomMap />
         </div>
-        <div className={styles.dogrun_detail}>
-          <DogrunDetail name="東京駅" description="人気のドッグラン" />
+        <div className={styles.dogrun_list}>
+          <DogrunList />
         </div>
       </div>
     </div>

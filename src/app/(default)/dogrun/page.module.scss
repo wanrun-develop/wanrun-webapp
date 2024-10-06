@@ -19,16 +19,18 @@
 
   .content {
     width: auto;
-    padding: 10px 80px 60px;
-    flex: 1;
+    padding: 10px 60px 10px;
+    min-height: 0;
+    flex-grow: 1;
     display: flex;
 
     .dogrun_map {
-      flex: 1;
+      width: 300px;
     }
 
-    .dogrun_detail {
-      width: 300px;
+    .dogrun_list {
+      padding-left: 15px;
+      flex: 1;
     }
   }
 }
