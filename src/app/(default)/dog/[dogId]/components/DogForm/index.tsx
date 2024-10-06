@@ -4,23 +4,15 @@ import RhfTextField from '@components/rhf/RhfTextField';
 import RhfImageInput from '@/components/rhf/RhfImageInput';
 import RhfNumberInput from '@/components/rhf/RhfNumberInput';
 import styles from './DogForm.module.scss';
-import { DogFormType } from '@/types/Dog';
+import { Dog, DogFormType } from '@/types/Dog';
 import { dogFormSchema } from '@/schemas/DogSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import RhfSelect from '@/components/rhf/RhfSelect';
-import { useCreateDog } from '../../hooks/useCreateDog';
+import { useCreateDog } from '../../../hooks/useCreateDog';
 
 type Props = {
+  dog: Dog;
   moveToDetail: () => void;
-};
-
-const defaultValues = {
-  dogId: undefined,
-  dogTypeId: 0,
-  name: '',
-  weight: 500,
-  image: undefined,
-  sex: 'M',
 };
 
 const dogTypes = [
@@ -35,10 +27,17 @@ const sex = [
 ];
 
 const DogForm = (props: Props) => {
-  const { moveToDetail } = props;
+  const { dog, moveToDetail } = props;
   const { control, handleSubmit } = useForm<DogFormType>({
     mode: 'onChange',
-    defaultValues,
+    defaultValues: {
+      dogId: dog.id,
+      dogTypeId: dog.dogTypeId,
+      name: dog.name,
+      weight: dog.weight,
+      image: dog.image,
+      sex: dog.sex,
+    },
     resolver: zodResolver(dogFormSchema),
   });
   const { createDog, isLoading, error } = useCreateDog();

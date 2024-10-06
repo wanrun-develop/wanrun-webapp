@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import useStorage, { STORAGE_KEYS } from './useStorage';
 
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -30,18 +31,21 @@ const useApi = () => {
     return await res.json();
   };
 
-  const api = async <T>(method: Method, url: string, params?: any) => {
-    try {
-      const res = await doFetch<T>(
-        `${baseUrl}${url}`,
-        createBaseOptions(method, params),
-      );
-      return res;
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  };
+  const api = useCallback(
+    async <T>(method: Method, url: string, params?: any) => {
+      try {
+        const res = await doFetch<T>(
+          `${baseUrl}${url}`,
+          createBaseOptions(method, params),
+        );
+        return res;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    [],
+  );
 
   return { api };
 };

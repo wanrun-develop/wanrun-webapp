@@ -1,49 +1,52 @@
-import { Dog } from '@/types/Dog';
-import { useState } from 'react';
+import useApi from '@/libs/useApi';
+import { Dog, DogSearchApiType } from '@/types/Dog';
+import { useEffect, useState } from 'react';
 
-const mockDogs: Dog[] = [
-  {
-    id: 1,
-    name: 'test1',
-    sex: 'M',
-    weight: 4,
-    dogOwnerId: 1,
-    dogTypeId: 1,
-  },
-  {
-    id: 2,
-    name: 'test2',
-    sex: 'F',
-    weight: 2,
-    dogOwnerId: 1,
-    dogTypeId: 1,
-  },
-  {
-    id: 3,
-    name: 'test3',
-    sex: 'M',
-    weight: 3,
-    dogOwnerId: 1,
-    dogTypeId: 1,
-  },
-  {
-    id: 4,
-    name: 'test4',
-    sex: 'F',
-    weight: 4,
-    dogOwnerId: 1,
-    dogTypeId: 1,
-  },
-];
+type SearchParams = {
+  dogId?: number;
+  name?: string;
+};
 
-const useSearchDog = () => {
+type Props = {
+  params: SearchParams;
+};
+
+const useSearchDog = (props: Props) => {
+  const { params } = props;
+  const { api } = useApi();
   const [dogs, setDogs] = useState<Dog[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | undefined>(undefined);
 
-  useState(() => {
-    setDogs(mockDogs);
-  });
+  const fixDog = (dogs: DogSearchApiType[]): Dog[] =>
+    dogs.map((dog) => ({ ...dog, id: dog.dogId! }));
 
-  return { dogs };
+  useEffect(() => {
+    const search = async () => {
+      setLoading(true);
+      setError(undefined);
+
+      try {
+        if (params.dogId) {
+          const dog = await api<DogSearchApiType>(
+            'GET',
+            `/dog/${params.dogId}`,
+          );
+          setDogs(fixDog([dog]));
+        } else {
+          const dogs = await api<DogSearchApiType[]>('GET', '/dog/all');
+          setDogs(fixDog(dogs));
+        }
+      } catch (error: any) {
+        console.error(error);
+        setError(error.message);
+      }
+      setLoading(false);
+    };
+    search();
+  }, [params.dogId, api]);
+
+  return { dogs, loading, error };
 };
 
 export default useSearchDog;

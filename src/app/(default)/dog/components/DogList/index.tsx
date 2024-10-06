@@ -1,10 +1,16 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import useSearchDog from '../../hooks/useSearchDog';
 import styles from './DogList.module.scss';
 
 const DogList = () => {
-  const { dogs } = useSearchDog();
+  const router = useRouter();
+  const { dogs } = useSearchDog({ params: {} });
+
+  const redirectDetailPage = (dogId: number) => {
+    router.push(`/dog/${dogId}`);
+  };
 
   return (
     <div className={styles.container}>
@@ -16,7 +22,7 @@ const DogList = () => {
           <th>sex</th>
         </tr>
         {dogs.map((dog, i) => (
-          <tr key={i}>
+          <tr key={i} onClick={() => redirectDetailPage(dog.id)}>
             <td>{dog.id}</td>
             <td>{dog.name}</td>
             <td>{dog.weight}kg</td>

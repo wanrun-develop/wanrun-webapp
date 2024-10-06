@@ -1,3 +1,4 @@
+
 .container {
   background-color: #ffffff;
   padding: 40px;
@@ -23,6 +24,28 @@
         border-radius: 50%;
         margin-right: 20px;
       }
+    }
+  }
+
+  .tabs {
+    display: flex;
+    margin-bottom: 30px;
+    .tab {
+      background: none;
+      border: none;
+      padding: 15px 25px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      color: #7f8c8d;
+      font-size: 1.1em;
+      transition:
+        color 0.3s,
+        border-bottom 0.3s;
+    }
+
+    .tabActive {
+      border-bottom-color: #1abc9c;
+      color: #1abc9c;
     }
   }
 }
