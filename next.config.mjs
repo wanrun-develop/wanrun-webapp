@@ -1,4 +1,13 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'placedog.net', // 暫定で設定しておく
+      },
+    ],
+  },
+};
 
 export default nextConfig;
