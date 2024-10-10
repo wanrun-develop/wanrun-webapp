@@ -1,18 +1,23 @@
 import { useMemo } from 'react';
 import DogrunItem from '../DogrunItem';
 import styles from './DogrunList.module.scss';
+import { Dogrun } from '@/types/Dogrun';
 
-type Props = {};
+type Props = {
+  dogruns: Dogrun[];
+};
 
 const DogrunList = (props: Props) => {
+  const { dogruns } = props;
+
   const dogrunItems = useMemo(
     () =>
-      [...Array(16)].map((i) => (
+      [...dogruns, ...Array(12).fill(null)].map((dogrun, i) => (
         <div className={styles.item} key={`dogrun-item${i}`}>
-          <DogrunItem />
+          <DogrunItem dogrun={dogrun} />
         </div>
       )),
-    [],
+    [dogruns],
   );
 
   return <div className={styles.container}>{dogrunItems}</div>;
