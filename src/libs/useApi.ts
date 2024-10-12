@@ -3,7 +3,7 @@ import useStorage, { STORAGE_KEYS } from './useStorage';
 
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL as string;
+const apiUrl = process.env.NEXT_PUBLIC_API_URL as string;
 
 const useApi = () => {
   const { getValue: getAccessToken } = useStorage(
@@ -35,7 +35,7 @@ const useApi = () => {
     async <T>(method: Method, url: string, params?: any) => {
       try {
         const res = await doFetch<T>(
-          `${baseUrl}${url}`,
+          `${apiUrl}${url}`,
           createBaseOptions(method, params),
         );
         return res;
