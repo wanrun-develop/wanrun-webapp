@@ -1,31 +1,69 @@
-import { InfoWindow, Marker } from '@vis.gl/react-google-maps';
-import { useCallback, useState } from 'react';
+import { Dogrun } from '@/types/Dogrun';
+import {
+  AdvancedMarker,
+  InfoWindow,
+  Pin,
+  useAdvancedMarkerRef,
+} from '@vis.gl/react-google-maps';
+import Image from 'next/image';
+import { useCallback, useMemo } from 'react';
+import styles from './CustomMarker.module.scss';
 
 type Props = {
-  lng: number;
-  lat: number;
-  title: string;
-  description?: string;
+  dogrun: Dogrun;
+  currentDogrunId: number | undefined;
+  selectDogrunId: (dogrunId: number | undefined) => void;
 };
 
 const CustomMarker = (props: Props) => {
-  const { lng, lat, title, description } = props;
+  const { dogrun, currentDogrunId, selectDogrunId } = props;
+  const [markerRef, marker] = useAdvancedMarkerRef();
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const selected = useMemo(
+    () => dogrun.id === currentDogrunId,
+    [dogrun, currentDogrunId],
+  );
 
-  const openWindow = useCallback(() => setIsOpen(true), []);
-  const closeWindow = useCallback(() => setIsOpen(false), []);
+  const clickMarker = useCallback(
+    () => selectDogrunId(dogrun.id),
+    [dogrun, selectDogrunId],
+  );
+
+  const closeWindow = useCallback(
+    () => selectDogrunId(undefined),
+    [selectDogrunId],
+  );
+
+  const lng = dogrun.location.longitude;
+  const lat = dogrun.location.latitude;
 
   return (
     <>
-      <Marker position={{ lng, lat }} onClick={openWindow} />
-      {isOpen && (
-        <InfoWindow
-          position={{ lng, lat: lat + 0.001 }}
-          onCloseClick={closeWindow}
-        >
-          <h3>{title}</h3>
-          <p>{description}</p>
+      <AdvancedMarker
+        ref={markerRef}
+        position={{ lng, lat }}
+        onClick={clickMarker}
+      >
+        <Pin
+          background={selected ? '#ff6666' : '#66cc66'}
+          borderColor={selected ? '#cc0000' : '#339933'}
+          glyphColor={selected ? '#990000' : '#006600'}
+        />
+      </AdvancedMarker>
+      {selected && (
+        <InfoWindow onClose={closeWindow} anchor={marker}>
+          <div className={styles.image}>
+            <Image
+              src={dogrun.image}
+              alt={dogrun.name}
+              fill
+              style={{ objectFit: 'cover' }}
+            />
+          </div>
+          <div className={styles.description}>
+            <h3>{dogrun.name}</h3>
+            <p>description</p>
+          </div>
         </InfoWindow>
       )}
     </>
