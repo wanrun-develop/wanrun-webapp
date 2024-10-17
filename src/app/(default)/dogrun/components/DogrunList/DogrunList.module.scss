@@ -9,6 +9,10 @@
 
   overflow-y: scroll;
 
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .item {
     min-width: 0;
   }

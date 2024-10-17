@@ -4,7 +4,7 @@
   height: 100vh;
   max-width: 100%;
   font-family: 'Roboto, sans-serif';
-  
+
   .sidebar {
     width: 200px;
     background-color: #3b3f45;
@@ -13,7 +13,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  
+
     .menuItem {
       margin: 20px 0;
       color: white;
@@ -21,16 +21,22 @@
       font-size: 1em;
       transition: color 0.3s;
     }
-    
+
     .menuItem:hover {
       color: #1abc9c;
     }
   }
-  
-  .mainContent {
+
+  .main {
     width: 100%;
-    flex-grow: 1;
+    display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    background-color: #ffffff;
+
+    .mainContent {
+      flex-grow: 1;
+      flex-direction: column;
+      overflow-y: auto;
+    }
   }
 }
