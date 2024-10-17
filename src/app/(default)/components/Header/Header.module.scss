@@ -1,0 +1,14 @@
+.header {
+  height: 20px;
+  padding: 20px 40px;
+  border-bottom: 1px solid #d8d8d8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+}
