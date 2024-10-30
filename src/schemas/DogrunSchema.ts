@@ -45,7 +45,8 @@ export const businessHourSchema = z.object({
 });
 
 export const dogrunSchema = z.object({
-  id: z.number(),
+  dogrunId: z.string(),
+  placeId: z.string(),
   name: z.string(),
   image: z.string(), // 暫定
   location: locationSchema,

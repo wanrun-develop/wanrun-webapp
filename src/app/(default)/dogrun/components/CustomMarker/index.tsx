@@ -11,8 +11,8 @@ import styles from './CustomMarker.module.scss';
 
 type Props = {
   dogrun: Dogrun;
-  currentDogrunId: number | undefined;
-  selectDogrunId: (dogrunId: number | undefined) => void;
+  currentDogrunId: string | undefined;
+  selectDogrunId: (dogrunId: string | undefined) => void;
 };
 
 const CustomMarker = (props: Props) => {
@@ -20,12 +20,12 @@ const CustomMarker = (props: Props) => {
   const [markerRef, marker] = useAdvancedMarkerRef();
 
   const selected = useMemo(
-    () => dogrun.id === currentDogrunId,
+    () => (dogrun.dogrunId || dogrun.placeId) === currentDogrunId,
     [dogrun, currentDogrunId],
   );
 
   const clickMarker = useCallback(
-    () => selectDogrunId(dogrun.id),
+    () => selectDogrunId(dogrun.dogrunId || dogrun.placeId),
     [dogrun, selectDogrunId],
   );
 
