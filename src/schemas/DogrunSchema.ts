@@ -44,11 +44,17 @@ export const businessHourSchema = z.object({
   special: specialBusinessHourSchema.array(),
 });
 
+export const photoSchema = z.object({
+  photoKey: z.string(),
+  widthPx: z.number(),
+  heightPx: z.number(),
+});
+
 export const dogrunSchema = z.object({
   dogrunId: z.string(),
   placeId: z.string(),
   name: z.string(),
-  image: z.string(), // 暫定
+  photos: z.array(photoSchema),
   location: locationSchema,
   businessStatus: z.string(),
   nowOpen: z.boolean(),

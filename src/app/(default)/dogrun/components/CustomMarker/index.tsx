@@ -8,6 +8,8 @@ import {
 import Image from 'next/image';
 import { useCallback, useMemo } from 'react';
 import styles from './CustomMarker.module.scss';
+import usePhoto from '../../hooks/usePhoto';
+import NoImage from '@public/noimage.png';
 
 type Props = {
   dogrun: Dogrun;
@@ -18,6 +20,9 @@ type Props = {
 const CustomMarker = (props: Props) => {
   const { dogrun, currentDogrunId, selectDogrunId } = props;
   const [markerRef, marker] = useAdvancedMarkerRef();
+
+  const photo = dogrun.photos?.[0];
+  const imageUrl = usePhoto(photo);
 
   const selected = useMemo(
     () => (dogrun.dogrunId || dogrun.placeId) === currentDogrunId,
@@ -54,7 +59,7 @@ const CustomMarker = (props: Props) => {
         <InfoWindow onClose={closeWindow} anchor={marker}>
           <div className={styles.image}>
             <Image
-              src={dogrun.image}
+              src={imageUrl || NoImage}
               alt={dogrun.name}
               fill
               style={{ objectFit: 'cover' }}
