@@ -8,24 +8,29 @@ import {
 import Image from 'next/image';
 import { useCallback, useMemo } from 'react';
 import styles from './CustomMarker.module.scss';
+import usePhoto from '../../hooks/usePhoto';
+import NoImage from '@public/noimage.png';
 
 type Props = {
   dogrun: Dogrun;
-  currentDogrunId: number | undefined;
-  selectDogrunId: (dogrunId: number | undefined) => void;
+  currentDogrunId: string | undefined;
+  selectDogrunId: (dogrunId: string | undefined) => void;
 };
 
 const CustomMarker = (props: Props) => {
   const { dogrun, currentDogrunId, selectDogrunId } = props;
   const [markerRef, marker] = useAdvancedMarkerRef();
 
+  const photo = dogrun.photos?.[0];
+  const imageUrl = usePhoto(photo);
+
   const selected = useMemo(
-    () => dogrun.id === currentDogrunId,
+    () => (dogrun.dogrunId || dogrun.placeId) === currentDogrunId,
     [dogrun, currentDogrunId],
   );
 
   const clickMarker = useCallback(
-    () => selectDogrunId(dogrun.id),
+    () => selectDogrunId(dogrun.dogrunId || dogrun.placeId),
     [dogrun, selectDogrunId],
   );
 
@@ -54,7 +59,7 @@ const CustomMarker = (props: Props) => {
         <InfoWindow onClose={closeWindow} anchor={marker}>
           <div className={styles.image}>
             <Image
-              src={dogrun.image}
+              src={imageUrl || NoImage}
               alt={dogrun.name}
               fill
               style={{ objectFit: 'cover' }}

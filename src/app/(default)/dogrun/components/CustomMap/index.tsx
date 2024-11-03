@@ -1,6 +1,6 @@
 'use client';
 
-import { Map } from '@vis.gl/react-google-maps';
+import { Map, MapEvent } from '@vis.gl/react-google-maps';
 import styles from './CustomMap.module.scss';
 import CustomMarker from '../CustomMarker';
 import { Dogrun } from '@/types/Dogrun';
@@ -15,15 +15,23 @@ const position = {
 
 type Props = {
   dogruns: Dogrun[];
+  onPositionChange: (bounds: google.maps.LatLngBounds) => void;
 };
 
 const CustomMap = (props: Props) => {
-  const { dogruns } = props;
-  const [currentDogrunId, setCurrentDogrunId] = useState<number | undefined>(
+  const { dogruns, onPositionChange } = props;
+  const [currentDogrunId, setCurrentDogrunId] = useState<string | undefined>(
     undefined,
   );
 
   const clickMap = useCallback(() => setCurrentDogrunId(undefined), []);
+
+  const onIdle = (event: MapEvent) => {
+    const bounds = event.map.getBounds();
+    if (!bounds) return;
+
+    onPositionChange(bounds);
+  };
 
   return (
     <div className={styles.container}>
@@ -32,6 +40,7 @@ const CustomMap = (props: Props) => {
         defaultZoom={5}
         mapId={GOOGLE_MAP_ID}
         onClick={clickMap}
+        onIdle={onIdle}
       >
         {dogruns.map((dogrun, i) => (
           <CustomMarker

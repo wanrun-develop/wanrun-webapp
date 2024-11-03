@@ -1,23 +1,24 @@
 import Image from 'next/image';
 import styles from './DogrunItem.module.scss';
 import { Dogrun } from '@/types/Dogrun';
+import usePhoto from '../../hooks/usePhoto';
+import NoImage from '@public/noimage.png';
 
 type Props = {
-  // dogrun: Dogrun;
-  dogrun?: Dogrun; // モックデータ用
+  dogrun: Dogrun;
 };
 
 const DogrunItem = (props: Props) => {
   const { dogrun } = props;
-  const mockImage = dogrun?.image
-    ? dogrun.image
-    : `https://placedog.net/${new Date().getMilliseconds() % 1000}/200`;
+
+  const photo = dogrun.photos?.[0];
+  const imageUrl = usePhoto(photo);
 
   return (
     <div className={styles.container}>
       <div className={styles.image}>
         <Image
-          src={mockImage}
+          src={imageUrl || NoImage}
           alt="no image"
           fill
           style={{
