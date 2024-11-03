@@ -5,10 +5,11 @@ import styles from './CustomMap.module.scss';
 import CustomMarker from '../CustomMarker';
 import { Dogrun } from '@/types/Dogrun';
 import { useCallback, useState } from 'react';
+import useGeolocation from '@/utils/hooks/useGeolocation';
 
 const GOOGLE_MAP_ID = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID as string;
 
-const position = {
+const defaultPosition = {
   lat: 35.6811673,
   lng: 139.7670516,
 };
@@ -24,6 +25,9 @@ const CustomMap = (props: Props) => {
     undefined,
   );
 
+  const { location: currentPosition, loaded } = useGeolocation();
+  const initialPosition = loaded ? currentPosition : defaultPosition;
+
   const clickMap = useCallback(() => setCurrentDogrunId(undefined), []);
 
   const onIdle = (event: MapEvent) => {
@@ -36,9 +40,11 @@ const CustomMap = (props: Props) => {
   return (
     <div className={styles.container}>
       <Map
-        defaultCenter={position}
-        defaultZoom={5}
+        defaultCenter={initialPosition}
+        center={currentPosition}
+        defaultZoom={14}
         mapId={GOOGLE_MAP_ID}
+        disableDefaultUI
         onClick={clickMap}
         onIdle={onIdle}
       >
