@@ -6,9 +6,6 @@ $translation-duration: 0.3s;
   background-color: #3b3f45;
   color: #ffffff;
   padding: 20px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
   &.split {
     height: 100%;
@@ -26,16 +23,23 @@ $translation-duration: 0.3s;
     display: none;
   }
 
-  .menuItem {
-    margin: 20px 0;
-    color: white;
-    text-decoration: none;
-    font-size: 1em;
-    transition: color 0.3s;
-  }
+  .menu {
+    margin: 0 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
 
-  .menuItem:hover {
-    color: #1abc9c;
+    .menuItem {
+      margin: 20px 0;
+      color: white;
+      text-decoration: none;
+      font-size: 1em;
+      transition: color 0.3s;
+    }
+
+    .menuItem:hover {
+      color: #1abc9c;
+    }
   }
 }
 

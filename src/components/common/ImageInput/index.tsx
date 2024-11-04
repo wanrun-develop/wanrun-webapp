@@ -44,7 +44,7 @@ const ImageInput = (props: Props) => {
       {previewUrl && (
         <Image src={previewUrl} alt="preview" width={200} height={200} />
       )}
-      <Button label="reset" onClick={handleReset} />
+      <Button label="削除" onClick={handleReset} />
       <input
         type="file"
         accept="image/*"

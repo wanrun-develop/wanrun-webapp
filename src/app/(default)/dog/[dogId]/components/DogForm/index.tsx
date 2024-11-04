@@ -58,27 +58,27 @@ const DogForm = (props: Props) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.grid}>
           <div className={styles.imageForm}>
-            <label className={styles.label}>Image</label>
+            <label className={styles.label}>プロフィール写真</label>
             <RhfImageInput name="image" control={control} />
           </div>
           <div>
-            <label className={styles.label}>Name</label>
+            <label className={styles.label}>名前</label>
             <RhfTextField name="name" control={control} />
           </div>
           <div>
-            <label className={styles.label}>Dog Type</label>
+            <label className={styles.label}>犬種</label>
             <RhfSelect name="dogTypeId" control={control} options={dogTypes} />
           </div>
           <div>
-            <label className={styles.label}>Weight</label>
+            <label className={styles.label}>体重</label>
             <RhfNumberInput name="weight" control={control} />
           </div>
           <div>
-            <label className={styles.label}>Sex</label>
+            <label className={styles.label}>性別</label>
             <RhfSelect name="sex" control={control} options={sex} />
           </div>
           <div>
-            <Button label="Submit" type="submit" onClick={() => {}} />
+            <Button label="保存" type="submit" onClick={() => {}} />
           </div>
         </div>
       </form>

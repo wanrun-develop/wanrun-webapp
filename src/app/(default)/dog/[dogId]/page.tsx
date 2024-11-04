@@ -11,8 +11,8 @@ const TAB_MODES = {
 };
 
 const tabs = [
-  { mode: TAB_MODES.PROFILE, label: '🐾 Dog Profile' },
-  { mode: TAB_MODES.CERTIFICATION, label: '💉 Certificate' },
+  { mode: TAB_MODES.PROFILE, label: '🐾 プロフィール' },
+  { mode: TAB_MODES.CERTIFICATION, label: '💉 証明書' },
 ];
 
 const DogDetail = ({ params }: { params: { dogId: string } }) => {
@@ -22,7 +22,7 @@ const DogDetail = ({ params }: { params: { dogId: string } }) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.cardTitle}>Dog Details</h2>
+        <h2 className={styles.cardTitle}>犬詳細</h2>
         <div className={styles.profileInfo}>
           <Image className={styles.avatar} src={NoImage} alt="NoImage" />
           <Image className={styles.avatar} src={NoImage} alt="NoImage" />

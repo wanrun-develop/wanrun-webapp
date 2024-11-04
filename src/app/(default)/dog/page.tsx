@@ -6,7 +6,7 @@ const DogListPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.cardTitle}>Dog</h2>
+        <h2 className={styles.cardTitle}>犬一覧</h2>
       </div>
       <DogList />
     </div>

@@ -32,8 +32,8 @@ const Dogrun = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Dogrun</h2>
-        <Button label="Search" onClick={searchDogruns} disabled={loading} />
+        <h2 className={styles.title}>ドッグラン</h2>
+        <Button label="検索" onClick={searchDogruns} disabled={loading} />
       </div>
       <div className={styles.content}>
         <div className={styles.dogrun_map}>
