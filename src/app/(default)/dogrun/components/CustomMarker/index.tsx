@@ -1,37 +1,45 @@
 import { Dogrun } from '@/types/Dogrun';
-import {
-  AdvancedMarker,
-  InfoWindow,
-  Pin,
-  useAdvancedMarkerRef,
-} from '@vis.gl/react-google-maps';
+import { AdvancedMarker, InfoWindow, Pin } from '@vis.gl/react-google-maps';
 import Image from 'next/image';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import styles from './CustomMarker.module.scss';
 import usePhoto from '../../hooks/usePhoto';
 import NoImage from '@public/noimage.png';
+import { Marker } from '@googlemaps/markerclusterer';
 
 type Props = {
   dogrun: Dogrun;
   currentDogrunId: string | undefined;
   selectDogrunId: (dogrunId: string | undefined) => void;
+  setMarkerRef: (marker: Marker | null, key: string) => void;
 };
 
 const CustomMarker = (props: Props) => {
-  const { dogrun, currentDogrunId, selectDogrunId } = props;
-  const [markerRef, marker] = useAdvancedMarkerRef();
+  const { dogrun, currentDogrunId, selectDogrunId, setMarkerRef } = props;
+  const [marker, setMarker] = useState<Marker | undefined>(undefined);
+
+  // dogrunIdを持たないデータもあるため暫定
+  const dogrunId = useMemo(() => dogrun.dogrunId || dogrun.placeId, [dogrun]);
+
+  const ref = useCallback(
+    (marker: google.maps.marker.AdvancedMarkerElement) => {
+      setMarkerRef(marker, dogrunId);
+      setMarker(marker);
+    },
+    [dogrunId, setMarkerRef],
+  );
 
   const photo = dogrun.photos?.[0];
   const imageUrl = usePhoto(photo);
 
   const selected = useMemo(
-    () => (dogrun.dogrunId || dogrun.placeId) === currentDogrunId,
-    [dogrun, currentDogrunId],
+    () => dogrunId === currentDogrunId,
+    [dogrunId, currentDogrunId],
   );
 
   const clickMarker = useCallback(
-    () => selectDogrunId(dogrun.dogrunId || dogrun.placeId),
-    [dogrun, selectDogrunId],
+    () => selectDogrunId(dogrunId),
+    [dogrunId, selectDogrunId],
   );
 
   const closeWindow = useCallback(
@@ -44,11 +52,7 @@ const CustomMarker = (props: Props) => {
 
   return (
     <>
-      <AdvancedMarker
-        ref={markerRef}
-        position={{ lng, lat }}
-        onClick={clickMarker}
-      >
+      <AdvancedMarker ref={ref} position={{ lng, lat }} onClick={clickMarker}>
         <Pin
           background={selected ? '#ff6666' : '#66cc66'}
           borderColor={selected ? '#cc0000' : '#339933'}
