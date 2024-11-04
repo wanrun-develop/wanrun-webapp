@@ -9,9 +9,11 @@ const options: PositionOptions = {
   enableHighAccuracy: true,
 };
 
-const useGeolocation = () => {
-  const [location, setLocation] = useState<Geolocation | undefined>(undefined);
-  const [loaded, setLoaded] = useState<boolean>(false);
+const useGeolocation = (defaultLocation?: Geolocation) => {
+  const [location, setLocation] = useState<Geolocation | undefined>(
+    defaultLocation,
+  );
+  const [loading, setLoading] = useState<boolean>(true);
 
   const onEvent: PositionCallback = (position) => {
     setLocation({
@@ -19,11 +21,12 @@ const useGeolocation = () => {
       lat: position.coords.latitude,
     });
     console.log(position.coords.longitude, position.coords.latitude);
-    setLoaded(true);
+    setLoading(false);
   };
 
   const onEventError: PositionErrorCallback = (error) => {
     console.error(error);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -39,7 +42,7 @@ const useGeolocation = () => {
     };
   }, []);
 
-  return { location, loaded };
+  return { location, loading };
 };
 
 export default useGeolocation;

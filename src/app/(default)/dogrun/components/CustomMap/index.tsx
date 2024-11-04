@@ -6,6 +6,7 @@ import { Dogrun } from '@/types/Dogrun';
 import { useCallback, useState } from 'react';
 import useGeolocation from '@/utils/hooks/useGeolocation';
 import MarkerCluster from '../MarkerCluster';
+import { Oval } from 'react-loader-spinner';
 
 const GOOGLE_MAP_ID = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID as string;
 
@@ -25,8 +26,8 @@ const CustomMap = (props: Props) => {
     undefined,
   );
 
-  const { location: currentPosition, loaded } = useGeolocation();
-  const initialPosition = loaded ? currentPosition : defaultPosition;
+  const { location: initialPosition, loading } =
+    useGeolocation(defaultPosition);
 
   const clickMap = useCallback(() => setCurrentDogrunId(undefined), []);
 
@@ -39,20 +40,31 @@ const CustomMap = (props: Props) => {
 
   return (
     <div className={styles.container}>
-      <Map
-        defaultCenter={initialPosition}
-        defaultZoom={14}
-        mapId={GOOGLE_MAP_ID}
-        disableDefaultUI
-        onClick={clickMap}
-        onIdle={onIdle}
-      >
-        <MarkerCluster
-          dogruns={dogruns}
-          currentDogrunId={currentDogrunId}
-          selectDogrunId={setCurrentDogrunId}
-        />
-      </Map>
+      {loading ? (
+        <div className={styles.loader}>
+          <Oval
+            width={80}
+            height={80}
+            color="#76db73"
+            secondaryColor="#a4e3a8"
+          />
+        </div>
+      ) : (
+        <Map
+          defaultCenter={initialPosition}
+          defaultZoom={14}
+          mapId={GOOGLE_MAP_ID}
+          disableDefaultUI
+          onClick={clickMap}
+          onIdle={onIdle}
+        >
+          <MarkerCluster
+            dogruns={dogruns}
+            currentDogrunId={currentDogrunId}
+            selectDogrunId={setCurrentDogrunId}
+          />
+        </Map>
+      )}
     </div>
   );
 };
