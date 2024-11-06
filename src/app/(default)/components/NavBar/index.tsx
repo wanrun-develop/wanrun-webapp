@@ -37,16 +37,16 @@ const NavBar = (props: Props) => {
       <div className={`${styles.sidebar} ${classNames}`}>
         <nav className={styles.menu}>
           <Link href="/" className={styles.menuItem}>
-            🏠ホーム
+            🏠 ホーム
           </Link>
           <Link href="/dog" className={styles.menuItem}>
-            🐕犬
+            🐕 飼犬
           </Link>
           <Link href="/dogrun" className={styles.menuItem}>
-            🏕️ドッグラン
+            🏕️ ドッグラン
           </Link>
           <Link href="" className={styles.menuItem}>
-            ⚙️設定
+            ⚙️ 設定
           </Link>
         </nav>
       </div>
