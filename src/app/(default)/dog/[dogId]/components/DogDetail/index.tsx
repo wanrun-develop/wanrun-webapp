@@ -16,20 +16,20 @@ const DogDetail = (props: Props) => {
     <div className={styles.container}>
       <Image src={DogImage} alt="Dog" width={200} height={200} />
       <div>
-        <Button label="Edit" onClick={moveToForm} />
+        <Button label="変更" onClick={moveToForm} />
       </div>
       <div>
         <div className={styles.infoItem}>
-          <span className={styles.label}>Name</span>
+          <span className={styles.label}>名前</span>
           <span>{dog.name}</span>
         </div>
       </div>
       <div className={styles.infoItem}>
-        <span className={styles.label}>Sex</span>
+        <span className={styles.label}>性別</span>
         <span>{dog.sex}</span>
       </div>
       <div className={styles.infoItem}>
-        <span className={styles.label}>Weight</span>
+        <span className={styles.label}>体重</span>
         <span>{dog.weight} kg</span>
       </div>
     </div>

@@ -16,10 +16,10 @@ const DogList = () => {
     <div className={styles.container}>
       <table className={styles.table}>
         <tr>
-          <th>id</th>
-          <th>name</th>
-          <th>weight</th>
-          <th>sex</th>
+          <th>ID</th>
+          <th>名前</th>
+          <th>体重</th>
+          <th>性別</th>
         </tr>
         {dogs.map((dog, i) => (
           <tr key={i} onClick={() => redirectDetailPage(dog.id)}>
