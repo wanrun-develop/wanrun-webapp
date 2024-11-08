@@ -31,7 +31,11 @@ const DogViewEditToggle = (props: Props) => {
   return (
     <div>
       {isEdit ? (
-        <DogForm dog={dog} moveToDetail={() => setIsEdit(false)} />
+        <DogForm
+          dog={{ ...dog, dogId: dog.id }}
+          afterSubmission={() => setIsEdit(false)}
+          onCancel={() => setIsEdit(false)}
+        />
       ) : (
         <DogDetail dog={dog} moveToForm={() => setIsEdit(true)} />
       )}

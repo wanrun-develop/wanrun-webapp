@@ -22,7 +22,7 @@ const DogDetail = ({ params }: { params: { dogId: string } }) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.cardTitle}>飼犬詳細</h2>
+        <h2 className={styles.cardTitle}>愛犬詳細</h2>
         <div className={styles.profileInfo}>
           <Image className={styles.avatar} src={NoImage} alt="NoImage" />
           <Image className={styles.avatar} src={NoImage} alt="NoImage" />
