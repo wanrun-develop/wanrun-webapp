@@ -28,6 +28,7 @@ const useLogin = () => {
       return res;
     } catch (error: any) {
       setError(error);
+      throw error;
     } finally {
       setIsLoading(false);
     }
