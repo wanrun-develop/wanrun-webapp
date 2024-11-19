@@ -40,7 +40,7 @@ const NavBar = (props: Props) => {
             🏠 ホーム
           </Link>
           <Link href="/dog" className={styles.menuItem}>
-            🐕 飼犬
+            🐕 愛犬
           </Link>
           <Link href="/dogrun" className={styles.menuItem}>
             🏕️ ドッグラン

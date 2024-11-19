@@ -4,15 +4,16 @@ import RhfTextField from '@components/rhf/RhfTextField';
 import RhfImageInput from '@/components/rhf/RhfImageInput';
 import RhfNumberInput from '@/components/rhf/RhfNumberInput';
 import styles from './DogForm.module.scss';
-import { Dog, DogFormType } from '@/types/Dog';
+import { DogFormType } from '@/types/Dog';
 import { dogFormSchema } from '@/schemas/DogSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import RhfSelect from '@/components/rhf/RhfSelect';
 import { useCreateDog } from '../../../hooks/useCreateDog';
 
 type Props = {
-  dog: Dog;
-  moveToDetail: () => void;
+  dog: DogFormType;
+  afterSubmission: (dogId: number) => void;
+  onCancel?: () => void;
 };
 
 const dogTypes = [
@@ -27,17 +28,10 @@ const sex = [
 ];
 
 const DogForm = (props: Props) => {
-  const { dog, moveToDetail } = props;
+  const { dog, afterSubmission, onCancel } = props;
   const { control, handleSubmit } = useForm<DogFormType>({
     mode: 'onChange',
-    defaultValues: {
-      dogId: dog.id,
-      dogTypeId: dog.dogTypeId,
-      name: dog.name,
-      weight: dog.weight,
-      image: dog.image,
-      sex: dog.sex,
-    },
+    defaultValues: dog,
     resolver: zodResolver(dogFormSchema),
   });
   const { createDog, isLoading, error } = useCreateDog();
@@ -50,7 +44,7 @@ const DogForm = (props: Props) => {
       console.log(e);
       return;
     }
-    moveToDetail();
+    afterSubmission(0);
   };
 
   return (
@@ -79,6 +73,7 @@ const DogForm = (props: Props) => {
           </div>
           <div>
             <Button label="保存" type="submit" onClick={() => {}} />
+            {onCancel && <Button label="キャンセル" onClick={onCancel} />}
           </div>
         </div>
       </form>
