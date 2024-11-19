@@ -9,18 +9,13 @@ import { dogFormSchema } from '@/schemas/DogSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import RhfSelect from '@/components/rhf/RhfSelect';
 import { useCreateDog } from '../../../hooks/useCreateDog';
+import useSearchDogType from '../../../hooks/useSearchDogType';
 
 type Props = {
   dog: DogFormType;
   afterSubmission: (dogId: number) => void;
   onCancel?: () => void;
 };
-
-const dogTypes = [
-  { label: 'dog1', value: 0 },
-  { label: 'dog2', value: 1 },
-  { label: 'dog3', value: 2 },
-];
 
 const sex = [
   { label: 'male', value: 'M' },
@@ -35,6 +30,7 @@ const DogForm = (props: Props) => {
     resolver: zodResolver(dogFormSchema),
   });
   const { createDog, isLoading, error } = useCreateDog();
+  const { dogTypeOptions } = useSearchDogType();
 
   const onSubmit = (data: DogFormType) => {
     console.log(data);
@@ -61,7 +57,11 @@ const DogForm = (props: Props) => {
           </div>
           <div>
             <label className={styles.label}>犬種</label>
-            <RhfSelect name="dogTypeId" control={control} options={dogTypes} />
+            <RhfSelect
+              name="dogTypeId"
+              control={control}
+              options={dogTypeOptions}
+            />
           </div>
           <div>
             <label className={styles.label}>体重</label>
