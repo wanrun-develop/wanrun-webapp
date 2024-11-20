@@ -23,8 +23,11 @@ const useCreateDog = () => {
         dogOwnerId,
       });
 
-      const res = await api('POST', '/dog/create', request);
-      return res;
+      if (request.dogId) {
+        return await api('PUT', '/dog', request);
+      } else {
+        return await api('POST', '/dog', request);
+      }
     } catch (error: any) {
       setError(error.message);
       throw error;

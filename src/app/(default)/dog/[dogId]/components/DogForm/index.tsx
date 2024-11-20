@@ -32,10 +32,10 @@ const DogForm = (props: Props) => {
   const { createDog, isLoading, error } = useCreateDog();
   const { dogTypeOptions } = useSearchDogType();
 
-  const onSubmit = (data: DogFormType) => {
+  const onSubmit = async (data: DogFormType) => {
     console.log(data);
     try {
-      createDog(data);
+      await createDog(data);
     } catch (e) {
       console.log(e);
       return;

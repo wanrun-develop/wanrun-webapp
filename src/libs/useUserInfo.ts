@@ -2,8 +2,13 @@ import { useEffect, useState } from 'react';
 import useStorage, { STORAGE_KEYS } from './useStorage';
 import { jwtDecode } from 'jwt-decode';
 
-type UserInfo = {
+type TokenClaims = {
   id: string;
+  exp: number;
+};
+
+type UserInfo = {
+  id: number;
   exp: number;
 };
 
@@ -22,8 +27,8 @@ const useUserInfo = () => {
     }
 
     try {
-      const decoded = jwtDecode<UserInfo>(accessToken);
-      setUserInfo(decoded);
+      const decoded = jwtDecode<TokenClaims>(accessToken);
+      setUserInfo({ ...decoded, id: parseInt(decoded.id) });
     } catch (e) {
       setUserInfo(null);
     }
