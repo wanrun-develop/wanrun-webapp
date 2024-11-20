@@ -28,6 +28,11 @@ const useApi = () => {
     init?: RequestInit,
   ): Promise<JSON> => {
     const res = await fetch(input, init);
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData?.message);
+    }
+
     return await res.json();
   };
 

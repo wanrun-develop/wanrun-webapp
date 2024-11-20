@@ -5,9 +5,7 @@ import { SignupDogOwnerFormType } from '@/types/AuthDogOwnerSchema';
 import { useState } from 'react';
 
 type SignUpResponse = {
-  code: number;
-  message: string;
-  token: string;
+  accessToken: string;
 };
 
 const useSignup = () => {
@@ -25,8 +23,9 @@ const useSignup = () => {
       const request = signupDogOwnerFormSchema.parse(data);
       const res: SignUpResponse = await api('POST', '/auth/signUp', request);
 
-      const { token } = res;
-      storeValue(token);
+      const { accessToken } = res;
+      console.log('signup token: ', accessToken);
+      storeValue(accessToken);
       return res;
     } catch (error: any) {
       setError(error);
