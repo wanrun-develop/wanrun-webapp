@@ -20,5 +20,5 @@ export const dogFormSchema = z.object({
 });
 
 export const dogApiRequestSchema = dogFormSchema.extend({
-  dogOwnerId: z.string(),
+  dogOwnerId: z.number(),
 });
