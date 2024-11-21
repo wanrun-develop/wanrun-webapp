@@ -28,6 +28,7 @@ const useUserInfo = () => {
 
     try {
       const decoded = jwtDecode<TokenClaims>(accessToken);
+      console.log('decoded', decoded)
       setUserInfo({ ...decoded, id: parseInt(decoded.id) });
     } catch (e) {
       setUserInfo(null);
