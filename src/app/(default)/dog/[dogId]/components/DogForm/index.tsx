@@ -58,7 +58,7 @@ const DogForm = (props: Props) => {
           <div>
             <label className={styles.label}>犬種</label>
             <RhfSelect
-              name="dogTypeId"
+              name="firstDogTypeId"
               control={control}
               options={dogTypeOptions}
             />

@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 
 const dogTemplate: DogFormType = {
   dogId: undefined,
-  dogTypeId: 0,
+  firstDogTypeId: 0,
   weight: 0,
   sex: 'M',
   name: '',

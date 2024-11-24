@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler } from 'react';
+import React, { ChangeEventHandler, useMemo } from 'react';
 
 export type SelectProps<T> = {
   error?: string;
@@ -12,11 +12,13 @@ type Props<T> = SelectProps<T> & {
 };
 
 const Select = <T extends string | number>(props: Props<T>) => {
-  const { options, error, inputRef, onChange } = props;
+  const { options, error, inputRef, value, onChange } = props;
+
+  const selectValue = useMemo(() => String(value), [value]);
 
   return (
     <div>
-      <select onChange={onChange} ref={inputRef}>
+      <select onChange={onChange} value={selectValue} ref={inputRef}>
         {options.map((option, i) => (
           <option key={i} value={option.value}>
             {option.label}

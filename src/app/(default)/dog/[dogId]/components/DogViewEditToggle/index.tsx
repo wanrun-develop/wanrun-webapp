@@ -2,6 +2,7 @@ import { useState } from 'react';
 import DogForm from '../DogForm';
 import DogDetail from '../DogDetail';
 import useSearchDog from '../../../hooks/useSearchDog';
+import { DogFormType } from '@/types/Dog';
 
 type Props = {
   dogId: number;
@@ -28,11 +29,13 @@ const DogViewEditToggle = (props: Props) => {
 
   console.log(dogId, dog);
 
+  const dogForm: DogFormType = { ...dog, firstDogTypeId: dog.dogTypeId[0] };
+
   return (
     <div>
       {isEdit ? (
         <DogForm
-          dog={dog}
+          dog={dogForm}
           afterSubmission={() => setIsEdit(false)}
           onCancel={() => setIsEdit(false)}
         />

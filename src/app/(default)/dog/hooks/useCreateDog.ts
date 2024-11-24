@@ -18,10 +18,22 @@ const useCreateDog = () => {
       const data = dogFormSchema.parse(params);
       const dogOwnerId = userInfo?.id;
 
-      const request = dogSchema.parse({
+      // const dogTypeId = [];
+      // if (data.firstDogTypeId) dogTypeId.push(data.firstDogTypeId);
+      // if (data.secondDogTypeId) dogTypeId.push(data.secondDogTypeId);
+      const dogTypeId = data.firstDogTypeId;
+
+      // const request = dogSchema.parse({
+      //   ...data,
+      //   dogOwnerId,
+      //   dogTypeId,
+      // });
+      // req/resが食い違っているので一旦検証しない
+      const request = {
         ...data,
         dogOwnerId,
-      });
+        dogTypeId,
+      };
 
       if (request.dogId) {
         return await api('PUT', '/dog', request);

@@ -13,7 +13,8 @@ export const dogSchema = z.object({
 export const dogFormSchema = z.object({
   dogId: z.number().optional(),
   name: z.string(),
-  dogTypeId: z.number(),
+  firstDogTypeId: z.number(),
+  secondDogTypeId: z.number().optional(),
   weight: z.number(),
   sex: z.string(),
   image: z.custom<File>().optional(),
