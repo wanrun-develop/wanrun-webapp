@@ -1,9 +1,9 @@
 import useApi from '@/libs/useApi';
 import useUserInfo from '@/libs/useUserInfo';
-import { Dog, DogSearchApiType } from '@/types/Dog';
+import { Dog } from '@/types/Dog';
 import { useEffect, useState } from 'react';
 
-type SearchParams = {
+export type SearchParams = {
   dogId?: number;
   name?: string;
 };
@@ -20,9 +20,6 @@ const useSearchDog = (props: Props) => {
   const [error, setError] = useState<string | undefined>(undefined);
   const { userInfo } = useUserInfo();
 
-  const fixDog = (dogs: DogSearchApiType[]): Dog[] =>
-    dogs.map((dog) => ({ ...dog, id: dog.dogId! }));
-
   useEffect(() => {
     const search = async () => {
       setLoading(true);
@@ -30,18 +27,12 @@ const useSearchDog = (props: Props) => {
 
       try {
         if (params.dogId) {
-          const dog = await api<DogSearchApiType>(
-            'GET',
-            `/dog/detail/${params.dogId}`,
-          );
-          setDogs(fixDog([dog]));
+          const dog = await api<Dog>('GET', `/dog/detail/${params.dogId}`);
+          setDogs([dog]);
         } else {
           if (userInfo) {
-            const dogs = await api<DogSearchApiType[]>(
-              'GET',
-              `/dog/owned/${userInfo?.id}`,
-            );
-            setDogs(fixDog(dogs));
+            const dogs = await api<Dog[]>('GET', `/dog/owned/${userInfo?.id}`);
+            setDogs(dogs);
           }
         }
       } catch (error: any) {

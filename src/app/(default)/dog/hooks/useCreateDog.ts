@@ -1,6 +1,6 @@
 import useApi from '@/libs/useApi';
 import useUserInfo from '@/libs/useUserInfo';
-import { dogApiRequestSchema, dogFormSchema } from '@/schemas/DogSchema';
+import { dogFormSchema, dogSchema } from '@/schemas/DogSchema';
 import { DogFormType } from '@/types/Dog';
 import { useState } from 'react';
 
@@ -18,12 +18,12 @@ const useCreateDog = () => {
       const data = dogFormSchema.parse(params);
       const dogOwnerId = userInfo?.id;
 
-      const request = dogApiRequestSchema.parse({
+      const request = dogSchema.parse({
         ...data,
         dogOwnerId,
       });
 
-      if (request.dogId) {
+      if (request.id) {
         return await api('PUT', '/dog', request);
       } else {
         return await api('POST', '/dog', request);

@@ -3,10 +3,11 @@
 import { useRouter } from 'next/navigation';
 import useSearchDog from '../../hooks/useSearchDog';
 import styles from './DogList.module.scss';
+import useSearchListDog from '../../hooks/useSearchListDog';
 
 const DogList = () => {
   const router = useRouter();
-  const { dogs } = useSearchDog({ params: {} });
+  const { dogs } = useSearchListDog({ params: {} });
 
   const redirectDetailPage = (dogId: number) => {
     router.push(`/dog/${dogId}`);
@@ -19,6 +20,7 @@ const DogList = () => {
           <tr>
             <th>ID</th>
             <th>名前</th>
+            <th>犬種</th>
             <th>体重</th>
             <th>性別</th>
           </tr>
@@ -28,6 +30,7 @@ const DogList = () => {
             <tr key={i} onClick={() => redirectDetailPage(dog.id)}>
               <td>{dog.id}</td>
               <td>{dog.name}</td>
+              <td>{dog.dogType}</td>
               <td>{dog.weight}kg</td>
               <td>{dog.sex}</td>
             </tr>

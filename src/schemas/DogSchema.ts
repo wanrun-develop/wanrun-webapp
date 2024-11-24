@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const dogSchema = z.object({
   id: z.number(),
   name: z.string(),
-  dogTypeId: z.number(),
+  dogTypeId: z.number().array(),
   dogOwnerId: z.number(),
   weight: z.number(),
   sex: z.string(),
@@ -17,8 +17,4 @@ export const dogFormSchema = z.object({
   weight: z.number(),
   sex: z.string(),
   image: z.custom<File>().optional(),
-});
-
-export const dogApiRequestSchema = dogFormSchema.extend({
-  dogOwnerId: z.number(),
 });
