@@ -4,7 +4,7 @@ export const dogSchema = z.object({
   id: z.number(),
   name: z.string(),
   dogTypeId: z.number(),
-  dogOwnerId: z.string(),
+  dogOwnerId: z.number(),
   weight: z.number(),
   sex: z.string(),
   image: z.custom<File>().optional(),
