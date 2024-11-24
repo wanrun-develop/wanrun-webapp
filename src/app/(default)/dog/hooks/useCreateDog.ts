@@ -23,7 +23,7 @@ const useCreateDog = () => {
         dogOwnerId,
       });
 
-      if (request.id) {
+      if (request.dogId) {
         return await api('PUT', '/dog', request);
       } else {
         return await api('POST', '/dog', request);

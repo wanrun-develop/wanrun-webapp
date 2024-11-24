@@ -3,7 +3,7 @@ import useSearchDog, { SearchParams } from './useSearchDog';
 import useSearchDogType from './useSearchDogType';
 
 type ListDog = {
-  id: number;
+  dogId: number;
   name: string;
   dogType: string;
   weight: number;
@@ -29,7 +29,7 @@ const useSearchListDog = (props: Props) => {
   const listDogs: ListDog[] = useMemo(
     () =>
       dogs.map((dog) => ({
-        id: dog.id,
+        dogId: dog.dogId,
         name: dog.name,
         dogType: dogTypeMap[dog.dogTypeId[0]],
         weight: dog.weight,
