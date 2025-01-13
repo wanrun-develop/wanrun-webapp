@@ -1,20 +1,20 @@
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import DogImage from '@public/dog.jpg';
+import { DropdownMenuGroup } from '@radix-ui/react-dropdown-menu';
 import Image from 'next/image';
+import Link from 'next/link';
 
-type Props = {
-  toggleNavBar: () => void;
-};
-
-const Header = (props: Props) => {
-  const { toggleNavBar } = props;
-
+const Header = () => {
   return (
     <div className="px-10 py-3 bg-white border-b border-gray-300 flex justify-between items-center">
       <div className="flex items-center">
-        <button
-          className="p-1 bg-inherit flex border-none rounded-full transition-colors duration-500 hover:bg-gray-300"
-          onClick={toggleNavBar}
-        >
+        <button className="p-1 bg-inherit flex border-none rounded-full transition-colors duration-500 hover:bg-gray-300">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1.5em"
@@ -30,7 +30,33 @@ const Header = (props: Props) => {
         <strong className="ml-2">WanRun</strong>
       </div>
 
-      <Image className="w-10 h-10 rounded-full" src={DogImage} alt="DogImage" />
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Image
+            className="w-10 h-10 rounded-full"
+            src={DogImage}
+            alt="DogImage"
+          />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuGroup>
+            <DropdownMenuItem>
+              <Link href="/">ホーム</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href="/dog">愛犬</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href="/dogrun">ドッグラン</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>設定</DropdownMenuItem>
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
+            <DropdownMenuItem>ログアウト</DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 };
