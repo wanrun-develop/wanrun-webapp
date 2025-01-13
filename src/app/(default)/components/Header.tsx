@@ -1,3 +1,6 @@
+'use client';
+
+import AuthModal from '@/components/auth/AuthModal';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,8 +12,12 @@ import DogImage from '@public/dog.jpg';
 import { DropdownMenuGroup } from '@radix-ui/react-dropdown-menu';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 
 const Header = () => {
+  const [openSignup, setOpenSignup] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
+
   return (
     <div className="px-10 py-3 bg-white border-b border-gray-300 flex justify-between items-center">
       <div className="flex items-center">
@@ -40,10 +47,18 @@ const Header = () => {
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>ログアウト</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setOpenLogin(true)}>
+              ログイン
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setOpenSignup(true)}>
+              登録
+            </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
+
+      <AuthModal open={openLogin} setOpen={setOpenLogin} type="login" />
+      <AuthModal open={openSignup} setOpen={setOpenSignup} type="signup" />
     </div>
   );
 };

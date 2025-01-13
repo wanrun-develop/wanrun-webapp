@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
 export const signupDogOwnerFormSchema = z.object({
-  authDogOwnerId: z.number().optional(),
-  email: z.string().email(),
+  email: z.string().email().optional(),
+  phoneNumber: z.string().optional(),
   password: z.string().min(6),
   dogOwnerName: z.string(),
 });
