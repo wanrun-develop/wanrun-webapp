@@ -1,11 +1,10 @@
 'use client';
 
-import styles from './page.module.scss';
+import { Button } from '@/components/ui/button';
 import CustomMap from './components/CustomMap';
-import DogrunList from './components/DogrunList';
 import useSearchDogrun from './hooks/useSearchDogrun';
 import { useCallback, useState } from 'react';
-import Button from '@/components/common/Button';
+import DogrunList from './components/DogrunList';
 
 const Dogrun = () => {
   const [bounds, setBounds] = useState<google.maps.LatLngBounds | undefined>(
@@ -30,21 +29,14 @@ const Dogrun = () => {
   }, [bounds, search]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h2 className={styles.title}>ドッグラン</h2>
-        <Button label="検索" onClick={searchDogruns} disabled={loading} />
-      </div>
-      <div className={styles.content}>
-        <div className={styles.dogrun_map}>
-          <CustomMap
-            dogruns={dogruns}
-            onPositionChange={handlePositionChange}
-          />
-        </div>
-        <div className={styles.dogrun_list}>
-          <DogrunList dogruns={dogruns} />
-        </div>
+    <div className="w-full h-full relative">
+      <CustomMap dogruns={dogruns} onPositionChange={handlePositionChange} />
+      <div className="absolute h-full overflow-y-scroll top-0 left-0">
+        <DogrunList
+          dogruns={dogruns}
+          searchDogrun={searchDogruns}
+          searching={loading}
+        />
       </div>
     </div>
   );

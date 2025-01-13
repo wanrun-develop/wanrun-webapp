@@ -3,6 +3,7 @@
 import useApi from '@/libs/useApi';
 import { Dogrun } from '@/types/Dogrun';
 import { useState } from 'react';
+import mockDogruns from '../mock/dogrun';
 
 type GeoCoordinates = {
   longitude: number;
@@ -17,7 +18,7 @@ export type SearchCondition = {
 };
 
 const useSearchDogrun = () => {
-  const [dogruns, setDogruns] = useState<Dogrun[]>([]);
+  const [dogruns, setDogruns] = useState<Dogrun[]>(mockDogruns);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>(undefined);
   const { api } = useApi();
