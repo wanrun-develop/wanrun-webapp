@@ -1,6 +1,5 @@
 import DogImage from '@public/dog.jpg';
 import Image from 'next/image';
-import styles from './Header.module.scss';
 
 type Props = {
   toggleNavBar: () => void;
@@ -10,9 +9,12 @@ const Header = (props: Props) => {
   const { toggleNavBar } = props;
 
   return (
-    <div className={styles.header}>
-      <div className={styles.leftContainer}>
-        <button className={styles.menuButton} onClick={toggleNavBar}>
+    <div className="px-10 py-3 bg-white border-b border-gray-300 flex justify-between items-center">
+      <div className="flex items-center">
+        <button
+          className="p-1 bg-inherit flex border-none rounded-full transition-colors duration-500 hover:bg-gray-300"
+          onClick={toggleNavBar}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1.5em"
@@ -25,10 +27,10 @@ const Header = (props: Props) => {
             ></path>
           </svg>
         </button>
-        <strong className={styles.title}>WanRun</strong>
+        <strong className="ml-2">WanRun</strong>
       </div>
 
-      <Image className={styles.avatar} src={DogImage} alt="DogImage" />
+      <Image className="w-10 h-10 rounded-full" src={DogImage} alt="DogImage" />
     </div>
   );
 };
