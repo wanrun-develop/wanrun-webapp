@@ -1,10 +1,11 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import CustomMap from './components/CustomMap';
 import useSearchDogrun from './hooks/useSearchDogrun';
 import { useCallback, useState } from 'react';
-import DogrunList from './components/DogrunList';
+import DogrunList from '../../../components/dogrun/DogrunList';
+import BottomNavigation from '@/components/layout/ButtomNavigation';
+import DogrunSearchHeader from '@/components/dogrun/DogrunSearchHeader';
 
 const Dogrun = () => {
   const [bounds, setBounds] = useState<google.maps.LatLngBounds | undefined>(
@@ -29,15 +30,19 @@ const Dogrun = () => {
   }, [bounds, search]);
 
   return (
-    <div className="w-full h-full relative">
-      <CustomMap dogruns={dogruns} onPositionChange={handlePositionChange} />
-      <div className="absolute h-full overflow-y-scroll top-0 left-0">
-        <DogrunList
-          dogruns={dogruns}
-          searchDogrun={searchDogruns}
-          searching={loading}
-        />
+    <div className="w-full h-full flex flex-col">
+      <DogrunSearchHeader />
+      <div className="flex-1 relative">
+        <CustomMap dogruns={dogruns} onPositionChange={handlePositionChange} />
+        <div className="absolute h-full overflow-y-scroll top-0 left-0 hidden sm:block">
+          <DogrunList
+            dogruns={dogruns}
+            searchDogrun={searchDogruns}
+            searching={loading}
+          />
+        </div>
       </div>
+      <BottomNavigation />
     </div>
   );
 };

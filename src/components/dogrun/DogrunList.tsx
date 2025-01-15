@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import DogrunItem from './DogrunItem';
+import DogrunItem from '../../app/(default)/dogrun/components/DogrunItem';
 import { Dogrun } from '@/types/Dogrun';
 import { Button } from '@/components/ui/button';
 
@@ -31,7 +31,7 @@ const DogrunList = (props: Props) => {
           onClick={searchDogrun}
           disabled={searching}
         >
-          検索
+          ドッグラン検索
         </Button>
       </div>
       {dogrunItems}
