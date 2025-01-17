@@ -1,5 +1,5 @@
-import useApi from '@/libs/useApi';
-import useUserInfo from '@/libs/useUserInfo';
+import useApi from '@/app/hooks/common/useApi';
+import useUserInfo from '@/app/hooks/common/useUserInfo';
 import { Dog } from '@/types/Dog';
 import { useEffect, useState } from 'react';
 

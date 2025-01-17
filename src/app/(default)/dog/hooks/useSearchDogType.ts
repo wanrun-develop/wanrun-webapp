@@ -1,4 +1,4 @@
-import useApi from '@/libs/useApi';
+import useApi from '@/app/hooks/common/useApi';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 

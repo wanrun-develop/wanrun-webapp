@@ -1,5 +1,5 @@
-import useApi from '@/libs/useApi';
-import useUserInfo from '@/libs/useUserInfo';
+import useApi from '@/app/hooks/common/useApi';
+import useUserInfo from '@/app/hooks/common/useUserInfo';
 import { dogFormSchema, dogSchema } from '@/schemas/DogSchema';
 import { DogFormType } from '@/types/Dog';
 import { useState } from 'react';

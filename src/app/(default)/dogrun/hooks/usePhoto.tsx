@@ -1,4 +1,4 @@
-import useApi from '@/libs/useApi';
+import useApi from '@/app/hooks/common/useApi';
 import { Photo } from '@/types/Dogrun';
 import useSWR from 'swr';
 

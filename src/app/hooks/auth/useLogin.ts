@@ -1,5 +1,5 @@
-import useApi from '@/libs/useApi';
-import useStorage, { STORAGE_KEYS } from '@/libs/useStorage';
+import useApi from '@/app/hooks/common/useApi';
+import useStorage, { STORAGE_KEYS } from '@/app/hooks/common/useStorage';
 import { loginDogOwnerFormSchema } from '@/schemas/AuthDogOwnerSchema';
 import { LoginDogOwnerFormType } from '@/types/AuthDogOwnerSchema';
 import { useState } from 'react';

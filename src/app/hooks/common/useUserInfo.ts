@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import useStorage, { STORAGE_KEYS } from './useStorage';
 import { jwtDecode } from 'jwt-decode';
+import useStorage, { STORAGE_KEYS } from './useStorage';
 
 type TokenClaims = {
   id: string;
