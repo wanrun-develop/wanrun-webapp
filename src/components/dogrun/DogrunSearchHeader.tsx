@@ -1,10 +1,16 @@
 import { Button } from '../ui/button';
 
-const DogrunSearchHeader = () => {
+type Props = {
+  searchDogrun: () => void;
+};
+
+const DogrunSearchHeader = (props: Props) => {
+  const { searchDogrun } = props;
+
   return (
     <div className="sm:hidden">
       <div className="mx-2 my-4">
-        <Button variant="outline" size="full">
+        <Button variant="outline" size="full" onClick={() => searchDogrun()}>
           ドッグラン検索
         </Button>
       </div>
