@@ -7,6 +7,7 @@ import BottomNavigation from '@/components/layout/ButtomNavigation';
 import DogrunSearchHeader from '@/components/dogrun/DogrunSearchHeader';
 import DogrunList from '@/components/dogrun/DogrunList';
 import DogrunBottomSheet from '@/components/dogrun/DogrunBottomSheet';
+import DogrunSearchList from '@/components/dogrun/DogrunSearchList';
 
 const Dogrun = () => {
   const [bounds, setBounds] = useState<google.maps.LatLngBounds | undefined>(
@@ -42,7 +43,7 @@ const Dogrun = () => {
       >
         <CustomMap dogruns={dogruns} onPositionChange={handlePositionChange} />
         <div className="absolute h-full overflow-y-scroll top-0 left-0 hidden sm:block">
-          <DogrunList
+          <DogrunSearchList
             dogruns={dogruns}
             searchDogrun={searchDogruns}
             searching={loading}
@@ -52,11 +53,7 @@ const Dogrun = () => {
         <div className="sm:hidden">
           <DogrunBottomSheet open={open} containerRef={containerRef}>
             <div className="h-full overflow-y-scroll">
-              <DogrunList
-                dogruns={dogruns}
-                searchDogrun={searchDogruns}
-                searching={loading}
-              />
+              <DogrunList dogruns={dogruns} />
             </div>
           </DogrunBottomSheet>
         </div>
