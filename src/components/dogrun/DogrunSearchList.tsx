@@ -12,7 +12,7 @@ const DogrunSearchList = (props: Props) => {
   const { dogruns, searchDogrun, searching } = props;
 
   return (
-    <div className="flex flex-col bg-slate-50">
+    <div className="w-full flex flex-col bg-slate-50">
       <div className="p-2">
         <Button
           variant="outline"
