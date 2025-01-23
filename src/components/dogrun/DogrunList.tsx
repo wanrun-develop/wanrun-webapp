@@ -12,7 +12,7 @@ const DogrunList = (props: Props) => {
   const dogrunItems = useMemo(
     () =>
       dogruns.map((dogrun, i) => (
-        <div key={`dogrun-item${i}`} className='w-full lg:w-1/2'>
+        <div key={`dogrun-item${i}`} className="w-full lg:w-1/2">
           <DogrunListItem dogrun={dogrun} />
         </div>
       )),
