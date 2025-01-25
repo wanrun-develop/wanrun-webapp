@@ -1,6 +1,6 @@
 import { Dogrun } from '@/types/Dogrun';
 
-const mockDogruns: Dogrun[] = [
+export const mockDogruns: Dogrun[] = [
   {
     id: 1,
     name: 'Sunny Dog Park',
@@ -403,4 +403,82 @@ const mockDogruns: Dogrun[] = [
   },
 ];
 
-export default mockDogruns;
+export const mockDogrun: Dogrun = {
+  dogrunId: 'dogrun_001',
+  placeId: 'place_001',
+  name: 'ワンワンパーク',
+  address: {
+    postCode: '100-0001',
+    address: '東京都千代田区千代田1-1',
+  },
+  location: {
+    latitude: 35.685175,
+    longitude: 139.752799,
+  },
+  businessStatus: 'OPERATIONAL',
+  nowOpen: true,
+  businessHour: {
+    regular: {
+      sunday: {
+        openTime: '08:00',
+        closeTime: '18:00',
+        isAllDay: false,
+        isHoliday: false,
+      },
+      monday: {
+        openTime: '08:00',
+        closeTime: '18:00',
+        isAllDay: false,
+        isHoliday: false,
+      },
+      tuesday: {
+        openTime: '08:00',
+        closeTime: '18:00',
+        isAllDay: false,
+        isHoliday: false,
+      },
+      wednesday: {
+        openTime: '08:00',
+        closeTime: '18:00',
+        isAllDay: false,
+        isHoliday: false,
+      },
+      thursday: {
+        openTime: '08:00',
+        closeTime: '18:00',
+        isAllDay: false,
+        isHoliday: false,
+      },
+      friday: {
+        openTime: '08:00',
+        closeTime: '18:00',
+        isAllDay: false,
+        isHoliday: false,
+      },
+      saturday: {
+        openTime: '08:00',
+        closeTime: '18:00',
+        isAllDay: false,
+        isHoliday: false,
+      },
+    },
+    special: [
+      {
+        date: '2025-12-31',
+        businessTime: {
+          openTime: '08:00',
+          closeTime: '16:00',
+          isAllDay: false,
+          isHoliday: false,
+        },
+      },
+    ],
+  },
+  description: '皇居周辺にあるドッグラン。緑が多く開放的な雰囲気です。',
+  googleRating: 4.2,
+  userRatingCount: 128,
+  dogrunTagId: [1, 3],
+  businessDay: 365,
+  createdAt: '2025-01-01T10:00:00Z',
+  updatedAt: '2025-01-10T10:00:00Z',
+};

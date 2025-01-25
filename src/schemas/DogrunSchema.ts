@@ -5,13 +5,6 @@ export const locationSchema = z.object({
   longitude: z.number(),
 });
 
-export const tagSchema = z.object({
-  id: z.number(),
-  dogrunId: z.number(),
-  name: z.string(),
-  description: z.string(),
-});
-
 export const addressSchema = z.object({
   postCode: z.string(),
   address: z.string(),
@@ -54,16 +47,16 @@ export const dogrunSchema = z.object({
   dogrunId: z.string(),
   placeId: z.string(),
   name: z.string(),
-  photos: z.array(photoSchema),
+  address: addressSchema,
   location: locationSchema,
   businessStatus: z.string(),
   nowOpen: z.boolean(),
-  businessDay: z.number(),
   businessHour: businessHourSchema,
-  holiday: z.number(),
-  openTime: z.string(),
-  closeTime: z.string(),
+  description: z.string(),
   googleRating: z.number(),
   userRatingCount: z.number(),
-  dogrunTags: tagSchema,
+  dogrunTagId: z.number().array(),
+  businessDay: z.number(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
 });
