@@ -6,6 +6,7 @@ import {
   CarouselItem,
 } from '@/components/ui/carousel';
 import { mockDogrun } from '../mock/dogrun';
+import { RatingDisplay } from '@/components/ui/rating-display';
 
 type Props = {
   params: {
@@ -59,6 +60,12 @@ const DogrunDetailPage = (props: Props) => {
           <Text>
             〒{dogrun.address.postCode} {dogrun.address.address}
           </Text>
+        </div>
+
+        <div className="py-2 flex items-center">
+          <Text className="pr-2">{dogrun.googleRating}</Text>
+          <RatingDisplay rating={dogrun.googleRating} />
+          <Text className="pl-2">({dogrun.userRatingCount})</Text>
         </div>
 
         <div>
