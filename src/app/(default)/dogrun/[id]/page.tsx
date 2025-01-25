@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/carousel';
 import { mockDogrun } from '../mock/dogrun';
 import { RatingDisplay } from '@/components/ui/rating-display';
+import CustomMap from '@/components/map/CustomMap';
 
 type Props = {
   params: {
@@ -19,6 +20,8 @@ const dogrun = mockDogrun;
 const mockImages = Array.from({ length: 5 }).map(
   (_, i) => `https://placedog.net/400/311?id=${i + 1}`,
 );
+
+const GOOGLE_MAP_ID = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID as string;
 
 const DogrunDetailPage = (props: Props) => {
   const { params } = props;
@@ -83,6 +86,17 @@ const DogrunDetailPage = (props: Props) => {
               </li>
             ))}
           </ul>
+        </div>
+
+        <div className="w-full h-72">
+          <CustomMap
+            defaultCenter={{
+              latitude: dogrun.location.latitude,
+              longitude: dogrun.location.longitude,
+            }}
+            location={dogrun.location}
+            defaultZoom={16}
+          />
         </div>
       </div>
     </div>
