@@ -17,6 +17,7 @@ import { signupDogOwnerFormSchema } from '@/schemas/AuthDogOwnerSchema';
 import { useSignup } from '@/app/hooks/auth/useSignup';
 
 const defaultValues = {
+  dogOwnerName: '',
   email: '',
   password: '',
 };
@@ -50,6 +51,19 @@ const SignupForm = (props: Props) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="dogOwnerName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>名前</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="email"

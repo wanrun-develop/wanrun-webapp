@@ -21,7 +21,11 @@ const useLogin = () => {
 
     try {
       const request = loginDogOwnerFormSchema.parse(data);
-      const res: LogInResponse = await api('POST', '/auth/token', request);
+      const res: LogInResponse = await api(
+        'POST',
+        '/auth/dogowner/token',
+        request,
+      );
 
       const { accessToken } = res;
       storeValue(accessToken);

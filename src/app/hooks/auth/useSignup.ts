@@ -20,8 +20,15 @@ const useSignup = () => {
     setError(null);
 
     try {
-      const request = signupDogOwnerFormSchema.parse(data);
-      const res: SignUpResponse = await api('POST', '/auth/signUp', request);
+      const request = signupDogOwnerFormSchema.parse({
+        ...data,
+        dogOwnerName: 'test',
+      });
+      const res: SignUpResponse = await api(
+        'POST',
+        '/dogowner/signUp',
+        request,
+      );
 
       const { accessToken } = res;
       console.log('signup token: ', accessToken);
