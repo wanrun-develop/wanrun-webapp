@@ -14,7 +14,6 @@ import {
   FormMessage,
 } from '../ui/form';
 import { Input } from '../ui/input';
-import { useRouter } from 'next/navigation';
 import { Button } from '../ui/button';
 
 const defaultValues = {
@@ -36,13 +35,11 @@ const LoginForm = (props: Props) => {
   });
 
   const { login } = useLogin();
-  const router = useRouter();
 
   const onSubmit = async (data: LoginDogOwnerFormType) => {
     console.log(data);
     try {
       await login(data);
-      router.push('/dog');
     } catch (e) {
       console.error(e);
       return;

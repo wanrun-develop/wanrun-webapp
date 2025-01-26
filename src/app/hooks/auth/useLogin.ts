@@ -1,7 +1,8 @@
 import useApi from '@/app/hooks/common/useApi';
-import useStorage, { STORAGE_KEYS } from '@/app/hooks/common/useStorage';
+import { jwtAtom } from '@/atom/auth';
 import { loginDogOwnerFormSchema } from '@/schemas/AuthDogOwnerSchema';
 import { LoginDogOwnerFormType } from '@/types/AuthDogOwnerSchema';
+import { useAtom } from 'jotai';
 import { useState } from 'react';
 
 type LogInResponse = {
@@ -11,9 +12,9 @@ type LogInResponse = {
 const useLogin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [_, setJwt] = useAtom(jwtAtom);
 
   const { api } = useApi();
-  const { storeValue } = useStorage(STORAGE_KEYS.ACCESS_TOKEN, null);
 
   const login = async (data: LoginDogOwnerFormType) => {
     setIsLoading(true);
@@ -28,7 +29,9 @@ const useLogin = () => {
       );
 
       const { accessToken } = res;
-      storeValue(accessToken);
+      if (accessToken) {
+        setJwt(accessToken);
+      }
       return res;
     } catch (error: any) {
       setError(error);

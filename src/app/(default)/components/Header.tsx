@@ -1,5 +1,6 @@
 'use client';
 
+import { jwtAtom, jwtPayloadAtom } from '@/atom/auth';
 import AuthModal from '@/components/auth/AuthModal';
 import { Button } from '@/components/ui/button';
 import {
@@ -14,14 +15,20 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Text } from '@/components/ui/text';
 import DogImage from '@public/dog.jpg';
 import { DropdownMenuGroup } from '@radix-ui/react-dropdown-menu';
+import { useAtom } from 'jotai';
 import { MenuIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 const Header = () => {
   const [openSignup, setOpenSignup] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
+
+  const [payload] = useAtom(jwtPayloadAtom);
+  const [_, setJwt] = useAtom(jwtAtom);
+
+  const isLoggedIn = useMemo(() => !!payload?.userId, [payload]);
 
   return (
     <header className="px-10 py-3 bg-white sm:border-b sm:border-gray-300 flex justify-between items-center">
@@ -52,12 +59,25 @@ const Header = () => {
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem onClick={() => setOpenLogin(true)}>
-              ログイン
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setOpenSignup(true)}>
-              登録
-            </DropdownMenuItem>
+            {isLoggedIn ? (
+              <DropdownMenuItem
+                onClick={() => {
+                  setJwt(null);
+                  console.log('logout');
+                }}
+              >
+                ログアウト
+              </DropdownMenuItem>
+            ) : (
+              <>
+                <DropdownMenuItem onClick={() => setOpenLogin(true)}>
+                  ログイン
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setOpenSignup(true)}>
+                  登録
+                </DropdownMenuItem>
+              </>
+            )}
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -76,20 +96,35 @@ const Header = () => {
           </Link>
           <Separator className="my-2" />
 
-          <Button
-            variant="ghost"
-            size="full"
-            onClick={() => setOpenLogin(true)}
-          >
-            <Text>ログイン</Text>
-          </Button>
-          <Button
-            variant="ghost"
-            size="full"
-            onClick={() => setOpenSignup(true)}
-          >
-            <Text>登録</Text>
-          </Button>
+          {isLoggedIn ? (
+            <Button
+              variant="ghost"
+              size="full"
+              onClick={() => {
+                setJwt(null);
+                console.log('logout');
+              }}
+            >
+              <Text>ログアウト</Text>
+            </Button>
+          ) : (
+            <>
+              <Button
+                variant="ghost"
+                size="full"
+                onClick={() => setOpenLogin(true)}
+              >
+                <Text>ログイン</Text>
+              </Button>
+              <Button
+                variant="ghost"
+                size="full"
+                onClick={() => setOpenSignup(true)}
+              >
+                <Text>登録</Text>
+              </Button>
+            </>
+          )}
         </SheetContent>
       </Sheet>
 
