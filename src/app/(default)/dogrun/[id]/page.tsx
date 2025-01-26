@@ -8,6 +8,8 @@ import {
 import { mockDogrun } from '../mock/dogrun';
 import { RatingDisplay } from '@/components/ui/rating-display';
 import CustomMap from '@/components/map/CustomMap';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Badge } from '@/components/ui/badge';
 
 type Props = {
   params: {
@@ -20,8 +22,6 @@ const dogrun = mockDogrun;
 const mockImages = Array.from({ length: 5 }).map(
   (_, i) => `https://placedog.net/400/311?id=${i + 1}`,
 );
-
-const GOOGLE_MAP_ID = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID as string;
 
 const DogrunDetailPage = (props: Props) => {
   const { params } = props;
@@ -55,9 +55,11 @@ const DogrunDetailPage = (props: Props) => {
           {dogrunId}: {dogrun.name}
         </Text>
 
-        <Text className="text-green-400">
-          {dogrun.nowOpen ? '営業中' : '営業時間外'}
-        </Text>
+        {dogrun.nowOpen ? (
+          <Text className="text-green-400">営業中</Text>
+        ) : (
+          <Text className="text-red-400">営業時間外</Text>
+        )}
 
         <div className="py-4">
           <Text>
@@ -69,6 +71,14 @@ const DogrunDetailPage = (props: Props) => {
           <Text className="pr-2">{dogrun.googleRating}</Text>
           <RatingDisplay rating={dogrun.googleRating} />
           <Text className="pl-2">({dogrun.userRatingCount})</Text>
+        </div>
+
+        <div className="py-2 flex overflow-x-auto">
+          {dogrun.dogrunTagId.map((tagId, idx) => (
+            <Badge key={idx} variant="outline" className="mx-2">
+              Tag{tagId}
+            </Badge>
+          ))}
         </div>
 
         <div>
