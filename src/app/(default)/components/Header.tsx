@@ -1,6 +1,7 @@
 'use client';
 
 import AuthModal from '@/components/auth/AuthModal';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,8 +9,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Separator } from '@/components/ui/separator';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Text } from '@/components/ui/text';
 import DogImage from '@public/dog.jpg';
 import { DropdownMenuGroup } from '@radix-ui/react-dropdown-menu';
+import { MenuIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -19,13 +24,13 @@ const Header = () => {
   const [openLogin, setOpenLogin] = useState(false);
 
   return (
-    <div className="px-10 py-3 bg-white border-b border-gray-300 hidden sm:flex justify-between items-center">
+    <header className="px-10 pt-3 sm:pb-3 bg-white sm:border-b sm:border-gray-300 flex justify-between items-center">
       <div className="flex items-center">
         <strong className="ml-2">WanRun</strong>
       </div>
 
       <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger className="hidden sm:block">
           <Image
             className="w-10 h-10 rounded-full"
             src={DogImage}
@@ -34,16 +39,16 @@ const Header = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            {/* <DropdownMenuItem>
               <Link href="/">ホーム</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
+            </DropdownMenuItem> */}
+            {/* <DropdownMenuItem>
               <Link href="/dog">愛犬</Link>
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
             <DropdownMenuItem>
               <Link href="/dogrun">ドッグラン</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>設定</DropdownMenuItem>
+            {/* <DropdownMenuItem>設定</DropdownMenuItem> */}
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
@@ -57,9 +62,40 @@ const Header = () => {
         </DropdownMenuContent>
       </DropdownMenu>
 
+      <Sheet>
+        <SheetTrigger className="sm:hidden">
+          <Button variant="outline" size="circle-md">
+            <MenuIcon className="w-6 h-6" />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="right" className="py-16">
+          <Link href="/dogrun">
+            <Button variant="ghost" size="full">
+              <Text>ドッグラン</Text>
+            </Button>
+          </Link>
+          <Separator className="my-2" />
+
+          <Button
+            variant="ghost"
+            size="full"
+            onClick={() => setOpenLogin(true)}
+          >
+            <Text>ログイン</Text>
+          </Button>
+          <Button
+            variant="ghost"
+            size="full"
+            onClick={() => setOpenSignup(true)}
+          >
+            <Text>登録</Text>
+          </Button>
+        </SheetContent>
+      </Sheet>
+
       <AuthModal open={openLogin} setOpen={setOpenLogin} type="login" />
       <AuthModal open={openSignup} setOpen={setOpenSignup} type="signup" />
-    </div>
+    </header>
   );
 };
 

@@ -3,7 +3,6 @@
 import CustomMap from './components/CustomMap';
 import useSearchDogrun from './hooks/useSearchDogrun';
 import { useCallback, useState } from 'react';
-import BottomNavigation from '@/components/layout/ButtomNavigation';
 import DogrunSearchHeader from '@/components/dogrun/DogrunSearchHeader';
 import DogrunList from '@/components/dogrun/DogrunList';
 import DogrunSearchList from '@/components/dogrun/DogrunSearchList';
@@ -65,7 +64,6 @@ const Dogrun = () => {
           </Button>
         </div>
       </div>
-      <BottomNavigation />
     </div>
   );
 };
