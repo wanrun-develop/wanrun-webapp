@@ -22,7 +22,7 @@ const AuthModal = (props: Props) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent>
+      <DialogContent className="w-4/5 sm:w-full">
         <DialogTitle>{title}</DialogTitle>
         <Separator />
         {isLogin ? (

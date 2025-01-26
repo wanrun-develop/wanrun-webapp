@@ -9,7 +9,7 @@ const DogrunSearchHeader = (props: Props) => {
 
   return (
     <div className="sm:hidden">
-      <div className="mx-2 my-4">
+      <div className="mx-2 mb-4">
         <Button variant="outline" size="full" onClick={() => searchDogrun()}>
           ドッグラン検索
         </Button>

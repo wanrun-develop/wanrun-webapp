@@ -24,7 +24,7 @@ const Header = () => {
   const [openLogin, setOpenLogin] = useState(false);
 
   return (
-    <header className="px-10 pt-3 sm:pb-3 bg-white sm:border-b sm:border-gray-300 flex justify-between items-center">
+    <header className="px-10 py-3 bg-white sm:border-b sm:border-gray-300 flex justify-between items-center">
       <div className="flex items-center">
         <strong className="ml-2">WanRun</strong>
       </div>
