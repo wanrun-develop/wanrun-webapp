@@ -37,6 +37,13 @@ export const businessHourSchema = z.object({
   special: specialBusinessHourSchema.array(),
 });
 
+export const todayBusinessHour = z.object({
+  openTime: z.string(),
+  closeTime: z.string(),
+  isAllDay: z.boolean(),
+  isHoliday: z.boolean(),
+});
+
 export const photoSchema = z.object({
   photoKey: z.string(),
   widthPx: z.number(),
@@ -59,4 +66,22 @@ export const dogrunSchema = z.object({
   businessDay: z.number(),
   createdAt: z.string(),
   updatedAt: z.string(),
+});
+
+export const dogrunListItemSchema = z.object({
+  dogrunId: z.string(),
+  placeId: z.string(),
+  name: z.string(),
+  address: addressSchema,
+  location: locationSchema,
+  businessStatus: z.string(),
+  nowOpen: z.boolean(),
+  toadyBusinessHour: todayBusinessHour, // typo
+  description: z.string(),
+  googleRating: z.number(),
+  userRatingCount: z.number(),
+  dogrunTagId: z.number().array(),
+  photos: photoSchema.array(),
+  isBookmarked: z.boolean(),
+  isManaged: z.boolean(),
 });

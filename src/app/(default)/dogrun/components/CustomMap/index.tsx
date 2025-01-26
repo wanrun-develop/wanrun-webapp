@@ -2,7 +2,7 @@
 
 import { Map, MapEvent } from '@vis.gl/react-google-maps';
 import styles from './CustomMap.module.scss';
-import { Dogrun } from '@/types/Dogrun';
+import { DogrunListItem } from '@/types/Dogrun';
 import { useCallback, useState } from 'react';
 import useGeolocation from '@/app/hooks/common/useGeolocation';
 import MarkerCluster from '../MarkerCluster';
@@ -16,7 +16,7 @@ const defaultPosition = {
 };
 
 type Props = {
-  dogruns: Dogrun[];
+  dogruns: DogrunListItem[];
   onPositionChange: (bounds: google.maps.LatLngBounds) => void;
 };
 

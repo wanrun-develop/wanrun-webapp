@@ -1,9 +1,9 @@
-import { Dogrun } from '@/types/Dogrun';
+import { DogrunListItem } from '@/types/Dogrun';
 import { Button } from '../ui/button';
 import DogrunList from './DogrunList';
 
 type Props = {
-  dogruns: Dogrun[];
+  dogruns: DogrunListItem[];
   searchDogrun: () => void;
   searching: boolean;
 };

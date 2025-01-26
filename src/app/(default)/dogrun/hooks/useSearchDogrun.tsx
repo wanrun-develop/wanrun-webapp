@@ -1,9 +1,9 @@
 'use client';
 
 import useApi from '@/app/hooks/common/useApi';
-import { Dogrun } from '@/types/Dogrun';
+import { DogrunListItem } from '@/types/Dogrun';
 import { useState } from 'react';
-import mockDogruns from '../mock/dogrun';
+import { mockDogrunListItems } from '../mock/dogrun';
 
 type GeoCoordinates = {
   longitude: number;
@@ -18,7 +18,7 @@ export type SearchCondition = {
 };
 
 const useSearchDogrun = () => {
-  const [dogruns, setDogruns] = useState<Dogrun[]>(mockDogruns);
+  const [dogruns, setDogruns] = useState<DogrunListItem[]>(mockDogrunListItems);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>(undefined);
   const { api } = useApi();
@@ -28,7 +28,11 @@ const useSearchDogrun = () => {
     setError(undefined);
 
     try {
-      const response = await api<Dogrun[]>('POST', '/dogrun/search', condition);
+      const response = await api<DogrunListItem[]>(
+        'POST',
+        '/dogrun/search',
+        condition,
+      );
       setDogruns(response);
     } catch (e: any) {
       console.error(e);

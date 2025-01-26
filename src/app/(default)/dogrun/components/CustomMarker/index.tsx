@@ -1,4 +1,4 @@
-import { Dogrun } from '@/types/Dogrun';
+import { DogrunListItem } from '@/types/Dogrun';
 import { AdvancedMarker, InfoWindow, Pin } from '@vis.gl/react-google-maps';
 import Image from 'next/image';
 import { useCallback, useMemo, useState } from 'react';
@@ -8,7 +8,7 @@ import NoImage from '@public/noimage.png';
 import { Marker } from '@googlemaps/markerclusterer';
 
 type Props = {
-  dogrun: Dogrun;
+  dogrun: DogrunListItem;
   currentDogrunId: string | undefined;
   selectDogrunId: (dogrunId: string | undefined) => void;
   setMarkerRef: (marker: Marker | null, key: string) => void;

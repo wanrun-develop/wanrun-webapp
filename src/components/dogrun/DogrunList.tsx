@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Dogrun } from '@/types/Dogrun';
+import { DogrunListItem as Dogrun } from '@/types/Dogrun';
 import DogrunListItem from './DogrunListItem';
 
 type Props = {

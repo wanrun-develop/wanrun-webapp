@@ -1,11 +1,11 @@
-import { Dogrun } from '@/types/Dogrun';
+import { DogrunListItem } from '@/types/Dogrun';
 import { Marker, MarkerClusterer } from '@googlemaps/markerclusterer';
 import { useMap } from '@vis.gl/react-google-maps';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import CustomMarker from '../CustomMarker';
 
 type Props = {
-  dogruns: Dogrun[];
+  dogruns: DogrunListItem[];
   currentDogrunId: string | undefined;
   selectDogrunId: (dogrunId: string | undefined) => void;
 };

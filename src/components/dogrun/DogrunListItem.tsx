@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Dogrun } from '@/types/Dogrun';
+import { DogrunListItem as Dogrun } from '@/types/Dogrun';
 import usePhoto from '../../app/(default)/dogrun/hooks/usePhoto';
 import NoImage from '@public/noimage.png';
 
