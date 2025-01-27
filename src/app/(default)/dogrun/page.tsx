@@ -7,7 +7,7 @@ import DogrunSearchHeader from '@/components/dogrun/DogrunSearchHeader';
 import DogrunList from '@/components/dogrun/DogrunList';
 import DogrunSearchList from '@/components/dogrun/DogrunSearchList';
 import { Button } from '@/components/ui/button';
-import { MapIcon } from 'lucide-react';
+import { ListIcon, MapIcon } from 'lucide-react';
 
 const Dogrun = () => {
   const [bounds, setBounds] = useState<google.maps.LatLngBounds | undefined>(
@@ -60,7 +60,11 @@ const Dogrun = () => {
             size="circle-lg"
             onClick={() => setOpen(!open)}
           >
-            <MapIcon className="w-6 h-6" />
+            {open ? (
+              <MapIcon className="w-6 h-6" />
+            ) : (
+              <ListIcon className="w-6 h-6" />
+            )}
           </Button>
         </div>
       </div>
