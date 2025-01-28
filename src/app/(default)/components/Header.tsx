@@ -55,7 +55,9 @@ const Header = () => {
             <DropdownMenuItem>
               <Link href="/dogrun">ドッグラン</Link>
             </DropdownMenuItem>
-            {/* <DropdownMenuItem>設定</DropdownMenuItem> */}
+            <DropdownMenuItem>
+              <Link href="/setting">設定</Link>
+            </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
@@ -92,6 +94,11 @@ const Header = () => {
           <Link href="/dogrun">
             <Button variant="ghost" size="full">
               <Text>ドッグラン</Text>
+            </Button>
+          </Link>
+          <Link href="/setting">
+            <Button variant="ghost" size="full">
+              <Text>設定</Text>
             </Button>
           </Link>
           <Separator className="my-2" />
