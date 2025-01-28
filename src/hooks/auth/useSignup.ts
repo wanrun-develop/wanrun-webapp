@@ -1,4 +1,4 @@
-import useApi from '@/app/hooks/common/useApi';
+import useApi from '@/hooks/common/useApi';
 import { jwtAtom } from '@/atom/auth';
 import { signupDogOwnerFormSchema } from '@/schemas/AuthDogOwnerSchema';
 import { SignupDogOwnerFormType } from '@/types/AuthDogOwnerSchema';

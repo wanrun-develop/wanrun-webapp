@@ -1,6 +1,6 @@
 'use client';
 
-import { useLogin } from '@/app/hooks/auth/useLogin';
+import { useLogin } from '@/hooks/auth/useLogin';
 import { loginDogOwnerFormSchema } from '@/schemas/AuthDogOwnerSchema';
 import { LoginDogOwnerFormType } from '@/types/AuthDogOwnerSchema';
 import { zodResolver } from '@hookform/resolvers/zod';

@@ -8,7 +8,7 @@ import { DogFormType } from '@/types/Dog';
 import { dogFormSchema } from '@/schemas/DogSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import RhfSelect from '@/components/rhf/RhfSelect';
-import { useCreateDog } from '../../../hooks/useCreateDog';
+import { useCreateDog } from '../../../../../../hooks/dog/useCreateDog';
 import useSearchDogType from '../../../hooks/useSearchDogType';
 
 type Props = {

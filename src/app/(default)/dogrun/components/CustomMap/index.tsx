@@ -4,7 +4,7 @@ import { Map, MapEvent } from '@vis.gl/react-google-maps';
 import styles from './CustomMap.module.scss';
 import { DogrunListItem } from '@/types/Dogrun';
 import { useCallback, useState } from 'react';
-import useGeolocation from '@/app/hooks/common/useGeolocation';
+import useGeolocation from '@/hooks/common/useGeolocation';
 import MarkerCluster from '../MarkerCluster';
 import { Oval } from 'react-loader-spinner';
 

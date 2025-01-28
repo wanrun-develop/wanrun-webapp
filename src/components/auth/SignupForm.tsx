@@ -14,7 +14,7 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { SignupDogOwnerFormType } from '@/types/AuthDogOwnerSchema';
 import { signupDogOwnerFormSchema } from '@/schemas/AuthDogOwnerSchema';
-import { useSignup } from '@/app/hooks/auth/useSignup';
+import { useSignup } from '@/hooks/auth/useSignup';
 
 const defaultValues = {
   dogOwnerName: '',

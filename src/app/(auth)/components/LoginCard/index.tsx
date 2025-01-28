@@ -5,7 +5,7 @@ import RhfTextField from '@/components/rhf/RhfTextField';
 import { useForm } from 'react-hook-form';
 import styles from './LoginCard.module.scss';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useLogin } from '../../../hooks/auth/useLogin';
+import { useLogin } from '../../../../hooks/auth/useLogin';
 import { useRouter } from 'next/navigation';
 import { LoginDogOwnerFormType } from '@/types/AuthDogOwnerSchema';
 import { loginDogOwnerFormSchema } from '@/schemas/AuthDogOwnerSchema';

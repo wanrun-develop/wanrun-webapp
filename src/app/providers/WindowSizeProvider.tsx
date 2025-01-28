@@ -1,7 +1,9 @@
 'use client';
 
 import { createContext, ReactNode } from 'react';
-import useWindowSize, { WindowSizeConfig } from '../hooks/common/useWindowSize';
+import useWindowSize, {
+  WindowSizeConfig,
+} from '../../hooks/common/useWindowSize';
 
 type Props = {
   children: ReactNode;

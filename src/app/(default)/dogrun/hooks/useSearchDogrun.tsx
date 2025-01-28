@@ -1,6 +1,6 @@
 'use client';
 
-import useApi from '@/app/hooks/common/useApi';
+import useApi from '@/hooks/common/useApi';
 import { DogrunListItem } from '@/types/Dogrun';
 import { useState } from 'react';
 import { mockDogrunListItems } from '../mock/dogrun';

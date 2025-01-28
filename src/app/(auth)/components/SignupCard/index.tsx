@@ -5,7 +5,7 @@ import RhfTextField from '@/components/rhf/RhfTextField';
 import { useForm } from 'react-hook-form';
 import styles from './SignupCard.module.scss';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useSignup } from '../../../hooks/auth/useSignup';
+import { useSignup } from '../../../../hooks/auth/useSignup';
 import { useRouter } from 'next/navigation';
 import { SignupDogOwnerFormType } from '@/types/AuthDogOwnerSchema';
 import { signupDogOwnerFormSchema } from '@/schemas/AuthDogOwnerSchema';
