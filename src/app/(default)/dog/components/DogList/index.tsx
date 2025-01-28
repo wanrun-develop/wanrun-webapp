@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import styles from './DogList.module.scss';
-import useSearchListDog from '../../hooks/useSearchListDog';
+import useSearchListDog from '@hooks/dog/useSearchListDog';
 
 const DogList = () => {
   const router = useRouter();

@@ -1,7 +1,7 @@
 'use client';
 
 import CustomMap from './components/CustomMap';
-import useSearchDogrun from './hooks/useSearchDogrun';
+import useSearchDogrun from '../../../hooks/dogrun/useSearchDogrun';
 import { useCallback, useState } from 'react';
 import DogrunSearchHeader from '@/components/dogrun/DogrunSearchHeader';
 import DogrunList from '@/components/dogrun/DogrunList';

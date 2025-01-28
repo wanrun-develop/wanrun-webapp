@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { DogrunListItem as Dogrun } from '@/types/Dogrun';
-import usePhoto from '../../app/(default)/dogrun/hooks/usePhoto';
+import usePhoto from '../../hooks/dogrun/usePhoto';
 import NoImage from '@public/noimage.png';
 
 type Props = {

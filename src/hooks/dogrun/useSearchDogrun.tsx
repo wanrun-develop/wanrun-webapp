@@ -3,7 +3,7 @@
 import useApi from '@/hooks/common/useApi';
 import { DogrunListItem } from '@/types/Dogrun';
 import { useState } from 'react';
-import { mockDogrunListItems } from '../mock/dogrun';
+import { mockDogrunListItems } from '../../mock/dogrun';
 
 type GeoCoordinates = {
   longitude: number;

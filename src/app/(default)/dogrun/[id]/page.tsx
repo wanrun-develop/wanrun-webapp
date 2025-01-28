@@ -5,7 +5,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
-import { mockDogrun } from '../mock/dogrun';
+import { mockDogrun } from '../../../../mock/dogrun';
 import { RatingDisplay } from '@/components/ui/rating-display';
 import CustomMap from '@/components/map/CustomMap';
 import { Skeleton } from '@/components/ui/skeleton';

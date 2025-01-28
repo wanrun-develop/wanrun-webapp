@@ -3,7 +3,7 @@ import { AdvancedMarker, InfoWindow, Pin } from '@vis.gl/react-google-maps';
 import Image from 'next/image';
 import { useCallback, useMemo, useState } from 'react';
 import styles from './CustomMarker.module.scss';
-import usePhoto from '../../hooks/usePhoto';
+import usePhoto from '../../../../../hooks/dogrun/usePhoto';
 import NoImage from '@public/noimage.png';
 import { Marker } from '@googlemaps/markerclusterer';
 

@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './layout.module.scss';
-import Header from './components/Header';
+import Header from '@components/common/Header';
 
 export default function RootLayout({
   children,
