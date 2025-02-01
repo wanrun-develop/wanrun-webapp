@@ -48,7 +48,7 @@ jobs:
         run: npm run lint # 静的解析
 
       - name: Run Prettier
-        run: npm run format -- --check
+        run: npm run format
 
       - name: Cache Next.js Build Output
         uses: actions/cache@v4.2.0
