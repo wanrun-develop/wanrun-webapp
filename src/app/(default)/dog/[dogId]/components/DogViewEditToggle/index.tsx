@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import DogForm from '../DogForm';
 import DogDetail from '../DogDetail';
-import useSearchDog from '../../../hooks/useSearchDog';
+import useSearchDog from '@hooks/dog/useSearchDog';
 
 type Props = {
   dogId: number;
