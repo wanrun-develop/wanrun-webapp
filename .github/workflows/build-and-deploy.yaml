@@ -1,0 +1,86 @@
+name: Build And Deploy to Frontend
+on:
+  push:
+    branches:
+    #   - develop
+      - hoge
+    paths: 
+        - "src/**"
+        - "package.json"
+        - "yarn.lock"
+        - "next.config.mjs"
+        - "tailwind.config.js"
+        - "postcss.config.js"
+        - "tsconfig.json"
+        - "components.json"
+        - "public/**"
+env:
+  AWS_REGION: ap-northeast-1
+  AWS_ROLE_ARN: 
+
+  AWS_S3_BUCKET_NAME: wr-${{ vars.ENV }}
+  SOURCE_DIR: ./build
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    environment: develop
+    timeout-minutes: 5
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v4.2.0
+        with:
+          node-version: 20.14.10
+          cache: npm
+  
+      - name: Dependency Install
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint # 静的解析
+
+      - name: Run Prettier
+        run: npm run format
+
+      - name: Cache Next.js Build Output
+        uses: actions/cache@v4.2.0
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/*.js', '**/*.ts', '**/*.tsx', '**/*.jsx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-
+
+      - name: Build
+        run: npm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4.0.2
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy to S3
+        run: |
+          aws s3 sync ${{ env.SOURCE_DIR }} s3://${{ env.AWS_S3_BUCKET_NAME }}/ --delete --exclude '.*git*'
+
+      - name: CloudFront Cache Clear
+        run: |
+          set -e  # エラー発生時に停止
+          CFID=$(aws cloudfront list-distributions \
+              --query "DistributionList.Items[].{Id:Id,Origin:Origins.Items[0].DomainName}[?contains(Origin,'${{ env.AWS_S3_BUCKET_NAME }}.s3')] | [0].Id" | sed 's/"//g')
+ 
+          if [ -z "$CFID" ]; then
+              echo "Error: No CloudFront distribution found for ${AWS_S3_BUCKET_NAME}"
+              exit 1
+          fi
+        
+          echo "Invalidating CloudFront cache for distribution ID: $CFID"
+          aws cloudfront create-invalidation --distribution-id "$CFID" --paths "/*"
