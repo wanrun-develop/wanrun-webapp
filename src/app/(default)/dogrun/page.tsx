@@ -2,7 +2,7 @@
 
 import CustomMap from './components/CustomMap';
 import useSearchDogrun from '../../../hooks/dogrun/useSearchDogrun';
-import { TouchEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { PointerEvent, useCallback, useEffect, useRef, useState } from 'react';
 import DogrunSearchHeader from '@/components/dogrun/DogrunSearchHeader';
 import DogrunList from '@/components/dogrun/DogrunList';
 import DogrunSearchList from '@/components/dogrun/DogrunSearchList';
@@ -22,13 +22,15 @@ const Dogrun = () => {
   const [translateY, setTranslateY] = useState<number>(0);
   const baseHandleY = useRef<number>(0);
   const mapRef = useRef<HTMLDivElement>(null);
+  const bottomSheetRef = useRef<HTMLDivElement>(null);
+  const moving = useRef(false);
 
   useEffect(() => {
     if (mapRef.current) {
       const mapRect = mapRef.current.getBoundingClientRect();
       setTranslateY(mapRect.height - handleHeight);
     }
-  }, []);
+  }, [mapRef]);
 
   const handlePositionChange = (bounds: google.maps.LatLngBounds) =>
     setBounds(bounds);
@@ -46,9 +48,11 @@ const Dogrun = () => {
     });
   }, [bounds, search]);
 
-  const onTouchStart = (e: TouchEvent<HTMLDivElement>) => {
-    const targetTouchies = e.targetTouches[0];
-    const clientY = targetTouchies.clientY;
+  const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    console.log(e.clientY, e.nativeEvent.clientY);
+    bottomSheetRef.current?.setPointerCapture(e.pointerId);
+    moving.current = true;
+    const clientY = e.clientY;
     baseHandleY.current = clientY;
     if (mapRef.current) {
       const mapRect = mapRef.current.getBoundingClientRect();
@@ -56,9 +60,10 @@ const Dogrun = () => {
     }
   };
 
-  const onTouchMove = (e: TouchEvent<HTMLDivElement>) => {
-    const targetTouchies = e.targetTouches[0];
-    const clientY = targetTouchies.clientY;
+  const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
+    if (!moving.current) return;
+
+    const clientY = e.clientY;
     if (mapRef.current) {
       const mapRect = mapRef.current?.getBoundingClientRect();
       if (clientY < mapRect.top) {
@@ -71,9 +76,10 @@ const Dogrun = () => {
     }
   };
 
-  const onTouchEnd = (e: TouchEvent<HTMLDivElement>) => {
-    const changedTouch = e.changedTouches[0];
-    const clientY = changedTouch.clientY;
+  const onPointUp = (e: PointerEvent<HTMLDivElement>) => {
+    moving.current = false;
+    const clientY = e.clientY;
+    bottomSheetRef.current?.releasePointerCapture(e.pointerId);
     if (mapRef.current) {
       const mapRect = mapRef.current.getBoundingClientRect();
       if (clientY - baseHandleY.current > 0) {
@@ -98,19 +104,18 @@ const Dogrun = () => {
         <CustomMap dogruns={dogruns} onPositionChange={handlePositionChange} />
 
         <div
-          // className={`w-full h-1/2 ${moving ? `translate-y-[${clientY}px]` : 'translate-y-0'} absolute bottom-0 bg-red-500`}
-          className={`w-full h-full absolute bottom-0 bg-slate-100 duration-300 ease-out`}
+          className={`w-full h-full absolute bottom-0 bg-slate-100 duration-300 ease-out sm:hidden`}
           style={{
-            // transform: `translateY()`,
             transform: `translateY(${translateY}px)`,
           }}
         >
           <div
-            className={`hover:cursor-grab flex items-center`}
+            className="hover:cursor-grab flex items-center touch-none"
             style={{ height: `${handleHeight}px` }}
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
+            ref={bottomSheetRef}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointUp}
           >
             <div className="w-36 mx-auto border-2 border-gray-400 rounded-sm" />
           </div>
