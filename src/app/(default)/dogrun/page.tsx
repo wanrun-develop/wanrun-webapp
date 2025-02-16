@@ -94,7 +94,7 @@ const Dogrun = () => {
     <div className="w-full h-full flex flex-col overflow-y-hidden">
       <DogrunSearchHeader searchDogrun={() => setOpen(!open)} />
       <div ref={mapRef} className="relative sm:flex flex-1 overflow-y-hidden">
-        <div className="h-full w-1/2 overflow-y-scroll hidden sm:block">
+        <div className="h-full w-2/3 overflow-y-scroll hidden sm:block">
           <DogrunSearchList
             dogruns={dogruns}
             searchDogrun={searchDogruns}
@@ -104,7 +104,7 @@ const Dogrun = () => {
         <CustomMap dogruns={dogruns} onPositionChange={handlePositionChange} />
 
         <div
-          className={`w-full h-full absolute bottom-0 bg-slate-100 duration-300 ease-out sm:hidden`}
+          className={`w-full h-full absolute bottom-0 flex flex-col bg-white duration-300 ease-out sm:hidden`}
           style={{
             transform: `translateY(${translateY}px)`,
           }}
@@ -120,6 +120,9 @@ const Dogrun = () => {
             <div className="w-36 mx-auto border-2 border-gray-400 rounded-sm" />
           </div>
           <div>clientY is {translateY} px</div>
+          <div className="px-6 flex-1 overflow-y-scroll">
+            <DogrunList dogruns={dogruns} />
+          </div>
         </div>
 
         <div

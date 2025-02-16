@@ -12,14 +12,14 @@ const DogrunList = (props: Props) => {
   const dogrunItems = useMemo(
     () =>
       dogruns.map((dogrun, i) => (
-        <div key={`dogrun-item${i}`} className="w-full lg:w-1/2">
+        <div key={`dogrun-item${i}`} className="w-full lg:w-1/2 px-2 py-4">
           <DogrunListItem dogrun={dogrun} />
         </div>
       )),
     [dogruns],
   );
 
-  return <div className="w-full flex flex-wrap bg-slate-50">{dogrunItems}</div>;
+  return <div className="w-full flex flex-wrap bg-white">{dogrunItems}</div>;
 };
 
 export default DogrunList;
