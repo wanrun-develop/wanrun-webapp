@@ -14,11 +14,20 @@ on:
         - "tsconfig.json"
         - "components.json"
         - "public/**"
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Select branch to deploy"
+        required: true
+        default: "develop"
+        type: choice
+        options:
+          - develop
 env:
   AWS_REGION: ap-northeast-1
-  AWS_ROLE_ARN: 
+  AWS_ROLE_ARN: arn:aws:iam::${{ vars.DEVELOP_AWS_ACCOUNT }}:role/github-actions
 
-  AWS_S3_BUCKET_NAME: wr-${{ vars.ENV }}
+  AWS_S3_BUCKET_NAME: wr-${{ vars.ENV }}-webapp
   SOURCE_DIR: ./build
 
 jobs:
@@ -78,7 +87,7 @@ jobs:
               --query "DistributionList.Items[].{Id:Id,Origin:Origins.Items[0].DomainName}[?contains(Origin,'${{ env.AWS_S3_BUCKET_NAME }}.s3')] | [0].Id" | sed 's/"//g')
  
           if [ -z "$CFID" ]; then
-              echo "Error: No CloudFront distribution found for ${AWS_S3_BUCKET_NAME}"
+              echo "Error: No CloudFront distribution found for ${{ env.AWS_S3_BUCKET_NAME }}"
               exit 1
           fi
         
