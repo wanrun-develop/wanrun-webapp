@@ -19,7 +19,7 @@ const Dogrun = () => {
 
   const [open, setOpen] = useState(false);
 
-  const [translateY, setTranslateY] = useState<number>(0);
+  const [translateY, setTranslateY] = useState<number>(1000);
   const baseHandleY = useRef<number>(0);
   const mapRef = useRef<HTMLDivElement>(null);
   const bottomSheetRef = useRef<HTMLDivElement>(null);

@@ -85,7 +85,7 @@ const Header = () => {
       </DropdownMenu>
 
       <Sheet>
-        <SheetTrigger className="sm:hidden">
+        <SheetTrigger className="sm:hidden" asChild>
           <Button variant="outline" size="circle-md">
             <MenuIcon className="w-6 h-6" />
           </Button>
