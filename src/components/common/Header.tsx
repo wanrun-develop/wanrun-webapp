@@ -22,6 +22,7 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 
 const Header = () => {
+  const [openNav, setOpenNav] = useState(false);
   const [openSignup, setOpenSignup] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
 
@@ -84,19 +85,23 @@ const Header = () => {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <Sheet>
+      <Sheet open={openNav} onOpenChange={setOpenNav}>
         <SheetTrigger className="sm:hidden" asChild>
-          <Button variant="outline" size="circle-md">
+          <Button
+            variant="outline"
+            size="circle-md"
+            onClick={() => setOpenNav(true)}
+          >
             <MenuIcon className="w-6 h-6" />
           </Button>
         </SheetTrigger>
         <SheetContent side="right" className="py-16">
-          <Link href="/dogrun">
+          <Link href="/dogrun" onClick={() => setOpenNav(false)}>
             <Button variant="ghost" size="full">
               <Text>ドッグラン</Text>
             </Button>
           </Link>
-          <Link href="/setting">
+          <Link href="/setting" onClick={() => setOpenNav(false)}>
             <Button variant="ghost" size="full">
               <Text>設定</Text>
             </Button>
