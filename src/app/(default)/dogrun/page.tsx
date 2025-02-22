@@ -48,6 +48,10 @@ const Dogrun = () => {
     });
   }, [bounds, search]);
 
+  const handleClickSearch = () => {
+    searchDogruns();
+  };
+
   const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
     console.log(e.clientY, e.nativeEvent.clientY);
     bottomSheetRef.current?.setPointerCapture(e.pointerId);
@@ -92,7 +96,10 @@ const Dogrun = () => {
 
   return (
     <div className="w-full h-full flex flex-col overflow-y-hidden">
-      <DogrunSearchHeader searchDogrun={() => setOpen(!open)} />
+      <DogrunSearchHeader
+        searchDogrun={() => handleClickSearch()}
+        searching={loading}
+      />
       <div ref={mapRef} className="relative sm:flex flex-1 overflow-y-hidden">
         <div className="h-full w-2/3 overflow-y-scroll hidden sm:block">
           <DogrunSearchList
@@ -119,7 +126,6 @@ const Dogrun = () => {
           >
             <div className="w-36 mx-auto border-2 border-gray-400 rounded-sm" />
           </div>
-          <div>clientY is {translateY} px</div>
           <div className="px-6 flex-1 overflow-y-scroll">
             <DogrunList dogruns={dogruns} />
           </div>
