@@ -6,18 +6,17 @@ import { PointerEvent, useCallback, useEffect, useRef, useState } from 'react';
 import DogrunSearchHeader from '@/components/dogrun/DogrunSearchHeader';
 import DogrunList from '@/components/dogrun/DogrunList';
 import DogrunSearchList from '@/components/dogrun/DogrunSearchList';
-import { Button } from '@/components/ui/button';
-import { ListIcon, MapIcon } from 'lucide-react';
 
 const handleHeight = 50;
+
+const categories = [{ id: -1, label: 'お気に入り' }];
 
 const Dogrun = () => {
   const [bounds, setBounds] = useState<google.maps.LatLngBounds | undefined>(
     undefined,
   );
   const { dogruns, search, loading } = useSearchDogrun();
-
-  const [open, setOpen] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
 
   const [translateY, setTranslateY] = useState<number>(1000);
   const baseHandleY = useRef<number>(0);
@@ -50,6 +49,14 @@ const Dogrun = () => {
 
   const handleClickSearch = () => {
     searchDogruns();
+  };
+
+  const toggleCategory = (categoryId: number) => {
+    setSelectedCategories((prev) =>
+      prev.includes(categoryId)
+        ? prev.filter((id) => id !== categoryId)
+        : [...prev, categoryId],
+    );
   };
 
   const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
@@ -97,8 +104,11 @@ const Dogrun = () => {
   return (
     <div className="w-full h-full flex flex-col overflow-y-hidden">
       <DogrunSearchHeader
-        searchDogrun={() => handleClickSearch()}
         searching={loading}
+        categories={categories}
+        selectedCategories={selectedCategories}
+        searchDogrun={handleClickSearch}
+        toggleCategory={toggleCategory}
       />
       <div ref={mapRef} className="relative sm:flex flex-1 overflow-y-hidden">
         <div className="h-full w-2/3 overflow-y-scroll hidden sm:block">
@@ -131,7 +141,7 @@ const Dogrun = () => {
           </div>
         </div>
 
-        <div
+        {/* <div
           className={`w-full h-full top-0 left-0 absolute sm:hidden ${open ? '' : '-translate-x-full'}`}
         >
           <div className="h-full overflow-y-scroll">
@@ -151,7 +161,7 @@ const Dogrun = () => {
               <ListIcon className="w-6 h-6" />
             )}
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
