@@ -6,6 +6,7 @@ import { PointerEvent, useCallback, useEffect, useRef, useState } from 'react';
 import DogrunSearchHeader from '@/components/dogrun/DogrunSearchHeader';
 import DogrunList from '@/components/dogrun/DogrunList';
 import DogrunSearchList from '@/components/dogrun/DogrunSearchList';
+import useDogrunTag from '@/hooks/dogrun/useDogrunTag';
 
 const handleHeight = 50;
 
@@ -16,7 +17,9 @@ const Dogrun = () => {
     undefined,
   );
   const { dogruns, search, loading } = useSearchDogrun();
-  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+  const [selectedTags, setSelectedTags] = useState<number[]>([]);
+
+  const { dogrunTags } = useDogrunTag();
 
   const [translateY, setTranslateY] = useState<number>(1000);
   const baseHandleY = useRef<number>(0);
@@ -51,11 +54,11 @@ const Dogrun = () => {
     searchDogruns();
   };
 
-  const toggleCategory = (categoryId: number) => {
-    setSelectedCategories((prev) =>
-      prev.includes(categoryId)
-        ? prev.filter((id) => id !== categoryId)
-        : [...prev, categoryId],
+  const toggleTag = (tagId: number) => {
+    setSelectedTags((prev) =>
+      prev.includes(tagId)
+        ? prev.filter((id) => id !== tagId)
+        : [...prev, tagId],
     );
   };
 
@@ -105,10 +108,10 @@ const Dogrun = () => {
     <div className="w-full h-full flex flex-col overflow-y-hidden">
       <DogrunSearchHeader
         searching={loading}
-        categories={categories}
-        selectedCategories={selectedCategories}
+        tags={dogrunTags}
+        selectedTags={selectedTags}
         searchDogrun={handleClickSearch}
-        toggleCategory={toggleCategory}
+        toggleTag={toggleTag}
       />
       <div ref={mapRef} className="relative sm:flex flex-1 overflow-y-hidden">
         <div className="h-full w-2/3 overflow-y-scroll hidden sm:block">
@@ -116,6 +119,9 @@ const Dogrun = () => {
             dogruns={dogruns}
             searchDogrun={searchDogruns}
             searching={loading}
+            tags={dogrunTags}
+            selectedTags={selectedTags}
+            toggleTag={toggleTag}
           />
         </div>
         <CustomMap dogruns={dogruns} onPositionChange={handlePositionChange} />

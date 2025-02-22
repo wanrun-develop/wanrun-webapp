@@ -1,22 +1,17 @@
-import { Badge } from '../ui/badge';
+import { DogrunTag } from '@/hooks/dogrun/useDogrunTag';
 import { Button } from '../ui/button';
+import DogrunTagList from './DogrunTagList';
 
 type Props = {
   searching: boolean;
-  categories: { id: number; label: string }[];
-  selectedCategories: number[];
+  tags: DogrunTag[];
+  selectedTags: number[];
   searchDogrun: () => void;
-  toggleCategory: (id: number) => void;
+  toggleTag: (id: number) => void;
 };
 
 const DogrunSearchHeader = (props: Props) => {
-  const {
-    searching,
-    categories,
-    selectedCategories,
-    searchDogrun,
-    toggleCategory,
-  } = props;
+  const { searching, tags, selectedTags, searchDogrun, toggleTag } = props;
 
   return (
     <div className="sm:hidden">
@@ -29,18 +24,13 @@ const DogrunSearchHeader = (props: Props) => {
         >
           ドッグラン検索
         </Button>
-      </div>
-      <div className="flex gap-1 mx-2 mb-2">
-        {categories.map((category) => (
-          <Badge
-            key={category.id}
-            variant="outline"
-            className={`${selectedCategories.includes(category.id) ? 'border-blue-400 bg-blue-300 text-blue-600' : 'border-gray-400'} cursor-pointer`}
-            onClick={() => toggleCategory(category.id)}
-          >
-            {category.label}
-          </Badge>
-        ))}
+        <div className="flex gap-1 mx-2 my-2 overflow-x-scroll hidden-scrollbar">
+          <DogrunTagList
+            tags={tags}
+            selectedTags={selectedTags}
+            toggleTag={toggleTag}
+          />
+        </div>
       </div>
     </div>
   );
