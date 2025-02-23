@@ -87,12 +87,14 @@ jobs:
       - name: CloudFront Cache Clear
         run: |
           set -e  # エラー発生時に停止
-          CFID=$(aws cloudfront list-distributions \
-              --query "DistributionList.Items[].{Id:Id,Origin:Origins.Items[0].DomainName}[?contains(Origin,'${{ env.AWS_S3_BUCKET_NAME }}.s3')] | [0].Id" | sed 's/"//g')
+          CFID=$(aws cloudfront list-distributions --query "DistributionList.Items[?contains(Origins.Items[*].DomainName, '${{ env.AWS_S3_BUCKET_NAME }}.s3.ap-northeast-1.amazonaws.com')].Id | [0]" --output text)
  
-          if [ -z "$CFID" ]; then
-              echo "Error: No CloudFront distribution found for ${{ env.AWS_S3_BUCKET_NAME }}"
-              exit 1
+          if [[ -z "$CFID" || "$CFID" == "None" ]]; then
+            echo "🚨 CloudFront Distribution ID が見つかりませんでした。"
+            echo "🔍 確認ポイント:"
+            echo "1. CloudFront の Origin に '${{ env.AWS_S3_BUCKET_NAME }}.s3.ap-northeast-1.amazonaws.com' が含まれているか？"
+            echo "2. 'aws cloudfront list-distributions' で正しくバケットが設定されているか確認"
+            exit 1
           fi
         
           echo "Invalidating CloudFront cache for distribution ID: $CFID"
