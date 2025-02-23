@@ -9,7 +9,14 @@ type JwtPayload = {
   exp: number;
 };
 
-export const jwtAtom = atomWithStorage<string | null>('accessToken', null);
+export const jwtAtom = atomWithStorage<string | null>(
+  'accessToken',
+  null,
+  undefined,
+  {
+    getOnInit: true,
+  },
+);
 
 export const jwtPayloadAtom = atom((get) => {
   const jwt = get(jwtAtom);
