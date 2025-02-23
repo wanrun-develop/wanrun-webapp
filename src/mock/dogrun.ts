@@ -2,7 +2,7 @@ import { Dogrun, DogrunListItem } from '@/types/Dogrun';
 
 export const mockDogrunListItems: DogrunListItem[] = [
   {
-    dogrunId: 'dogrun-001',
+    dogrunId: -101,
     placeId: 'place-001',
     name: 'Shibuya Dog Park',
     address: {
@@ -36,7 +36,7 @@ export const mockDogrunListItems: DogrunListItem[] = [
     isManaged: false,
   },
   {
-    dogrunId: 'dogrun-002',
+    dogrunId: -102,
     placeId: 'place-002',
     name: 'Roppongi Hills Dog Lounge',
     address: {
@@ -75,7 +75,7 @@ export const mockDogrunListItems: DogrunListItem[] = [
     isManaged: true,
   },
   {
-    dogrunId: 'dogrun-003',
+    dogrunId: -103,
     placeId: 'place-003',
     name: 'Yoyogi Dog Field',
     address: {
@@ -109,7 +109,7 @@ export const mockDogrunListItems: DogrunListItem[] = [
     isManaged: true,
   },
   {
-    dogrunId: 'dogrun-004',
+    dogrunId: -104,
     placeId: 'place-004',
     name: 'Odaiba Seaside Dog Garden',
     address: {
@@ -143,7 +143,7 @@ export const mockDogrunListItems: DogrunListItem[] = [
     isManaged: false,
   },
   {
-    dogrunId: 'dogrun-005',
+    dogrunId: -105,
     placeId: 'place-005',
     name: 'Tama River Dog Park',
     address: {
@@ -179,7 +179,7 @@ export const mockDogrunListItems: DogrunListItem[] = [
 ];
 
 export const mockDogrun: Dogrun = {
-  dogrunId: 'dogrun_001',
+  dogrunId: -101,
   placeId: 'place_001',
   name: 'ワンワンパーク',
   address: {

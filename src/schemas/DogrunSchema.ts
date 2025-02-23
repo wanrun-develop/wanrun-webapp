@@ -51,7 +51,7 @@ export const photoSchema = z.object({
 });
 
 export const dogrunSchema = z.object({
-  dogrunId: z.string(),
+  dogrunId: z.number(),
   placeId: z.string(),
   name: z.string(),
   address: addressSchema,
@@ -69,7 +69,7 @@ export const dogrunSchema = z.object({
 });
 
 export const dogrunListItemSchema = z.object({
-  dogrunId: z.string(),
+  dogrunId: z.number(),
   placeId: z.string(),
   name: z.string(),
   address: addressSchema,

@@ -11,11 +11,19 @@ type Props = {
   tags: DogrunTag[];
   selectedTags: number[];
   toggleTag: (id: number) => void;
+  handleBookmark: (dogrun: DogrunListItem) => void;
 };
 
 const DogrunSearchList = (props: Props) => {
-  const { dogruns, searchDogrun, searching, tags, selectedTags, toggleTag } =
-    props;
+  const {
+    dogruns,
+    searchDogrun,
+    searching,
+    tags,
+    selectedTags,
+    toggleTag,
+    handleBookmark,
+  } = props;
 
   return (
     <div className="w-full flex flex-col">
@@ -36,7 +44,7 @@ const DogrunSearchList = (props: Props) => {
           />
         </div>
       </div>
-      <DogrunList dogruns={dogruns} />
+      <DogrunList dogruns={dogruns} handleBookmark={handleBookmark} />
     </div>
   );
 };

@@ -7,6 +7,8 @@ import DogrunSearchHeader from '@/components/dogrun/DogrunSearchHeader';
 import DogrunList from '@/components/dogrun/DogrunList';
 import DogrunSearchList from '@/components/dogrun/DogrunSearchList';
 import useDogrunTag from '@/hooks/dogrun/useDogrunTag';
+import useDogrunBookmark from '@/hooks/dogrun/useDogrunBookmark';
+import { DogrunListItem } from '@/types/Dogrun';
 
 const handleHeight = 50;
 
@@ -16,10 +18,11 @@ const Dogrun = () => {
   const [bounds, setBounds] = useState<google.maps.LatLngBounds | undefined>(
     undefined,
   );
-  const { dogruns, search, loading } = useSearchDogrun();
+  const { dogruns, search, loading, replaceDogrun } = useSearchDogrun();
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
 
   const { dogrunTags, loading: loadingTag } = useDogrunTag();
+  const { toggleBookmark } = useDogrunBookmark();
 
   const [translateY, setTranslateY] = useState<number>(1000);
   const baseHandleY = useRef<number>(0);
@@ -61,6 +64,15 @@ const Dogrun = () => {
         ? prev.filter((id) => id !== tagId)
         : [...prev, tagId],
     );
+  };
+
+  const handleBookmark = async (dogrun: DogrunListItem) => {
+    try {
+      toggleBookmark(dogrun);
+      replaceDogrun(dogrun);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
@@ -124,6 +136,7 @@ const Dogrun = () => {
             tags={dogrunTags}
             selectedTags={selectedTags}
             toggleTag={toggleTag}
+            handleBookmark={handleBookmark}
           />
         </div>
         <CustomMap dogruns={dogruns} onPositionChange={handlePositionChange} />
@@ -145,7 +158,7 @@ const Dogrun = () => {
             <div className="w-36 mx-auto border-2 border-gray-400 rounded-sm" />
           </div>
           <div className="px-6 flex-1 overflow-y-scroll">
-            <DogrunList dogruns={dogruns} />
+            <DogrunList dogruns={dogruns} handleBookmark={handleBookmark} />
           </div>
         </div>
 

@@ -43,7 +43,14 @@ const useSearchDogrun = () => {
     }
   };
 
-  return { dogruns, search, loading, error };
+  const replaceDogrun = (newDogrun: DogrunListItem) => {
+    const newDogruns = dogruns.map((d) =>
+      d.dogrunId === newDogrun.dogrunId ? newDogrun : d,
+    );
+    setDogruns(newDogruns);
+  };
+
+  return { dogruns, search, loading, error, replaceDogrun };
 };
 
 export default useSearchDogrun;

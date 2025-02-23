@@ -3,18 +3,25 @@ import { DogrunListItem as Dogrun } from '@/types/Dogrun';
 import usePhoto from '../../hooks/dogrun/usePhoto';
 import NoImage from '@public/noimage.png';
 import { Text } from '../ui/text';
-import { StarIcon } from 'lucide-react';
+import { Bookmark, StarIcon } from 'lucide-react';
 import Link from 'next/link';
+import { Button } from '../ui/button';
 
 type Props = {
   dogrun: Dogrun;
+  handleBookmark: (dogrun: Dogrun) => void;
 };
 
 const DogrunListItem = (props: Props) => {
-  const { dogrun } = props;
+  const { dogrun, handleBookmark } = props;
 
   const photo = dogrun.photos?.[0];
   const imageUrl = usePhoto(photo);
+
+  const clickBookmark = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    handleBookmark(dogrun);
+  };
 
   return (
     <div className="w-full">
@@ -30,6 +37,16 @@ const DogrunListItem = (props: Props) => {
               color: 'black',
             }}
           />
+          <Button
+            variant="none"
+            className="absolute top-1 right-1 p-2"
+            onClick={clickBookmark}
+          >
+            <Bookmark
+              className="w-6 h-6 text-white"
+              fill={dogrun.isBookmarked ? 'red' : 'gray'}
+            />
+          </Button>
         </div>
         <div className="w-full p-[10px] box box-border ">
           <div className="grid grid-cols-4 grid-rows-2 gap-1 items-center">
