@@ -6,16 +6,24 @@ type Props = {
   searching: boolean;
   tags: DogrunTag[];
   selectedTags: number[];
+  loadingTag?: boolean;
   searchDogrun: () => void;
   toggleTag: (id: number) => void;
 };
 
 const DogrunSearchHeader = (props: Props) => {
-  const { searching, tags, selectedTags, searchDogrun, toggleTag } = props;
+  const {
+    searching,
+    tags,
+    selectedTags,
+    loadingTag = false,
+    searchDogrun,
+    toggleTag,
+  } = props;
 
   return (
     <div className="sm:hidden">
-      <div className="mx-2 mb-4">
+      <div className="mx-2">
         <Button
           variant="outline"
           size="full"
@@ -28,6 +36,7 @@ const DogrunSearchHeader = (props: Props) => {
           <DogrunTagList
             tags={tags}
             selectedTags={selectedTags}
+            loading={loadingTag}
             toggleTag={toggleTag}
           />
         </div>

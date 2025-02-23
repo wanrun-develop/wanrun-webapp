@@ -1,14 +1,26 @@
 import { DogrunTag } from '@/hooks/dogrun/useDogrunTag';
 import { Badge } from '../ui/badge';
+import { Skeleton } from '../ui/skeleton';
 
 type Props = {
   tags: DogrunTag[];
   selectedTags: number[];
+  loading?: boolean;
   toggleTag: (id: number) => void;
 };
 
 const DogrunTagList = (props: Props) => {
-  const { tags, selectedTags, toggleTag } = props;
+  const { tags, selectedTags, loading = false, toggleTag } = props;
+
+  if (loading) {
+    return (
+      <>
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Skeleton key={i} className="w-20 h-7 rounded-lg" />
+        ))}
+      </>
+    );
+  }
 
   return (
     <>

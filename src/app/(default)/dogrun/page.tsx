@@ -19,7 +19,7 @@ const Dogrun = () => {
   const { dogruns, search, loading } = useSearchDogrun();
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
 
-  const { dogrunTags } = useDogrunTag();
+  const { dogrunTags, loading: loadingTag } = useDogrunTag();
 
   const [translateY, setTranslateY] = useState<number>(1000);
   const baseHandleY = useRef<number>(0);
@@ -28,11 +28,11 @@ const Dogrun = () => {
   const moving = useRef(false);
 
   useEffect(() => {
-    if (mapRef.current) {
+    if (mapRef.current && !loadingTag) {
       const mapRect = mapRef.current.getBoundingClientRect();
       setTranslateY(mapRect.height - handleHeight);
     }
-  }, [mapRef]);
+  }, [mapRef, loadingTag]);
 
   const handlePositionChange = (bounds: google.maps.LatLngBounds) =>
     setBounds(bounds);
@@ -110,6 +110,7 @@ const Dogrun = () => {
         searching={loading}
         tags={dogrunTags}
         selectedTags={selectedTags}
+        loadingTag={loadingTag}
         searchDogrun={handleClickSearch}
         toggleTag={toggleTag}
       />

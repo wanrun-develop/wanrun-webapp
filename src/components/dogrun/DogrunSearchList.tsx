@@ -18,7 +18,7 @@ const DogrunSearchList = (props: Props) => {
     props;
 
   return (
-    <div className="w-full flex flex-col bg-slate-50">
+    <div className="w-full flex flex-col">
       <div className="p-2">
         <Button
           variant="outline"
@@ -28,7 +28,7 @@ const DogrunSearchList = (props: Props) => {
         >
           ドッグラン検索
         </Button>
-        <div className="flex gap-1 mx-2 my-2 overflow-x-scroll hidden-scrollbar">
+        <div className="flex gap-1 mx-2 my-2 overflow-x-scroll">
           <DogrunTagList
             tags={tags}
             selectedTags={selectedTags}
