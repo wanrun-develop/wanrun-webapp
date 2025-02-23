@@ -9,17 +9,16 @@ import { Marker } from '@googlemaps/markerclusterer';
 
 type Props = {
   dogrun: DogrunListItem;
-  currentDogrunId: string | undefined;
-  selectDogrunId: (dogrunId: string | undefined) => void;
-  setMarkerRef: (marker: Marker | null, key: string) => void;
+  currentDogrunId: number | undefined;
+  selectDogrunId: (dogrunId: number | undefined) => void;
+  setMarkerRef: (marker: Marker | null, key: number) => void;
 };
 
 const CustomMarker = (props: Props) => {
   const { dogrun, currentDogrunId, selectDogrunId, setMarkerRef } = props;
   const [marker, setMarker] = useState<Marker | undefined>(undefined);
 
-  // dogrunIdを持たないデータもあるため暫定
-  const dogrunId = useMemo(() => dogrun.dogrunId || dogrun.placeId, [dogrun]);
+  const dogrunId = useMemo(() => dogrun.dogrunId, [dogrun]);
 
   const ref = useCallback(
     (marker: google.maps.marker.AdvancedMarkerElement) => {

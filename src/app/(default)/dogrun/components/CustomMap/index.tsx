@@ -22,7 +22,7 @@ type Props = {
 
 const CustomMap = (props: Props) => {
   const { dogruns, onPositionChange } = props;
-  const [currentDogrunId, setCurrentDogrunId] = useState<string | undefined>(
+  const [currentDogrunId, setCurrentDogrunId] = useState<number | undefined>(
     undefined,
   );
 

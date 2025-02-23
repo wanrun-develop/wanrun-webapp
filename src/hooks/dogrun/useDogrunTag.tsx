@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import useApi from '../common/useApi';
 
 export type DogrunTag = {
@@ -15,11 +15,7 @@ const useDogrunTag = () => {
   const [error, setError] = useState<string | undefined>(undefined);
   const { api } = useApi();
 
-  useEffect(() => {
-    getTag();
-  }, []);
-
-  const getTag = async () => {
+  const getTag = useCallback(async () => {
     setLoading(true);
     setError(undefined);
 
@@ -32,7 +28,11 @@ const useDogrunTag = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [api, setDogrunTags]);
+
+  useEffect(() => {
+    getTag();
+  }, [getTag]);
 
   return { dogrunTags, loading, error };
 };

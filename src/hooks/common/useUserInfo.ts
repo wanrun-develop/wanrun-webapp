@@ -33,7 +33,7 @@ const useUserInfo = () => {
     } catch (e) {
       setUserInfo(null);
     }
-  }, []);
+  }, [getAccessToken]);
 
   return { userInfo };
 };

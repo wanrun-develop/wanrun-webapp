@@ -6,8 +6,8 @@ import CustomMarker from '../CustomMarker';
 
 type Props = {
   dogruns: DogrunListItem[];
-  currentDogrunId: string | undefined;
-  selectDogrunId: (dogrunId: string | undefined) => void;
+  currentDogrunId: number | undefined;
+  selectDogrunId: (dogrunId: number | undefined) => void;
 };
 
 const MarkerCluster = (props: Props) => {
@@ -28,7 +28,7 @@ const MarkerCluster = (props: Props) => {
     clusterer.addMarkers(Object.values(markers));
   }, [clusterer, markers]);
 
-  const setMarkerRef = useCallback((marker: Marker | null, key: string) => {
+  const setMarkerRef = useCallback((marker: Marker | null, key: number) => {
     setMarkers((markers) => {
       if ((marker && markers[key]) || (!marker && !markers[key]))
         return markers;
