@@ -15,6 +15,7 @@ export type SearchCondition = {
     southwest: GeoCoordinates;
     northeast: GeoCoordinates;
   };
+  includeDogrunTags: number[];
 };
 
 const useSearchDogrun = () => {

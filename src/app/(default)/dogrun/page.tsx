@@ -47,8 +47,9 @@ const Dogrun = () => {
         northeast: { latitude: ne.lat(), longitude: ne.lng() },
         southwest: { latitude: sw.lat(), longitude: sw.lng() },
       },
+      includeDogrunTags: selectedTags,
     });
-  }, [bounds, search]);
+  }, [bounds, selectedTags, search]);
 
   const handleClickSearch = () => {
     searchDogruns();
