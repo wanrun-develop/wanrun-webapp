@@ -28,7 +28,7 @@ env:
   AWS_ROLE_ARN: arn:aws:iam::${{ vars.DEVELOP_AWS_ACCOUNT }}:role/github-actions
 
   AWS_S3_BUCKET_NAME: wr-${{ vars.ENV }}-webapp
-  SOURCE_DIR: ./build
+  SOURCE_DIR: ./.next
 
 jobs:
   deploy:
