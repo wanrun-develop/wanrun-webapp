@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 import { useAtom } from 'jotai';
-import { jwtAtom } from '@/atom/auth';
+import { accessTokenAtom } from '@/atom/auth';
 
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL as string;
 
 const useApi = () => {
-  const [accessToken] = useAtom(jwtAtom);
+  const [accessToken] = useAtom(accessTokenAtom);
 
   const createBaseOptions = useCallback(
     (method: Method, params?: any) => {

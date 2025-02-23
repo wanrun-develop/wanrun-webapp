@@ -1,5 +1,5 @@
 import useApi from '@/hooks/common/useApi';
-import { jwtAtom } from '@/atom/auth';
+import { accessTokenAtom, refreshTokenAtom } from '@/atom/auth';
 import { loginDogOwnerFormSchema } from '@/schemas/AuthDogOwnerSchema';
 import { LoginDogOwnerFormType } from '@/types/AuthDogOwnerSchema';
 import { useAtom } from 'jotai';
@@ -7,12 +7,14 @@ import { useState } from 'react';
 
 type LogInResponse = {
   accessToken: string;
+  refreshToken: string;
 };
 
 const useLogin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [_, setJwt] = useAtom(jwtAtom);
+  const [, setAccessToken] = useAtom(accessTokenAtom);
+  const [, setRefreshToken] = useAtom(refreshTokenAtom);
 
   const { api } = useApi();
 
@@ -28,9 +30,10 @@ const useLogin = () => {
         request,
       );
 
-      const { accessToken } = res;
+      const { accessToken, refreshToken } = res;
       if (accessToken) {
-        setJwt(accessToken);
+        setAccessToken(accessToken);
+        setRefreshToken(refreshToken);
       }
       return res;
     } catch (error: any) {

@@ -18,7 +18,6 @@ import { useSignup } from '@/hooks/auth/useSignup';
 
 const defaultValues = {
   dogOwnerName: '',
-  email: '',
   password: '',
 };
 

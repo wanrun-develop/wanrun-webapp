@@ -1,6 +1,6 @@
 'use client';
 
-import { jwtAtom, jwtPayloadAtom } from '@/atom/auth';
+import { accessTokenAtom, jwtPayloadAtom } from '@/atom/auth';
 import AuthModal from '@/components/auth/AuthModal';
 import { Button } from '@/components/ui/button';
 import {
@@ -27,7 +27,7 @@ const Header = () => {
   const [openLogin, setOpenLogin] = useState(false);
 
   const [payload] = useAtom(jwtPayloadAtom);
-  const [_, setJwt] = useAtom(jwtAtom);
+  const [_, setAccessToken] = useAtom(accessTokenAtom);
 
   const isLoggedIn = useMemo(() => !!payload?.userId, [payload]);
 
@@ -65,7 +65,7 @@ const Header = () => {
             {isLoggedIn ? (
               <DropdownMenuItem
                 onClick={() => {
-                  setJwt(null);
+                  setAccessToken(null);
                   console.log('logout');
                 }}
               >
@@ -113,7 +113,7 @@ const Header = () => {
               variant="ghost"
               size="full"
               onClick={() => {
-                setJwt(null);
+                setAccessToken(null);
                 console.log('logout');
               }}
             >

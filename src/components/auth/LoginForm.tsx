@@ -16,9 +16,9 @@ import {
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 
-const defaultValues = {
-  email: '',
+const defaultValues: LoginDogOwnerFormType = {
   password: '',
+  authenticationType: 'password',
 };
 
 type Props = {
