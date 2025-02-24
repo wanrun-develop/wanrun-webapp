@@ -1,9 +1,8 @@
 import { accessTokenAtom, refreshTokenAtom } from '@/atom/auth';
+import { apiUrl } from '@/constants';
 import { getDefaultStore } from 'jotai';
 
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
-
-const apiUrl = process.env.NEXT_PUBLIC_API_URL as string;
 
 const store = getDefaultStore();
 

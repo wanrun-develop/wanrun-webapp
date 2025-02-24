@@ -16,7 +16,6 @@ const useSignup = () => {
   const [, setAccessToken] = useAtom(accessTokenAtom);
   const [, setRefreshToken] = useAtom(refreshTokenAtom);
 
-
   const signup = async (data: SignupDogOwnerFormType) => {
     setIsLoading(true);
     setError(null);

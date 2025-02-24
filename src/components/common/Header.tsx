@@ -1,6 +1,6 @@
 'use client';
 
-import { accessTokenAtom, jwtPayloadAtom } from '@/atom/auth';
+import { jwtPayloadAtom } from '@/atom/auth';
 import AuthModal from '@/components/auth/AuthModal';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,6 +13,8 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Text } from '@/components/ui/text';
+import { generalUserId } from '@/constants';
+import useAuth from '@/hooks/auth/useAuth';
 import DogImage from '@public/dog.jpg';
 import { DropdownMenuGroup } from '@radix-ui/react-dropdown-menu';
 import { useAtom } from 'jotai';
@@ -26,10 +28,13 @@ const Header = () => {
   const [openSignup, setOpenSignup] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
 
+  const { logout } = useAuth();
   const [payload] = useAtom(jwtPayloadAtom);
-  const [_, setAccessToken] = useAtom(accessTokenAtom);
 
-  const isLoggedIn = useMemo(() => !!payload?.userId, [payload]);
+  const isLoggedIn = useMemo(
+    () => !!payload?.userId && payload.userId !== generalUserId,
+    [payload],
+  );
 
   return (
     <header className="px-10 py-3 bg-white sm:border-b sm:border-gray-300 flex justify-between items-center">
@@ -63,12 +68,7 @@ const Header = () => {
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             {isLoggedIn ? (
-              <DropdownMenuItem
-                onClick={() => {
-                  setAccessToken(null);
-                  console.log('logout');
-                }}
-              >
+              <DropdownMenuItem onClick={() => logout()}>
                 ログアウト
               </DropdownMenuItem>
             ) : (
@@ -109,14 +109,7 @@ const Header = () => {
           <Separator className="my-2" />
 
           {isLoggedIn ? (
-            <Button
-              variant="ghost"
-              size="full"
-              onClick={() => {
-                setAccessToken(null);
-                console.log('logout');
-              }}
-            >
+            <Button variant="ghost" size="full" onClick={() => logout()}>
               <Text>ログアウト</Text>
             </Button>
           ) : (

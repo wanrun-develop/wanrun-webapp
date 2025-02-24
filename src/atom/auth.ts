@@ -3,7 +3,7 @@ import { atomWithStorage } from 'jotai/utils';
 import { jwtDecode } from 'jwt-decode';
 
 type JwtPayload = {
-  userId: string;
+  userId: number;
   jti: string;
   role: number;
   exp: number;
