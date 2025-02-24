@@ -1,9 +1,9 @@
-import useApi from '@/hooks/common/useApi';
 import { accessTokenAtom, refreshTokenAtom } from '@/atom/auth';
 import { loginDogOwnerFormSchema } from '@/schemas/AuthDogOwnerSchema';
 import { LoginDogOwnerFormType } from '@/types/AuthDogOwnerSchema';
 import { useAtom } from 'jotai';
 import { useState } from 'react';
+import { request } from '@/lib/apiClient';
 
 type LogInResponse = {
   accessToken: string;
@@ -16,18 +16,17 @@ const useLogin = () => {
   const [, setAccessToken] = useAtom(accessTokenAtom);
   const [, setRefreshToken] = useAtom(refreshTokenAtom);
 
-  const { api } = useApi();
-
   const login = async (data: LoginDogOwnerFormType) => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const request = loginDogOwnerFormSchema.parse(data);
-      const res: LogInResponse = await api(
+      const requestBody = loginDogOwnerFormSchema.parse(data);
+
+      const res: LogInResponse = await request(
         'POST',
         '/auth/dogowner/token',
-        request,
+        requestBody,
       );
 
       const { accessToken, refreshToken } = res;

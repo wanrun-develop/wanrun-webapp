@@ -37,11 +37,9 @@ const LoginForm = (props: Props) => {
   const { login } = useLogin();
 
   const onSubmit = async (data: LoginDogOwnerFormType) => {
-    console.log(data);
     try {
       await login(data);
     } catch (e) {
-      console.error(e);
       return;
     }
     onSubmitComplete();

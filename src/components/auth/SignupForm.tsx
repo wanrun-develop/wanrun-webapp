@@ -37,11 +37,9 @@ const SignupForm = (props: Props) => {
   const { signup } = useSignup();
 
   const onSubmit = async (data: SignupDogOwnerFormType) => {
-    console.log(data);
     try {
       await signup(data);
     } catch (e) {
-      console.error(e);
       return;
     }
     onSubmitComplete();
