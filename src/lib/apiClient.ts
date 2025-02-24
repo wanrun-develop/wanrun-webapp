@@ -32,7 +32,10 @@ const request = async <T>(
     );
 
     if (res.status === 401) {
-      await refreshAccessToken();
+      const ok = await refreshAccessToken();
+      if (!ok) {
+        await getGeneralToken();
+      }
       const res = await fetch(
         `${apiUrl}${url}`,
         createBaseOptions(method, params),
@@ -52,7 +55,7 @@ const request = async <T>(
   }
 };
 
-type LogInResponse = {
+type TokenResponse = {
   accessToken: string;
   refreshToken: string;
 };
@@ -68,11 +71,27 @@ const refreshAccessToken = async () => {
       body: JSON.stringify({ refreshToken, authenticationType: 'refresh' }),
     });
     if (!res.ok) {
+      return false;
+    }
+    const response: TokenResponse = await res.json();
+    store.set(accessTokenAtom, response.accessToken);
+    store.set(refreshTokenAtom, response.refreshToken);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+const getGeneralToken = async () => {
+  try {
+    const res = await fetch(`${apiUrl}/auth/general/token`, {
+      method: 'GET',
+    });
+    if (!res.ok) {
       throw new Error('Unauthorized');
     }
-    const accessToken: LogInResponse = await res.json();
-    store.set(accessTokenAtom, accessToken.accessToken);
-    store.set(refreshTokenAtom, accessToken.refreshToken);
+    const response: TokenResponse = await res.json();
+    store.set(accessTokenAtom, response.accessToken);
   } catch (error) {
     throw error;
   }
