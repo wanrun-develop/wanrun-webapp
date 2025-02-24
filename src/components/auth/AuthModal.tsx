@@ -7,17 +7,24 @@ import SignupForm from './SignupForm';
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
+  onSubmitComplete: () => void;
   type: 'login' | 'signup';
 };
 
 const AuthModal = (props: Props) => {
-  const { open, setOpen, type } = props;
+  const {
+    open,
+    setOpen,
+    onSubmitComplete: onParentSubmitComplete,
+    type,
+  } = props;
 
   const isLogin = type === 'login';
   const title = useMemo(() => (isLogin ? 'ログイン' : '登録'), [isLogin]);
 
   const onSubmitComplete = () => {
     setOpen(false);
+    onParentSubmitComplete();
   };
 
   return (

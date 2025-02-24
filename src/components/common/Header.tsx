@@ -36,6 +36,15 @@ const Header = () => {
     [payload],
   );
 
+  const handleLogout = () => {
+    logout();
+    setOpenNav(false);
+  };
+
+  const onSubmitComplete = () => {
+    setOpenNav(false);
+  };
+
   return (
     <header className="px-10 py-3 bg-white sm:border-b sm:border-gray-300 flex justify-between items-center">
       <div className="flex items-center">
@@ -68,7 +77,7 @@ const Header = () => {
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             {isLoggedIn ? (
-              <DropdownMenuItem onClick={() => logout()}>
+              <DropdownMenuItem onClick={handleLogout}>
                 ログアウト
               </DropdownMenuItem>
             ) : (
@@ -109,7 +118,7 @@ const Header = () => {
           <Separator className="my-2" />
 
           {isLoggedIn ? (
-            <Button variant="ghost" size="full" onClick={() => logout()}>
+            <Button variant="ghost" size="full" onClick={handleLogout}>
               <Text>ログアウト</Text>
             </Button>
           ) : (
@@ -133,8 +142,18 @@ const Header = () => {
         </SheetContent>
       </Sheet>
 
-      <AuthModal open={openLogin} setOpen={setOpenLogin} type="login" />
-      <AuthModal open={openSignup} setOpen={setOpenSignup} type="signup" />
+      <AuthModal
+        open={openLogin}
+        setOpen={setOpenLogin}
+        onSubmitComplete={onSubmitComplete}
+        type="login"
+      />
+      <AuthModal
+        open={openSignup}
+        setOpen={setOpenSignup}
+        onSubmitComplete={onSubmitComplete}
+        type="signup"
+      />
     </header>
   );
 };
