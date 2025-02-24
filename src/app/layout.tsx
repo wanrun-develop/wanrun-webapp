@@ -3,8 +3,8 @@ import Providers from '@/app/providers';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'DogRunner',
-  description: 'DogRunner',
+  title: 'wanrun',
+  description: 'wanrun webapp',
 };
 
 export default function RootLayout({
