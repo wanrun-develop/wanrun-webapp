@@ -1,44 +1,34 @@
 'use client';
 
+import { useCallback, useRef, useState } from 'react';
 import CustomMap from './components/CustomMap';
-import useSearchDogrun from '../../../hooks/dogrun/useSearchDogrun';
-import { PointerEvent, useCallback, useEffect, useRef, useState } from 'react';
+import useSearchDogrun from '@/hooks/dogrun/useSearchDogrun';
 import DogrunSearchHeader from '@/components/dogrun/DogrunSearchHeader';
-import DogrunList from '@/components/dogrun/DogrunList';
 import DogrunSearchList from '@/components/dogrun/DogrunSearchList';
 import useDogrunTag from '@/hooks/dogrun/useDogrunTag';
 import useDogrunBookmark from '@/hooks/dogrun/useDogrunBookmark';
 import { DogrunListItem } from '@/types/Dogrun';
+import { useDogrunBottomSheet } from '@/hooks/dogrun/useDogrunBottomSheet';
+import { DogrunBottomSheet } from '@/components/dogrun/DogrunBottomSheet';
 
-const handleHeight = 50;
-
-const categories = [{ id: -1, label: 'お気に入り' }];
+const HANDLE_HEIGHT = 50;
 
 const Dogrun = () => {
-  const [bounds, setBounds] = useState<google.maps.LatLngBounds | undefined>(
-    undefined,
-  );
+  const [bounds, setBounds] = useState<google.maps.LatLngBounds>();
   const { dogruns, search, loading, replaceDogrun } = useSearchDogrun();
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
-
   const { dogrunTags, loading: loadingTag } = useDogrunTag();
   const { toggleBookmark } = useDogrunBookmark();
-
-  const [translateY, setTranslateY] = useState<number>(1000);
-  const baseHandleY = useRef<number>(0);
   const mapRef = useRef<HTMLDivElement>(null);
-  const bottomSheetRef = useRef<HTMLDivElement>(null);
-  const moving = useRef(false);
 
-  useEffect(() => {
-    if (mapRef.current && !loadingTag) {
-      const mapRect = mapRef.current.getBoundingClientRect();
-      setTranslateY(mapRect.height - handleHeight);
-    }
-  }, [mapRef, loadingTag]);
+  const { translateY, bottomSheetRef, pointerHandlers } = useDogrunBottomSheet({
+    mapRef,
+    handleHeight: HANDLE_HEIGHT,
+  });
 
-  const handlePositionChange = (bounds: google.maps.LatLngBounds) =>
+  const handlePositionChange = useCallback((bounds: google.maps.LatLngBounds) => {
     setBounds(bounds);
+  }, []);
 
   const searchDogruns = useCallback(() => {
     if (!bounds) return;
@@ -54,68 +44,22 @@ const Dogrun = () => {
     });
   }, [bounds, selectedTags, search]);
 
-  const handleClickSearch = () => {
-    searchDogruns();
-  };
-
-  const toggleTag = (tagId: number) => {
+  const toggleTag = useCallback((tagId: number) => {
     setSelectedTags((prev) =>
       prev.includes(tagId)
         ? prev.filter((id) => id !== tagId)
         : [...prev, tagId],
     );
-  };
+  }, []);
 
-  const handleBookmark = async (dogrun: DogrunListItem) => {
+  const handleBookmark = useCallback(async (dogrun: DogrunListItem) => {
     try {
-      toggleBookmark(dogrun);
+      await toggleBookmark(dogrun);
       replaceDogrun(dogrun);
     } catch (e) {
-      console.error(e);
+      console.error('Failed to toggle bookmark:', e);
     }
-  };
-
-  const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
-    console.log(e.clientY, e.nativeEvent.clientY);
-    bottomSheetRef.current?.setPointerCapture(e.pointerId);
-    moving.current = true;
-    const clientY = e.clientY;
-    baseHandleY.current = clientY;
-    if (mapRef.current) {
-      const mapRect = mapRef.current.getBoundingClientRect();
-      setTranslateY(clientY - mapRect.top);
-    }
-  };
-
-  const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
-    if (!moving.current) return;
-
-    const clientY = e.clientY;
-    if (mapRef.current) {
-      const mapRect = mapRef.current?.getBoundingClientRect();
-      if (clientY < mapRect.top) {
-        setTranslateY(0);
-      } else if (clientY > mapRect.bottom) {
-        setTranslateY(mapRect.bottom);
-      } else {
-        setTranslateY(clientY - mapRect.top);
-      }
-    }
-  };
-
-  const onPointUp = (e: PointerEvent<HTMLDivElement>) => {
-    moving.current = false;
-    const clientY = e.clientY;
-    bottomSheetRef.current?.releasePointerCapture(e.pointerId);
-    if (mapRef.current) {
-      const mapRect = mapRef.current.getBoundingClientRect();
-      if (clientY - baseHandleY.current > 0) {
-        setTranslateY(mapRect.height - handleHeight);
-      } else {
-        setTranslateY(0);
-      }
-    }
-  };
+  }, [toggleBookmark, replaceDogrun]);
 
   return (
     <div className="w-full h-full flex flex-col overflow-y-hidden">
@@ -124,7 +68,7 @@ const Dogrun = () => {
         tags={dogrunTags}
         selectedTags={selectedTags}
         loadingTag={loadingTag}
-        searchDogrun={handleClickSearch}
+        searchDogrun={searchDogruns}
         toggleTag={toggleTag}
       />
       <div ref={mapRef} className="relative sm:flex flex-1 overflow-y-hidden">
@@ -139,50 +83,18 @@ const Dogrun = () => {
             handleBookmark={handleBookmark}
           />
         </div>
-        <CustomMap dogruns={dogruns} onPositionChange={handlePositionChange} />
-
-        <div
-          className={`w-full h-full absolute bottom-0 flex flex-col bg-white duration-300 ease-out sm:hidden`}
-          style={{
-            transform: `translateY(${translateY}px)`,
-          }}
-        >
-          <div
-            className="hover:cursor-grab flex items-center touch-none"
-            style={{ height: `${handleHeight}px` }}
-            ref={bottomSheetRef}
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointUp}
-          >
-            <div className="w-36 mx-auto border-2 border-gray-400 rounded-sm" />
-          </div>
-          <div className="px-6 flex-1 overflow-y-scroll">
-            <DogrunList dogruns={dogruns} handleBookmark={handleBookmark} />
-          </div>
-        </div>
-
-        {/* <div
-          className={`w-full h-full top-0 left-0 absolute sm:hidden ${open ? '' : '-translate-x-full'}`}
-        >
-          <div className="h-full overflow-y-scroll">
-            <DogrunList dogruns={dogruns} />
-          </div>
-        </div>
-
-        <div className="absolute bottom-10 right-10 rounded-full sm:hidden bg-green-300">
-          <Button
-            variant="outline"
-            size="circle-lg"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? (
-              <MapIcon className="w-6 h-6" />
-            ) : (
-              <ListIcon className="w-6 h-6" />
-            )}
-          </Button>
-        </div> */}
+        <CustomMap 
+          dogruns={dogruns} 
+          onPositionChange={handlePositionChange} 
+        />
+        <DogrunBottomSheet
+          translateY={translateY}
+          handleHeight={HANDLE_HEIGHT}
+          bottomSheetRef={bottomSheetRef}
+          dogruns={dogruns}
+          handleBookmark={handleBookmark}
+          pointerHandlers={pointerHandlers}
+        />
       </div>
     </div>
   );

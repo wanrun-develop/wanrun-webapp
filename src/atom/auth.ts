@@ -9,22 +9,27 @@ type JwtPayload = {
   exp: number;
 };
 
+const STORAGE_KEY = {
+  ACCESS_TOKEN: 'accessToken',
+  REFRESH_TOKEN: 'refreshToken',
+} as const;
+
+const storageOptions = {
+  getOnInit: true,
+} as const;
+
 export const accessTokenAtom = atomWithStorage<string | null>(
-  'accessToken',
+  STORAGE_KEY.ACCESS_TOKEN,
   null,
   undefined,
-  {
-    getOnInit: true,
-  },
+  storageOptions
 );
 
 export const refreshTokenAtom = atomWithStorage<string | null>(
-  'refreshToken',
+  STORAGE_KEY.REFRESH_TOKEN,
   null,
   undefined,
-  {
-    getOnInit: true,
-  },
+  storageOptions
 );
 
 export const jwtPayloadAtom = atom((get) => {
@@ -32,11 +37,8 @@ export const jwtPayloadAtom = atom((get) => {
   if (!jwt) return null;
 
   try {
-    const payload = jwtDecode<JwtPayload>(jwt);
-    console.log('JWT Payload: ', payload);
-    return payload;
-  } catch (e) {
-    console.log(e);
+    return jwtDecode<JwtPayload>(jwt);
+  } catch {
     return null;
   }
 });
