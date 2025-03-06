@@ -64,7 +64,7 @@ const Dogrun = () => {
         console.error('Failed to toggle bookmark:', e);
       }
     },
-    [toggleBookmark, replaceDogrun],
+    [replaceDogrun, toggleBookmark],
   );
 
   return (

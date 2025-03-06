@@ -6,13 +6,14 @@ import { Text } from '../ui/text';
 import { Bookmark, StarIcon } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '../ui/button';
+import { memo } from 'react';
 
 type Props = {
   dogrun: Dogrun;
   handleBookmark: (dogrun: Dogrun) => void;
 };
 
-const DogrunListItem = (props: Props) => {
+const DogrunListItem = memo((props: Props) => {
   const { dogrun, handleBookmark } = props;
 
   const photo = dogrun.photos?.[0];
@@ -36,6 +37,7 @@ const DogrunListItem = (props: Props) => {
               objectFit: 'cover',
               color: 'black',
             }}
+            priority={false}
           />
           <Button
             variant="none"
@@ -75,6 +77,8 @@ const DogrunListItem = (props: Props) => {
       </Link>
     </div>
   );
-};
+});
+
+DogrunListItem.displayName = 'DogrunListItem';
 
 export default DogrunListItem;

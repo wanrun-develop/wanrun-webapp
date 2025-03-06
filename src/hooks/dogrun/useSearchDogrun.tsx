@@ -2,7 +2,7 @@
 
 import useApi from '@/hooks/common/useApi';
 import { DogrunListItem } from '@/types/Dogrun';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { mockDogrunListItems } from '../../mock/dogrun';
 
 type GeoCoordinates = {
@@ -43,12 +43,15 @@ const useSearchDogrun = () => {
     }
   };
 
-  const replaceDogrun = (newDogrun: DogrunListItem) => {
-    const newDogruns = dogruns.map((d) =>
-      d.dogrunId === newDogrun.dogrunId ? newDogrun : d,
-    );
-    setDogruns(newDogruns);
-  };
+  const replaceDogrun = useCallback(
+    (newDogrun: DogrunListItem) => {
+      const newDogruns = dogruns.map((d) =>
+        d.dogrunId === newDogrun.dogrunId ? newDogrun : d,
+      );
+      setDogruns(newDogruns);
+    },
+    [dogruns],
+  );
 
   return { dogruns, search, loading, error, replaceDogrun };
 };

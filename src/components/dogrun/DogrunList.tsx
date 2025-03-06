@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { memo } from 'react';
 import { DogrunListItem as Dogrun } from '@/types/Dogrun';
 import DogrunListItem from './DogrunListItem';
 
@@ -7,20 +7,38 @@ type Props = {
   handleBookmark: (dogrun: Dogrun) => void;
 };
 
-const DogrunList = (props: Props) => {
+const DogrunListItemWrapper = memo(
+  ({
+    dogrun,
+    handleBookmark,
+  }: {
+    dogrun: Dogrun;
+    handleBookmark: (dogrun: Dogrun) => void;
+  }) => (
+    <div className="w-full lg:w-1/2 px-2 py-4">
+      <DogrunListItem dogrun={dogrun} handleBookmark={handleBookmark} />
+    </div>
+  ),
+);
+
+DogrunListItemWrapper.displayName = 'DogrunListItemWrapper';
+
+const DogrunList = memo((props: Props) => {
   const { dogruns, handleBookmark } = props;
 
-  const dogrunItems = useMemo(
-    () =>
-      dogruns.map((dogrun, i) => (
-        <div key={`dogrun-item${i}`} className="w-full lg:w-1/2 px-2 py-4">
-          <DogrunListItem dogrun={dogrun} handleBookmark={handleBookmark} />
-        </div>
-      )),
-    [dogruns, handleBookmark],
+  return (
+    <div className="w-full flex flex-wrap bg-white">
+      {dogruns.map((dogrun) => (
+        <DogrunListItemWrapper
+          key={dogrun.dogrunId ?? dogrun.name}
+          dogrun={dogrun}
+          handleBookmark={handleBookmark}
+        />
+      ))}
+    </div>
   );
+});
 
-  return <div className="w-full flex flex-wrap bg-white">{dogrunItems}</div>;
-};
+DogrunList.displayName = 'DogrunList';
 
 export default DogrunList;
