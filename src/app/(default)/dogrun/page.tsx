@@ -26,9 +26,12 @@ const Dogrun = () => {
     handleHeight: HANDLE_HEIGHT,
   });
 
-  const handlePositionChange = useCallback((bounds: google.maps.LatLngBounds) => {
-    setBounds(bounds);
-  }, []);
+  const handlePositionChange = useCallback(
+    (bounds: google.maps.LatLngBounds) => {
+      setBounds(bounds);
+    },
+    [],
+  );
 
   const searchDogruns = useCallback(() => {
     if (!bounds) return;
@@ -52,14 +55,17 @@ const Dogrun = () => {
     );
   }, []);
 
-  const handleBookmark = useCallback(async (dogrun: DogrunListItem) => {
-    try {
-      await toggleBookmark(dogrun);
-      replaceDogrun(dogrun);
-    } catch (e) {
-      console.error('Failed to toggle bookmark:', e);
-    }
-  }, [toggleBookmark, replaceDogrun]);
+  const handleBookmark = useCallback(
+    async (dogrun: DogrunListItem) => {
+      try {
+        await toggleBookmark(dogrun);
+        replaceDogrun(dogrun);
+      } catch (e) {
+        console.error('Failed to toggle bookmark:', e);
+      }
+    },
+    [toggleBookmark, replaceDogrun],
+  );
 
   return (
     <div className="w-full h-full flex flex-col overflow-y-hidden">
@@ -83,10 +89,7 @@ const Dogrun = () => {
             handleBookmark={handleBookmark}
           />
         </div>
-        <CustomMap 
-          dogruns={dogruns} 
-          onPositionChange={handlePositionChange} 
-        />
+        <CustomMap dogruns={dogruns} onPositionChange={handlePositionChange} />
         <DogrunBottomSheet
           translateY={translateY}
           handleHeight={HANDLE_HEIGHT}
