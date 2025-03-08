@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --check 'src/**/*.{js,jsx,ts,tsx}'"
+    "check-format": "prettier --check 'src/**/*.{js,jsx,ts,tsx}'",
+    "format": "prettier --format 'src/**/*.{js,jsx,ts,tsx}'"
   },
   "dependencies": {
     "@googlemaps/markerclusterer": "^2.5.3",
