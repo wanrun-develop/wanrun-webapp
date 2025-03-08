@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import Providers from '@/app/providers';
+import { googleAnalyticsId } from '@/constants';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -17,6 +19,7 @@ export default function RootLayout({
       <body>
         <Providers>{children}</Providers>
       </body>
+      <GoogleAnalytics gaId={googleAnalyticsId} />
     </html>
   );
 }
