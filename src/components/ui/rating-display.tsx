@@ -17,6 +17,7 @@ export const RatingDisplay = ({ rating, max = 5 }: RatingProps) => {
         return (
           <StarIcon
             key={i}
+            fill={filled ? 'currentColor' : 'none'}
             className={filled ? 'text-yellow-500' : 'text-gray-300'}
           />
         );

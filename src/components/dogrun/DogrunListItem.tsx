@@ -62,10 +62,8 @@ const DogrunListItem = memo((props: Props) => {
               </Text>
             </div>
             <div className="col-start-4 flex items-center">
-              <StarIcon
-                className={true ? 'text-yellow-500' : 'text-gray-300'}
-              />
-              ({dogrun.googleRating})
+              <StarIcon className="text-yellow-500" fill="currentColor" />(
+              {dogrun.googleRating})
             </div>
             <div className="col-span-4 row-start-2 flex items-center">
               <Text className="inline-block w-full text-nowrap overflow-hidden text-ellipsis">
