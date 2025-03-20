@@ -10,6 +10,7 @@ import { RatingDisplay } from '@/components/ui/rating-display';
 import CustomMap from '@/components/map/CustomMap';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
+import { Metadata } from 'next';
 
 type Props = {
   params: {
@@ -23,12 +24,17 @@ const mockImages = Array.from({ length: 5 }).map(
   (_, i) => `https://placedog.net/400/311?id=${i + 1}`,
 );
 
+export const metadata: Metadata = {
+  title: `${dogrun.name} | ドッグラン情報`,
+  description: `${dogrun.name}の詳細ページです。`,
+};
+
 const DogrunDetailPage = (props: Props) => {
   const { params } = props;
   const dogrunId = params.id;
 
   return (
-    <div className="sm:container mx-auto sm:p-8">
+    <div className="mx-auto sm:p-8 max-w-5xl">
       <Text size="2xl" weight="bold" className="hidden sm:block">
         <p className="mb-4">
           {dogrunId}: {dogrun.name}
