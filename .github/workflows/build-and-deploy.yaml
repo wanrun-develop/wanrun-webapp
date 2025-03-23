@@ -71,16 +71,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-
 
-      - name: Create .env file
-        run: |
-          echo "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY }}" >> .env
-          echo "NEXT_PUBLIC_GOOGLE_MAP_ID=${{ secrets.NEXT_PUBLIC_GOOGLE_MAP_ID }}" >> .env
-          echo "NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID }}" >> .env
-          echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> .env
+      # - name: Create .env file
+      #   run: |
+      #     echo "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY }}" >> .env
+      #     echo "NEXT_PUBLIC_GOOGLE_MAP_ID=${{ secrets.NEXT_PUBLIC_GOOGLE_MAP_ID }}" >> .env
+      #     echo "NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID }}" >> .env
+      #     echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> .env
 
-      # TODO: 削除予定
-      - name: Verify .env file
-        run: cat .env
+      # # TODO: 削除予定
+      # - name: Verify .env file
+      #   run: cat .env
 
       - name: Build
         run: yarn build # npm run build
@@ -93,7 +93,7 @@ jobs:
 
       - name: Deploy to S3
         run: |
-          aws s3 sync ${{ env.SOURCE_DIR }} s3://${{ env.AWS_S3_BUCKET_NAME }}/ --delete --exclude '.*git*'
+          aws s3 sync ${{ env.SOURCE_DIR }} s3://${{ env.AWS_S3_BUCKET_NAME }}/.next --delete --exclude '.*git*'
 
       - name: CloudFront Cache Clear
         run: |
