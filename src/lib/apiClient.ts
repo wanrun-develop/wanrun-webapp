@@ -1,8 +1,11 @@
 import { accessTokenAtom, refreshTokenAtom } from '@/atom/auth';
-import { apiUrl } from '@/constants';
+import { browserApiUrl, internalApiUrl } from '@/constants';
 import { getDefaultStore } from 'jotai';
 
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
+
+const isServer = typeof window === 'undefined';
+const apiUrl = isServer ? internalApiUrl : browserApiUrl;
 
 const store = getDefaultStore();
 
