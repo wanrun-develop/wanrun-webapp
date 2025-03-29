@@ -19,10 +19,10 @@ type Props = {
 };
 
 async function getDogrunData(id: string): Promise<Dogrun> {
-  const res = await fetch(`https://placedog.net/400/311`, {
-    next: { revalidate: 3600 },
-  });
-  console.log(`SSR Server Request Test: ${res.ok}`);
+  // const res = await fetch(`https://placedog.net/400/311`, {
+  //   next: { revalidate: 3600 },
+  // });
+  // console.log(`SSR Server Request Test: ${res.ok}`);
 
   // モックデータを返す
   return mockDogrun;
