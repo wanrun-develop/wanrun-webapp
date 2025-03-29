@@ -2,8 +2,7 @@ import { DogrunListItem } from '@/types/Dogrun';
 import { AdvancedMarker, InfoWindow, Pin } from '@vis.gl/react-google-maps';
 import Image from 'next/image';
 import { useCallback, useMemo, useState } from 'react';
-import styles from './CustomMarker.module.scss';
-import usePhoto from '../../../../../hooks/dogrun/usePhoto';
+import usePhoto from '@/hooks/dogrun/usePhoto';
 import NoImage from '@public/noimage.png';
 import { Marker } from '@googlemaps/markerclusterer';
 
@@ -60,17 +59,17 @@ const CustomMarker = (props: Props) => {
       </AdvancedMarker>
       {selected && (
         <InfoWindow onClose={closeWindow} anchor={marker}>
-          <div className={styles.image}>
+          <div className="w-full h-[100px] relative">
             <Image
               src={imageUrl || NoImage}
               alt={dogrun.name}
               fill
-              style={{ objectFit: 'cover' }}
+              className="object-cover"
             />
           </div>
-          <div className={styles.description}>
-            <h3>{dogrun.name}</h3>
-            <p>description</p>
+          <div className="h-[50px]">
+            <h3 className="font-bold text-sm">{dogrun.name}</h3>
+            <p className="text-xs text-gray-600">description</p>
           </div>
         </InfoWindow>
       )}

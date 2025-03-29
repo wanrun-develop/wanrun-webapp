@@ -1,7 +1,6 @@
 'use client';
 
 import { useCallback, useRef, useState } from 'react';
-import CustomMap from './components/CustomMap';
 import useSearchDogrun from '@/hooks/dogrun/useSearchDogrun';
 import DogrunSearchHeader from '@/components/dogrun/DogrunSearchHeader';
 import DogrunSearchList from '@/components/dogrun/DogrunSearchList';
@@ -10,6 +9,7 @@ import useDogrunBookmark from '@/hooks/dogrun/useDogrunBookmark';
 import { DogrunListItem } from '@/types/Dogrun';
 import { useDogrunBottomSheet } from '@/hooks/dogrun/useDogrunBottomSheet';
 import { DogrunBottomSheet } from '@/components/dogrun/DogrunBottomSheet';
+import CustomMap from '@/components/dogrun/CustomMap';
 
 const HANDLE_HEIGHT = 50;
 

@@ -1,11 +1,10 @@
 'use client';
 
 import { Map, MapEvent } from '@vis.gl/react-google-maps';
-import styles from './CustomMap.module.scss';
 import { DogrunListItem } from '@/types/Dogrun';
 import { useCallback, useState } from 'react';
 import useGeolocation from '@/hooks/common/useGeolocation';
-import MarkerCluster from '../MarkerCluster';
+import MarkerCluster from './MarkerCluster';
 import { Oval } from 'react-loader-spinner';
 
 const GOOGLE_MAP_ID = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID as string;
@@ -39,9 +38,9 @@ const CustomMap = (props: Props) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className="h-full w-full flex flex-col">
       {loading ? (
-        <div className={styles.loader}>
+        <div className="w-full h-full flex justify-center items-center flex-col bg-black bg-opacity-50">
           <Oval
             width={80}
             height={80}
