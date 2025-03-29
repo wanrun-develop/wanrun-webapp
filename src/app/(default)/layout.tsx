@@ -1,6 +1,5 @@
 'use client';
 
-import styles from './layout.module.scss';
 import Header from '@components/common/Header';
 
 export default function RootLayout({
@@ -9,10 +8,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={styles.layout}>
-      <div className={styles.main}>
+    <div className="flex w-full h-[100svh] max-w-full font-['Roboto,_sans-serif']">
+      <div className="w-full flex flex-col bg-white">
         <Header />
-        <div className={styles.mainContent}>{children}</div>
+        <div className="flex-grow flex-col overflow-y-auto">{children}</div>
       </div>
     </div>
   );
