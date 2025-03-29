@@ -8,9 +8,9 @@ import {
 import { mockDogrun } from '../../../../mock/dogrun';
 import { RatingDisplay } from '@/components/ui/rating-display';
 import CustomMap from '@/components/map/CustomMap';
-import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
 import { Metadata } from 'next';
+import { Dogrun } from '@/types/Dogrun';
 
 type Props = {
   params: {
@@ -18,27 +18,42 @@ type Props = {
   };
 };
 
-const dogrun = mockDogrun;
+async function getDogrunData(id: string): Promise<Dogrun> {
+  const res = await fetch(`https://placedog.net/400/311`, {
+    next: { revalidate: 3600 },
+  });
+  console.log(`SSR Server Request Test: ${res.ok}`);
+
+  // モックデータを返す
+  return mockDogrun;
+}
 
 const mockImages = Array.from({ length: 5 }).map(
   (_, i) => `https://placedog.net/400/311?id=${i + 1}`,
 );
 
-export const metadata: Metadata = {
-  title: `${dogrun.name} | ドッグラン情報`,
-  description: `${dogrun.name}の詳細ページです。`,
+// メタデータを動的に生成する関数
+export const generateMetadata = async ({
+  params,
+}: Props): Promise<Metadata> => {
+  const dogrunId = params.id;
+  const dogrun = await getDogrunData(dogrunId);
+
+  return {
+    title: `${dogrun.name} | ドッグラン情報`,
+    description: `${dogrun.name}の詳細ページです。`,
+  };
 };
 
-const DogrunDetailPage = (props: Props) => {
+const DogrunDetailPage = async (props: Props) => {
   const { params } = props;
   const dogrunId = params.id;
+  const dogrun = await getDogrunData(dogrunId);
 
   return (
     <div className="mx-auto sm:p-8 max-w-5xl">
       <Text size="2xl" weight="bold" className="hidden sm:block">
-        <p className="mb-4">
-          {dogrunId}: {dogrun.name}
-        </p>
+        <p className="mb-4">{dogrun.name}</p>
       </Text>
 
       <Carousel>
@@ -58,7 +73,7 @@ const DogrunDetailPage = (props: Props) => {
 
       <div className="p-8 sm:p-0">
         <Text size="2xl" weight="bold" className="sm:hidden">
-          {dogrunId}: {dogrun.name}
+          {dogrun.name}
         </Text>
 
         {dogrun.nowOpen ? (
@@ -80,7 +95,7 @@ const DogrunDetailPage = (props: Props) => {
         </div>
 
         <div className="py-2 flex overflow-x-auto">
-          {dogrun.dogrunTagId.map((tagId, idx) => (
+          {dogrun.dogrunTagId.map((tagId: number, idx: number) => (
             <Badge key={idx} variant="outline" className="mx-2">
               Tag{tagId}
             </Badge>
@@ -94,10 +109,10 @@ const DogrunDetailPage = (props: Props) => {
         <div className="py-4">
           <Text size="xl">営業時間</Text>
           <ul>
-            {Object.entries(dogrun.businessHour.regular).map(([day, time]) => (
+            {Object.entries(dogrun.businessHour.regular).map(([day, hours]) => (
               <li key={day}>
                 <Text>
-                  {day}: {time.openTime} - {time.closeTime}
+                  {day}: {hours.openTime} - {hours.closeTime}
                 </Text>
               </li>
             ))}
