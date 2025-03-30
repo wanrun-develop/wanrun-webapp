@@ -11,6 +11,9 @@ import CustomMap from '@/components/map/CustomMap';
 import { Badge } from '@/components/ui/badge';
 import { Metadata } from 'next';
 import { Dogrun } from '@/types/Dogrun';
+import { Button } from '@/components/ui/button';
+import { signIn, signOut } from '@/auth';
+import { UserMenu } from '@/components/auth/UserMenu';
 
 type Props = {
   params: {
@@ -55,6 +58,28 @@ const DogrunDetailPage = async (props: Props) => {
       <Text size="2xl" weight="bold" className="hidden sm:block">
         <p className="mb-4">{dogrun.name}</p>
       </Text>
+
+      <form
+        action={async () => {
+          'use server';
+          console.log('signIn');
+          await signIn('github');
+        }}
+      >
+        <Button type="submit">GitHubでログイン</Button>
+      </form>
+
+      <form
+        action={async () => {
+          'use server';
+          console.log('signOut');
+          await signOut();
+        }}
+      >
+        <Button type="submit">ログアウト</Button>
+      </form>
+
+      <UserMenu />
 
       <Carousel>
         <CarouselContent>
