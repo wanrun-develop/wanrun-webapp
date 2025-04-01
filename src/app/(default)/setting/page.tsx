@@ -1,5 +1,3 @@
-'use client';
-
 import SettingForm from '@/components/setting/SettingForm';
 import { Text } from '@/components/ui/text';
 import GetSessionButton from './GetSessionButton';
