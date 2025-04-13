@@ -20,7 +20,7 @@ async function handle(request: NextRequest) {
   })();
   console.log('body', body);
 
-  const internalUrl = process.env.INTERNAL_API_URL + path;
+  const internalUrl = process.env.INTERNAL_API_URL + `/wanrun${path}`;
   console.log('request to ', internalUrl);
   const response = await fetch(internalUrl, {
     method: request.method,
