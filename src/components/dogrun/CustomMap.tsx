@@ -2,7 +2,7 @@
 
 import { Map, MapEvent } from '@vis.gl/react-google-maps';
 import { DogrunListItem } from '@/types/Dogrun';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import useGeolocation from '@/hooks/common/useGeolocation';
 import MarkerCluster from './MarkerCluster';
 import { Oval } from 'react-loader-spinner';
@@ -37,6 +37,16 @@ const CustomMap = (props: Props) => {
     onPositionChange(bounds);
   };
 
+  const markerCluster = useMemo(() => {
+    return (
+      <MarkerCluster
+        dogruns={dogruns}
+        currentDogrunId={currentDogrunId}
+        selectDogrunId={setCurrentDogrunId}
+      />
+    );
+  }, [dogruns, currentDogrunId, setCurrentDogrunId]);
+
   return (
     <div className="h-full w-full flex flex-col">
       {loading ? (
@@ -57,11 +67,7 @@ const CustomMap = (props: Props) => {
           onClick={clickMap}
           onIdle={onIdle}
         >
-          <MarkerCluster
-            dogruns={dogruns}
-            currentDogrunId={currentDogrunId}
-            selectDogrunId={setCurrentDogrunId}
-          />
+          {markerCluster}
         </Map>
       )}
     </div>
