@@ -5,7 +5,7 @@ import { getDefaultStore } from 'jotai';
 type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 const isServer = typeof window === 'undefined';
-const apiUrl = isServer ? internalApiUrl : browserApiUrl;
+const apiUrl = `${isServer ? internalApiUrl : browserApiUrl}/wanrun`;
 
 const store = getDefaultStore();
 
